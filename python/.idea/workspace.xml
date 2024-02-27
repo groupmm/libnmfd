@@ -1,0 +1,1428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e1be59da-f1f6-4792-84b0-7f9fde4ec2f8" name="Default Changelist" comment="fix: initializtaino">
+      <change afterPath="$PROJECT_DIR$/../.idea/NMF-Toolbox.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NMFToolbox/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../unit_tests/test_NMF.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../unit_tests/test_NMFD.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../unit_tests/test_NMFdiag.m" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../unit_tests/test_NMFdiag.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../unit_tests/test_NMFpf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test_demoAudioMosaicingContinuityNMF.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_demoAudioMosaicingContinuityNMF.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test_demoDrumSoundSeparationNMF.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_demoDrumSoundSeparationNMF.py" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test_demoAudioMosaicingContinuityNMF.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="38" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../../nlp/iis/TTS/tts_server.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="545">
+              <caret line="518" column="42" selection-start-line="518" selection-start-column="42" selection-end-line="518" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/NMFToolbox/NMFD.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="613">
+              <caret line="130" column="37" lean-forward="true" selection-start-line="130" selection-start-column="37" selection-end-line="130" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test_demoDrumExtractionHPSS_Median_vs_KAM.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1258">
+              <caret line="80" column="51" selection-start-line="80" selection-start-column="51" selection-end-line="80" selection-end-column="51" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NMFToolbox/drumSpecificSoftConstraintsNMF.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1037">
+              <caret line="64" selection-start-line="64" selection-end-line="64" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NMFToolbox/NEMA.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="833">
+              <caret line="50" selection-start-line="50" selection-end-line="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test_demoDrumExtractionKAM_NMF_percThreshold.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3621">
+              <caret line="226" column="34" selection-start-line="226" selection-start-column="34" selection-end-line="226" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NMFToolbox/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="765">
+              <caret line="47" column="16" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="16" />
+              <folding>
+                <element signature="e#1178#1196#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test_demoDrumSoundSeparationNMF.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1156">
+              <caret line="79" selection-start-line="79" selection-end-line="79" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test_demoEDMDecomposition.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2992">
+              <caret line="187" column="38" selection-start-line="187" selection-end-line="188" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>np.matmu</find>
+      <find>np.where</find>
+      <find>np.mat</find>
+      <find>np</find>
+      <find>np.matmul</find>
+      <find>np.</find>
+      <find>initw</find>
+      <find>outPath</find>
+      <find>outpath</find>
+      <find>initH_matlab</find>
+      <find>init</find>
+      <find>unit test</find>
+      <find>convolve</find>
+      <find>conv</find>
+      <find>W</find>
+      <find>maximum_filter</find>
+      <find>convolve2d</find>
+      <find>nmfda</find>
+      <find>nmfdiag</find>
+      <find>numiter</find>
+      <find>nmfd</find>
+      <find>V</find>
+      <find>diag</find>
+      <find>random</find>
+      <find>funcpointer</find>
+      <find>numdouble</find>
+      <find>numdoublebins</find>
+      <find>kern</find>
+      <find>initW</find>
+      <find>initH</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/semiFixedComponentConstraintsNMF.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/colorize.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/forwardSTFT.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/freq2midi.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/LSEE_MSTFTM_GriffinLim.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/inverseSTFT.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/NMFpf.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/visualizeComponentsNMF.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/artificialMixtureMatrix.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/coloredComponents.py" />
+        <option value="$PROJECT_DIR$/test_demoAudioMosaicingContinuityNMF.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/HPSS_KAM.py" />
+        <option value="$PROJECT_DIR$/test_demoDrumSoundSeparationNMF.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/shiftOperator.py" />
+        <option value="$PROJECT_DIR$/test_demoDrumExtractionKAM_NMF_percThreshold.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/midi2freq.py" />
+        <option value="$PROJECT_DIR$/test_demoDrumExtractionKAM_NMF_scoreInformed.py" />
+        <option value="$PROJECT_DIR$/test_demoEDMDecomposition.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/logFreqLogMag.py" />
+        <option value="$PROJECT_DIR$/test/unit_test.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/convModel.py" />
+        <option value="$PROJECT_DIR$/test/test_EDMDecompositionFourComp.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/percussivenessEstimation.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/diagonalitySoftConstraintsNMF.py" />
+        <option value="$PROJECT_DIR$/test/test_demoDrumEXtractionHPSS_Median_vs_KAM.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/alphaWienerFilter.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/utils.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/NMFconv.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/NMFDiag.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/initTemplates.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/NEMA.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/drumSpecificSoftConstraintsNMF.py" />
+        <option value="$PROJECT_DIR$/test/test_demoDrumSoundSeparationNMF.py" />
+        <option value="$PROJECT_DIR$/test/test_demoEDMDecomposition.py" />
+        <option value="$PROJECT_DIR$/test/test_demoAudioMosaicingContinuityNMF.py" />
+        <option value="$PROJECT_DIR$/test/test_demoDrumExtractionHPSS_Median_vs_KAM.py" />
+        <option value="$PROJECT_DIR$/test/test_demoDrumExtractionKAM_NMF_percThreshold.py" />
+        <option value="$PROJECT_DIR$/test/test_demoDrumExtractionKAM_NMF_scoreInformed.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/initActivations.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/NMF.py" />
+        <option value="$PROJECT_DIR$/NMFToolbox/NMFD.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="2619" />
+    <option name="y" value="240" />
+    <option name="width" value="1861" />
+    <option name="height" value="1176" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="python" type="b2602c69:ProjectViewProjectNode" />
+              <item name="python" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="python" type="b2602c69:ProjectViewProjectNode" />
+              <item name="python" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="python" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test/matlab/EDMDecomposition" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test/matlab/EDMDecomposition" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.test_demoDrumExtractionKAM_NMF_percThreshold">
+    <configuration name="test_demoAudioMosaicingContinuityNMF" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_demoAudioMosaicingContinuityNMF.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_demoDrumExtractionHPSS_Median_vs_KAM" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_demoDrumExtractionHPSS_Median_vs_KAM.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_demoDrumExtractionKAM_NMF_percThreshold" type="PythonConfigurationType" factoryName="Python">
+      <module name="python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_demoDrumExtractionKAM_NMF_percThreshold.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_demoDrumExtractionKAM_NMF_scoreInformed (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_demoDrumExtractionKAM_NMF_scoreInformed.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_demoDrumSoundSeparationNMF" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_demoDrumSoundSeparationNMF.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.test_demoDrumExtractionKAM_NMF_percThreshold" />
+      <item itemvalue="Python.test_demoDrumExtractionKAM_NMF_scoreInformed (1)" />
+      <item itemvalue="Python.test_demoDrumExtractionHPSS_Median_vs_KAM" />
+      <item itemvalue="Python.test_demoDrumSoundSeparationNMF" />
+      <item itemvalue="Python.test_demoAudioMosaicingContinuityNMF" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.test_demoAudioMosaicingContinuityNMF" />
+        <item itemvalue="Python.test_demoDrumExtractionHPSS_Median_vs_KAM" />
+        <item itemvalue="Python.test_demoDrumExtractionKAM_NMF_scoreInformed (1)" />
+        <item itemvalue="Python.test_demoDrumSoundSeparationNMF" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e1be59da-f1f6-4792-84b0-7f9fde4ec2f8" name="Default Changelist" comment="" />
+      <created>1559745245499</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1559745245499</updated>
+    </task>
+    <task id="LOCAL-00043" summary="fix: init. of parameter as a dictionary">
+      <created>1560345747152</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1560345747152</updated>
+    </task>
+    <task id="LOCAL-00044" summary="refactor: default parameter is None within the arguments">
+      <created>1560345788455</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1560345788455</updated>
+    </task>
+    <task id="LOCAL-00045" summary="docs: docs update">
+      <created>1560345809899</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1560345809899</updated>
+    </task>
+    <task id="LOCAL-00046" summary="fix: MATLAB -&gt; python conversion.">
+      <created>1560345827694</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1560345827694</updated>
+    </task>
+    <task id="LOCAL-00047" summary="fix: MATLAB -&gt; python conversion indexing, etc. problems fixed.">
+      <created>1560345860074</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1560345860074</updated>
+    </task>
+    <task id="LOCAL-00048" summary="refactor: ordfilt2 removed, MAX_WAV_VALUE added.">
+      <created>1560345907841</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1560345907841</updated>
+    </task>
+    <task id="LOCAL-00049" summary="fix: list indexing error fixed">
+      <created>1560346487407</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1560346487407</updated>
+    </task>
+    <task id="LOCAL-00050" summary="refactor: numpy not needed here.">
+      <created>1560434891896</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1560434891896</updated>
+    </task>
+    <task id="LOCAL-00051" summary="fix: reshape needed.">
+      <created>1560434924107</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1560434924107</updated>
+    </task>
+    <task id="LOCAL-00052" summary="fix: ordfilt2 serves as a median filter here">
+      <created>1560434959345</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1560434959345</updated>
+    </task>
+    <task id="LOCAL-00053" summary="fix: incorrect matrix multiplications changed into elementwise multiplications.">
+      <created>1560434988196</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1560434988196</updated>
+    </task>
+    <task id="LOCAL-00054" summary="fix: max() -&gt; np.maximum() fix.">
+      <created>1560435064324</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1560435064324</updated>
+    </task>
+    <task id="LOCAL-00055" summary="fix: forgotten pitchTolUp initial parameter added.">
+      <created>1560437842656</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1560437842656</updated>
+    </task>
+    <task id="LOCAL-00056" summary="fix: g -&gt; g + 1 (indexing fix)">
+      <created>1560455466466</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1560455466466</updated>
+    </task>
+    <task id="LOCAL-00057" summary="fix: rounded numbers has to be converted to int.">
+      <created>1560455488788</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1560455488788</updated>
+    </task>
+    <task id="LOCAL-00058" summary="fix: initializtaino">
+      <created>1560503250754</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1560503250754</updated>
+    </task>
+    <task id="LOCAL-00059" summary="refactor: TODO comments removed.">
+      <created>1561112209186</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1561112209186</updated>
+    </task>
+    <task id="LOCAL-00060" summary="refactor: np.matmul -&gt; @">
+      <created>1561112228805</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1561112228805</updated>
+    </task>
+    <task id="LOCAL-00061" summary="refactor: np.matmul -&gt; @">
+      <created>1561122828316</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1561122828316</updated>
+    </task>
+    <task id="LOCAL-00062" summary="feat: unit test functions added for MATLAB - python matrix comparison.">
+      <created>1561122890846</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1561122890846</updated>
+    </task>
+    <task id="LOCAL-00063" summary="feat: unit tests added.">
+      <created>1561122945628</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1561122945628</updated>
+    </task>
+    <task id="LOCAL-00064" summary="refactor: test scripts moved.">
+      <created>1561123046926</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1561123046926</updated>
+    </task>
+    <task id="LOCAL-00065" summary="fix: indexing error fixed.">
+      <created>1561135983341</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1561135983341</updated>
+    </task>
+    <task id="LOCAL-00066" summary="feat: unit tests added.">
+      <created>1561136898352</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1561136898352</updated>
+    </task>
+    <task id="LOCAL-00067" summary="refactor: redundant libraries removed, comments added.">
+      <created>1561137017354</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1561137017354</updated>
+    </task>
+    <task id="LOCAL-00068" summary="feat: unit tests added.">
+      <created>1561137832032</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1561137832032</updated>
+    </task>
+    <task id="LOCAL-00069" summary="fix: indexing errors fixed.">
+      <created>1561359906658</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1561359906658</updated>
+    </task>
+    <task id="LOCAL-00070" summary="fix: rounding error fixed.">
+      <created>1561359924558</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1561359924558</updated>
+    </task>
+    <task id="LOCAL-00071" summary="fix: TODOs removed.">
+      <created>1561359984454</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1561359984454</updated>
+    </task>
+    <task id="LOCAL-00072" summary="fix: fraction error due to 0 indexing fixed.">
+      <created>1561360008608</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360008608</updated>
+    </task>
+    <task id="LOCAL-00073" summary="fix: unidentified addressing error fixed.">
+      <created>1561360050870</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360050870</updated>
+    </task>
+    <task id="LOCAL-00074" summary="feat: unit test for DrumSoundSeparationNMF added.&#10;&#10;* conv2 still doesn't give the same result as on MATLAB.">
+      <created>1561360101406</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360101406</updated>
+    </task>
+    <task id="LOCAL-00075" summary="fix: numBins is not given as a parameter.">
+      <created>1561360146593</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360146593</updated>
+    </task>
+    <task id="LOCAL-00076" summary="fix: V shouldn't be overwritten -&gt; V_tmp defined as a new variable.">
+      <created>1561360241408</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360241408</updated>
+    </task>
+    <task id="LOCAL-00077" summary="fix: costFunc defined as a numpy zeros array in stead of a list.">
+      <created>1561360270349</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360270349</updated>
+    </task>
+    <task id="LOCAL-00078" summary="fix: 0 indexing error fixed.">
+      <created>1561360290716</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360290716</updated>
+    </task>
+    <task id="LOCAL-00079" summary="refactor: numpy.matmul -&gt; @">
+      <created>1561360338029</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360338029</updated>
+    </task>
+    <task id="LOCAL-00080" summary="fix: shape errors fixed.">
+      <created>1561360364384</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360364384</updated>
+    </task>
+    <task id="LOCAL-00081" summary="refactor: TODO removed.">
+      <created>1561360421068</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360421068</updated>
+    </task>
+    <task id="LOCAL-00082" summary="fix: numOfEntriesInKernel not needed.">
+      <created>1561360473032</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360473032</updated>
+    </task>
+    <task id="LOCAL-00083" summary="fix: shaping errors fixed.">
+      <created>1561360507085</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1561360507085</updated>
+    </task>
+    <task id="LOCAL-00084" summary="refactor: print statements tidied up">
+      <created>1561370485058</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1561370485059</updated>
+    </task>
+    <task id="LOCAL-00085" summary="feat: unit tests added.">
+      <created>1561370526951</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1561370526951</updated>
+    </task>
+    <task id="LOCAL-00086" summary="fix: indexing errors fixed.">
+      <created>1561370555877</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1561370555877</updated>
+    </task>
+    <task id="LOCAL-00087" summary="refactor: redundant comments &amp; variables removed.">
+      <created>1561370587903</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1561370587903</updated>
+    </task>
+    <task id="LOCAL-00088" summary="feat: notebooks added &amp; updated.">
+      <created>1561370784155</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1561370784155</updated>
+    </task>
+    <task id="LOCAL-00089" summary="fix: multiplication fixed.">
+      <created>1561377175467</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1561377175467</updated>
+    </task>
+    <task id="LOCAL-00090" summary="refactor: TODO removed.">
+      <created>1561377193284</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1561377193284</updated>
+    </task>
+    <task id="LOCAL-00091" summary="fix: if-else statement fixed (it's not a numeric; it's a numpy array)">
+      <created>1561377226470</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1561377226470</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="2619" y="240" width="1861" height="1176" extended-state="0" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26501378" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2693383" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.31153497" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32960477" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.14914243" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="9" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32960477" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="R Graphics" order="3" />
+      <window_info anchor="right" id="R Packages" order="4" weight="0.3294766" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18574338" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32960477" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.35346755" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.40145323" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="9" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="R Graphics" order="3" />
+      <window_info anchor="right" id="R Packages" order="4" />
+    </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: unit test functions added for MATLAB - python matrix comparison." />
+    <MESSAGE value="refactor: test scripts moved." />
+    <MESSAGE value="fix: indexing error fixed." />
+    <MESSAGE value="refactor: redundant libraries removed, comments added." />
+    <MESSAGE value="fix: rounding error fixed." />
+    <MESSAGE value="fix: TODOs removed." />
+    <MESSAGE value="fix: fraction error due to 0 indexing fixed." />
+    <MESSAGE value="fix: unidentified addressing error fixed." />
+    <MESSAGE value="feat: unit test for DrumSoundSeparationNMF added.&#10;&#10;* conv2 still doesn't give the same result as on MATLAB." />
+    <MESSAGE value="fix: numBins is not given as a parameter." />
+    <MESSAGE value="fix: V shouldn't be overwritten -&gt; V_tmp defined as a new variable." />
+    <MESSAGE value="fix: costFunc defined as a numpy zeros array in stead of a list." />
+    <MESSAGE value="fix: 0 indexing error fixed." />
+    <MESSAGE value="refactor: numpy.matmul -&gt; @" />
+    <MESSAGE value="fix: shape errors fixed." />
+    <MESSAGE value="fix: numOfEntriesInKernel not needed." />
+    <MESSAGE value="fix: shaping errors fixed." />
+    <MESSAGE value="refactor: print statements tidied up" />
+    <MESSAGE value="feat: unit tests added." />
+    <MESSAGE value="fix: indexing errors fixed." />
+    <MESSAGE value="refactor: redundant comments &amp; variables removed." />
+    <MESSAGE value="feat: notebooks added &amp; updated." />
+    <MESSAGE value="fix: multiplication fixed." />
+    <MESSAGE value="refactor: TODO removed." />
+    <MESSAGE value="fix: if-else statement fixed (it's not a numeric; it's a numpy array)" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: if-else statement fixed (it's not a numeric; it's a numpy array)" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test/test_demoEDMDecomposition.py</url>
+          <line>263</line>
+          <option name="timeStamp" value="128" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test/test_demoDrumSoundSeparationNMF.py</url>
+          <line>213</line>
+          <option name="timeStamp" value="237" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/NMFToolbox/NMFdiag.py</url>
+          <line>128</line>
+          <option name="timeStamp" value="242" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test/test_demoDrumExtractionKAM_NMF_scoreInformed.py</url>
+          <line>208</line>
+          <option name="timeStamp" value="269" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>np.save('filtered2.npy', filtered)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>np.save('filtered2.npy', filtered2)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>np.save('filtered1.npy', filtered)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>initH[0, 146]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>initH[0, 145]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>currOns-1</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>initH[uniqueDrums[k].astype(int)-1, currOns-1]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>uniqueDrums[k]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>currOns</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+    </expressions>
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>convolve2d(H, filt, 'same', boundary='fill', fillvalue=1)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>convolve2d(H, filt, 'same', boundary='fill', fillvalue=0.5)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>convolve2d(H, filt, 'same', boundary='fill', fillvalue=0.1)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>convolve2d(H, filt, 'same', boundary='fill', fillvalue=0.¹)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>convolve2d(H, filt, 'same', boundary='fill')</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>convolve2d(H, filt, 'same', boundary='wrap')</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>convolve2d(H, filt, 'same', boundary='symm')</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>convolve2d(H, filt, 'same')</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>convolve2d(H, filt, 'full')</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>convolve2d(H, filt, 'valid')</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/HPSS_KAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_demoDrumSoundSeparationNMF.py" />
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/coloredComponents.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/midi2freq.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="47" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/numpy/lib/twodim_base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="185" selection-start-line="185" selection-end-line="185" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/numpy/matrixlib/defmatrix.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3825">
+          <caret line="225" selection-start-line="225" selection-end-line="225" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_demoDrumExtractionKAM_NMF_scoreInformed.py" />
+    <entry file="file://$PROJECT_DIR$/test_demoDrumExtractionKAM_NMF_percThreshold.py" />
+    <entry file="file://$PROJECT_DIR$/test_demoEDMDecomposition.py" />
+    <entry file="file://$PROJECT_DIR$/test/unit_test.py" />
+    <entry file="file://$PROJECT_DIR$/test/matlab/EDMDecomposition/NMFD.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="58" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/visualizeComponentsNMF.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/numpy/core/_methods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3.5/posixpath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/artificialMixtureMatrix.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="41" column="15" selection-start-line="41" selection-start-column="15" selection-end-line="41" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/freq2midi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/inverseSTFT.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-597">
+          <caret line="112" column="29" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/LSEE_MSTFTM_GriffinLim.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="81" column="22" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/NMFpf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="108" selection-start-line="108" selection-end-line="108" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_EDMDecompositionFourComp.py" />
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="42" lean-forward="true" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/scipy/ndimage/filters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-276">
+          <caret line="1121" column="25" lean-forward="true" selection-start-line="1121" selection-start-column="25" selection-end-line="1121" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/forwardSTFT.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="24" column="54" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/numpy/lib/npyio.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="470" column="73" lean-forward="true" selection-start-line="470" selection-start-column="73" selection-end-line="470" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2019.1/system/python_stubs/-1247971764/numpy/core/umath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="3584" column="29" selection-start-line="3584" selection-start-column="29" selection-end-line="3584" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/logFreqLogMag.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="35">
+          <caret line="71" column="20" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/alphaWienerFilter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="30" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/NMFconv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="964">
+          <caret line="153" selection-start-line="153" selection-end-line="153" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/NMFdiag.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="172" column="48" selection-start-line="172" selection-start-column="48" selection-end-line="172" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/shiftOperator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/numpy/core/fromnumeric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="553">
+          <caret line="2813" selection-start-line="2813" selection-end-line="2813" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/diagonalitySoftConstraintsNMF.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="20" column="57" lean-forward="true" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1025">
+          <caret line="1183" column="46" lean-forward="true" selection-start-line="1183" selection-start-column="46" selection-end-line="1183" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/percussivenessEstimation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/convModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="65" column="38" selection-start-line="65" selection-start-column="38" selection-end-line="65" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/initTemplates.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1581">
+          <caret line="96" column="54" selection-start-line="96" selection-start-column="54" selection-end-line="96" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="72" column="22" lean-forward="true" selection-start-line="72" selection-start-column="22" selection-end-line="72" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_demoDrumExtractionKAM_NMF_scoreInformed.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="175" column="49" selection-start-line="175" selection-start-column="49" selection-end-line="175" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demoAudioMosaicingContinuityNMF.ipynb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="27" column="499" selection-start-line="27" selection-start-column="499" selection-end-line="27" selection-end-column="499" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/initActivations.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2346">
+          <caret line="141" selection-start-line="141" selection-end-line="141" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/NMF.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1513">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_demoDrumExtractionHPSS_Median_vs_KAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1258">
+          <caret line="80" column="51" selection-start-line="80" selection-start-column="51" selection-end-line="80" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/drumSpecificSoftConstraintsNMF.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/NEMA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_demoDrumExtractionKAM_NMF_percThreshold.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3621">
+          <caret line="226" column="34" selection-start-line="226" selection-start-column="34" selection-end-line="226" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_demoDrumSoundSeparationNMF.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="79" selection-start-line="79" selection-end-line="79" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_demoEDMDecomposition.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2992">
+          <caret line="187" column="38" selection-start-line="187" selection-end-line="188" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="47" column="16" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="16" />
+          <folding>
+            <element signature="e#1178#1196#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_demoAudioMosaicingContinuityNMF.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="38" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../nlp/iis/TTS/tts_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="545">
+          <caret line="518" column="42" selection-start-line="518" selection-start-column="42" selection-end-line="518" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NMFToolbox/NMFD.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="613">
+          <caret line="130" column="37" lean-forward="true" selection-start-line="130" selection-start-column="37" selection-end-line="130" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
