@@ -1,33 +1,8 @@
-"""
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-If you use the 'NMF toolbox' please refer to:
-[1] Patricio López-Serrano, Christian Dittmar, Yiğitcan Özer, and Meinard
-    Müller
-    NMF Toolbox: Music Processing Applications of Nonnegative Matrix
-    Factorization
-    In Proceedings of the International Conference on Digital Audio Effects
-    (DAFx), 2019.
-
-License:
-This file is part of 'NMF toolbox'.
-https://www.audiolabs-erlangen.de/resources/MIR/NMFtoolbox/
-'NMF toolbox' is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or (at
-your option) any later version.
-
-'NMF toolbox' is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
-Public License for more details.
-
-You should have received a copy of the GNU General Public License along
-with 'NMF toolbox'. If not, see http://www.gnu.org/licenses/.
-"""
 import numpy as np
-from numpy.finfo import eps as EPS
 from tqdm import tnrange
-from typing import Tuple, List
+from typing import List, Tuple
+
+from libnmf.utils import EPS
 
 
 def nmf(V,
@@ -44,8 +19,9 @@ def nmf(V,
     ----------
     [1] Lee, DD & Seung, HS. "Algorithms for Non-negative Matrix Factorization"
 
-    [2] Andrzej Cichocki, Rafal Zdunek, Anh Huy Phan, and Shunichi Amari  Nonnegative Matrix and Tensor Factorizations:
-    Applications to Exploratory Multi-Way Data Analysis and Blind Source Separation" John Wiley and Sons, 2009.
+    [2] Andrzej Cichocki, Rafal Zdunek, Anh Huy Phan, and Shunichi Amari
+    Nonnegative Matrix and Tensor Factorizations" Applications to Exploratory Multi-Way Data Analysis and 
+    Blind Source Separation" John Wiley and Sons, 2009.
 
     Parameters
     ----------
@@ -64,8 +40,9 @@ def nmf(V,
 
     init_H: np.ndarray
 
-
     fix_W: bool
+
+    fix_H: bool
 
     Returns
     -------
@@ -73,7 +50,7 @@ def nmf(V,
         K x R non-negative templates
     H: np.ndarray
         R x M non-negative activations
-    nmfV: list
+    nmf_V: list
         Approximated component matrices
     """
     # get important params
@@ -121,13 +98,13 @@ def nmf(V,
 
         # normalize templates to unit sum
         if not fix_W:
-            normVec = W.sum(axis=0)
-            W *= 1.0 / (EPS + normVec)
+            norm_vec = W.sum(axis=0)
+            W *= 1.0 / (EPS + norm_vec)
 
-    nmfV = list()
+    nmf_V = list()
 
     # compute final output approximation
     for r in range(R):
-        nmfV.append(W[:, r].reshape(-1, 1) @ H[r, :].reshape(1, -1))
+        nmf_V.append(W[:, r].reshape(-1, 1) @ H[r, :].reshape(1, -1))
 
-    return W, H, nmfV
+    return W, H, nmf_V
