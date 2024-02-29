@@ -107,11 +107,11 @@ def inverse_stft(X: np.ndarray,
                  num_samp: int = None) -> Tuple[np.ndarray, np.ndarray]:
     """Given a valid STFT spectrogram as input, this reconstructs the corresponding
     time-domain signal by  means of the frame-wise inverse FFT and overlap-add
-    method described as LSEE-MSTFT in [2].
+    method described as LSEE-MSTFT in [1].
 
     References
     ----------
-    [2] Daniel W. Griffin and Jae S. Lim, "Signal estimation
+    [1] Daniel W. Griffin and Jae S. Lim, "Signal estimation
         from modified short-time fourier transform", IEEE
         Transactions on Acoustics, Speech and Signal Processing, vol. 32, no. 2,
         pp. 236-243, Apr 1984.
@@ -333,15 +333,14 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
                      binsPerOctave: int = 36,
                      lower_freq: float = midi2freq(24),
                      log_comp: float = 1.0):
-    """Given a magnitude spectrogram, this function maps it onto a compact
-    representation with logarithmically spaced frequency axis and logarithmic
-    magnitude compression.
+    """Given a magnitude spectrogram, this function maps it onto a compact representation with logarithmically spaced
+    frequency axis and logarithmic magnitude compression.
 
     Parameters
     ----------
     A: np.ndarray or List of np.ndarray
-        The real-valued magnitude spectrogram oriented as num_bins x num_frames,
-        it can also be given as a list of multiple spectrograms
+        The real-valued magnitude spectrogram oriented as num_bins x num_frames, it can also be given as a list of
+         multiple spectrograms
 
     delta_F: np.ndarray
         The spectral resolution of the spectrogram
@@ -361,8 +360,7 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
         The log-magnitude spectrogram on logarithmically spaced frequency axis
 
     log_freq_axis: np.ndarray
-        An array giving the center frequencies of each bin along the
-        logarithmically spaced frequency axis
+        An array giving the center frequencies of each bin along the logarithmically spaced frequency axis
     """
 
     # convert to list if necessary
@@ -417,6 +415,50 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
         log_freq_log_mag_A = np.array(log_freq_log_mag_A[0])
 
     return log_freq_log_mag_A, log_freq_axis.reshape(-1, 1)
+
+
+def nema(A: np.ndarray, lamb: float = 0.9) -> np.ndarray:
+    """This function takes a matrix of row-wise time series and applies a
+    non-linear exponential moving average (NEMA) to each row. This filter
+    introduces exponentially decaying slopes and is defined in eq. (3) from [2].
+
+    The difference equation of that filter would be:
+    y(n) = max( x(n), y(n-1)*(decay) + x(n)*(1-decay) )
+
+    References
+    ----------
+    [1] Christian Dittmar, Patricio López-Serrano, Meinard Müller: "Unifying
+    Local and Global Methods for Harmonic-Percussive Source Separation"
+    In Proceedings of the IEEE International Conference on Acoustics,
+    Speech, and Signal Processing (ICASSP), 2018.
+
+    Parameters
+    ----------
+    A: np.ndarray
+        The matrix with time series in its rows
+
+    lamb: array-like / float
+        The decay parameter in the range [0 ... 1], this can be
+        given as a column-vector with individual decays per row
+        or as a scalar
+
+    Returns
+    -------
+    filtered: np.ndarray
+        The result after application of the NEMA filter
+    """
+    # Prevent instable filter
+    lamb = max(0.0, min(0.9999999, lamb))
+
+    num_rows, num_cols = A.shape
+    filtered = A.copy()
+
+    for k in range(1, num_cols):
+        store_row = filtered[:, k].copy()
+        filtered[:, k] = lamb * filtered[:, k-1] + filtered[:, k] * (1 - lamb)
+        filtered[:, k] = np.maximum(filtered[:, k], store_row)
+
+    return filtered
 
 
 
