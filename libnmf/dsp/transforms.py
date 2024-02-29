@@ -4,6 +4,7 @@ from typing import List, Tuple, Union
 
 from libnmf.utils import midi2freq
 
+
 def forward_stft(x: np.ndarray,
                  block_size: int = 2048,
                  hop_size: int = 512,
@@ -31,10 +32,8 @@ def forward_stft(x: np.ndarray,
     -------
     X: np.ndarray
         The complex valued spectrogram in num_bins x num_frames
-
     A: np.ndarray
         The magnitude spectrogram
-
     P: np.ndarray
         The phase spectrogram (wrapped in -pi ... +pi)
     """
@@ -105,16 +104,14 @@ def inverse_stft(X: np.ndarray,
                  append_frames: bool = True,
                  analytic_sig: bool = False,
                  num_samp: int = None) -> Tuple[np.ndarray, np.ndarray]:
-    """Given a valid STFT spectrogram as input, this reconstructs the corresponding
-    time-domain signal by  means of the frame-wise inverse FFT and overlap-add
-    method described as LSEE-MSTFT in [1].
+    """Given a valid STFT spectrogram as input, this reconstructs the corresponding time-domain signal by  means of
+    the frame-wise inverse FFT and overlap-add method described as LSEE-MSTFT in [1].
 
     References
     ----------
-    [1] Daniel W. Griffin and Jae S. Lim, "Signal estimation
-        from modified short-time fourier transform", IEEE
-        Transactions on Acoustics, Speech and Signal Processing, vol. 32, no. 2,
-        pp. 236-243, Apr 1984.
+    [1] Daniel W. Griffin and Jae S. Lim
+    "Signal estimation from modified short-time fourier transform",
+    IEEE Transactions on Acoustics, Speech and Signal Processing, vol. 32, no. 2, pp. 236-243, Apr 1984.
 
     Parameters
     ----------
@@ -142,7 +139,6 @@ def inverse_stft(X: np.ndarray,
     -------
     y: np.ndarray
         The resynthesized signal
-
     syn_win_func: np.ndarray
         The envelope used for normalization of the synthesis window
     """
@@ -241,91 +237,6 @@ def inverse_stft(X: np.ndarray,
     return y.reshape(-1, 1), syn_win_func
 
 
-def griffin_lim(X: np.ndarray,
-                num_iter: int,
-                block_size: int = 2048,
-                hop_size: int = 512,
-                win: np.ndarray = None,
-                append_frames: bool = True,
-                analytic_sig: bool = False) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Performs one iteration of the phase reconstruction algorithm as
-    described in [2].
-
-    References
-    ----------
-    [1] Daniel W. Griffin and Jae S. Lim, Signal estimation
-    from modified short-time fourier transform, IEEE
-    Transactions on Acoustics, Speech and Signal Processing,
-    vol. 32, no. 2, pp. 236-243, Apr 1984.
-
-    The operation performs an iSTFT (LSEE-MSTFT) followed by STFT on the
-    resynthesized signal.
-
-    Parameters
-    ----------
-    X: np.ndarray
-        The STFT spectrogram to iterate upon
-    block_size: int
-        The block size to use during analysis
-    hop_size: int
-        The used hop size (denoted as S in [1])
-    ana_win_func: np.ndarray
-        The window used for analysis (denoted w in [1])
-    syn_win_func: np.ndarray
-        The window used for synthesis (denoted w in [1])
-    reconst_mirror: bool
-        If this is enabled, we have to generate the mirror spectrum by means of conjugation and flipping
-    append_frames: bool
-        If this is enabled, safety spaces have to be removed after the iSTFT
-
-    Returns
-    -------
-    Xout: np.ndarray
-        The spectrogram after iSTFT->STFT processing
-
-    Pout: np.ndarray
-        The phase spectrogram after iSTFT->STFT processing
-
-    res: np.ndarray
-        Reconstructed time-domain signal obtained via iSTFT
-    """
-    num_bins, _ = X.shape
-
-    if win is None:
-        win = np.hanning(block_size)
-
-    # this controls if the upper part of the spectrum is given or should be
-    # reconstructed by 'mirroring' (flip and conjugate) of the lower spectrum
-    reconst_mirror = False if num_bins == block_size else True
-
-    Xout = X.copy()
-    A = Xout.abs()
-
-    res = None
-    Pout = None
-
-    for k in range(num_iter):
-        # perform inverse STFT
-        res, _ = inverse_stft(X=Xout,
-                              block_size=block_size,
-                              hop_size=hop_size,
-                              ana_win_func=win,
-                              syn_win_func=win,
-                              reconst_mirror=reconst_mirror,
-                              append_frames=append_frames,
-                              analytic_sig=analytic_sig)
-
-        # perform forward STFT
-        _, _, Pout = forward_stft(x=res.squeeze(),
-                                  block_size=block_size,
-                                  hop_size=hop_size,
-                                  win=win,
-                                  reconst_mirror=reconst_mirror,
-                                  append_frames=append_frames)
-
-        Xout = A * np.exp(1j * Pout)
-
-    return Xout, Pout, res
 
 
 def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
@@ -341,16 +252,12 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
     A: np.ndarray or List of np.ndarray
         The real-valued magnitude spectrogram oriented as num_bins x num_frames, it can also be given as a list of
          multiple spectrograms
-
     delta_F: np.ndarray
         The spectral resolution of the spectrogram
-
     binsPerOctave: np.ndarray
         The spectral selectivity of the log-freq axis
-
     lower_freq: float
         The lower frequency border
-
     log_comp: float
         Factor to control the logarithmic magnitude compression
 
@@ -358,7 +265,6 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
     -------
     log_freq_log_mag_A: np.ndarray
         The log-magnitude spectrogram on logarithmically spaced frequency axis
-
     log_freq_axis: np.ndarray
         An array giving the center frequencies of each bin along the logarithmically spaced frequency axis
     """
@@ -415,50 +321,4 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
         log_freq_log_mag_A = np.array(log_freq_log_mag_A[0])
 
     return log_freq_log_mag_A, log_freq_axis.reshape(-1, 1)
-
-
-def nema(A: np.ndarray, lamb: float = 0.9) -> np.ndarray:
-    """This function takes a matrix of row-wise time series and applies a
-    non-linear exponential moving average (NEMA) to each row. This filter
-    introduces exponentially decaying slopes and is defined in eq. (3) from [2].
-
-    The difference equation of that filter would be:
-    y(n) = max( x(n), y(n-1)*(decay) + x(n)*(1-decay) )
-
-    References
-    ----------
-    [1] Christian Dittmar, Patricio López-Serrano, Meinard Müller: "Unifying
-    Local and Global Methods for Harmonic-Percussive Source Separation"
-    In Proceedings of the IEEE International Conference on Acoustics,
-    Speech, and Signal Processing (ICASSP), 2018.
-
-    Parameters
-    ----------
-    A: np.ndarray
-        The matrix with time series in its rows
-
-    lamb: array-like / float
-        The decay parameter in the range [0 ... 1], this can be
-        given as a column-vector with individual decays per row
-        or as a scalar
-
-    Returns
-    -------
-    filtered: np.ndarray
-        The result after application of the NEMA filter
-    """
-    # Prevent instable filter
-    lamb = max(0.0, min(0.9999999, lamb))
-
-    num_rows, num_cols = A.shape
-    filtered = A.copy()
-
-    for k in range(1, num_cols):
-        store_row = filtered[:, k].copy()
-        filtered[:, k] = lamb * filtered[:, k-1] + filtered[:, k] * (1 - lamb)
-        filtered[:, k] = np.maximum(filtered[:, k], store_row)
-
-    return filtered
-
-
 
