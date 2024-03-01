@@ -2,53 +2,9 @@ import numpy as np
 from tqdm import tnrange
 from typing import List, Tuple
 
-from .utils import drum_specific_soft_constraints_nmf, init_templates, init_activations, shift_operator
+from .utils import drum_specific_soft_constraints_nmf, init_templates, init_activations
 from libnmf.utils import EPS
 
-
-def conv_model(W: np.ndarray,
-               H: np.ndarray) -> np.ndarray:
-    """Convolutive NMF model implementing the eq. (4) from [1]. Note that it can also be used to compute the standard
-     NMF model in case the number of time frames of the templates equals one.
-
-    References
-    ----------
-    [1] Christian Dittmar and Meinard Müller
-    "Reverse Engineering the Amen Break " Score-informed Separation and Restoration applied to Drum Recordings"
-    IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 15311543, 2016.
-
-
-    Parameters
-    ----------
-    W: np.ndarray
-        Tensor holding the spectral templates which can be interpreted as a set of
-        spectrogram snippets with dimensions: numBins x numComp x numTemplateFrames
-    H: np.ndarray
-        Corresponding activations with dimensions: numComponents x numTargetFrames
-
-    Returns
-    -------
-    lamb: np.ndarray
-        Approximated spectrogram matrix
-
-    """
-    # the more explicit matrix multiplication will be used
-    numBins, numComp, numTemplateFrames = W.shape
-    numComp, numFrames = H.shape
-
-    # initialize with zeros
-    lamb = np.zeros((numBins, numFrames))
-
-    # this is doing the math as described in [2], eq (4)
-    # the alternative conv2() method does not show speed advantages
-
-    for k in range(numTemplateFrames):
-        multResult = W[:, :, k] @ shift_operator(H, k)
-        lamb += multResult
-
-    lamb += EPS
-
-    return lamb
 
 def nmf_conv(V:np.ndarray,
              num_comp: int = 3,
@@ -356,3 +312,92 @@ def nmfd(V: np.ndarray,
     return W, H, nmfd_V, cost_func, tensor_W
 
 
+
+def conv_model(W: np.ndarray,
+               H: np.ndarray) -> np.ndarray:
+    """Convolutive NMF model implementing the eq. (4) from [1]. Note that it can also be used to compute the standard
+     NMF model in case the number of time frames of the templates equals one.
+
+    References
+    ----------
+    [1] Christian Dittmar and Meinard Müller
+    "Reverse Engineering the Amen Break " Score-informed Separation and Restoration applied to Drum Recordings"
+    IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 15311543, 2016.
+
+
+    Parameters
+    ----------
+    W: np.ndarray
+        Tensor holding the spectral templates which can be interpreted as a set of
+        spectrogram snippets with dimensions: numBins x numComp x numTemplateFrames
+    H: np.ndarray
+        Corresponding activations with dimensions: numComponents x numTargetFrames
+
+    Returns
+    -------
+    lamb: np.ndarray
+        Approximated spectrogram matrix
+
+    """
+    # the more explicit matrix multiplication will be used
+    numBins, numComp, numTemplateFrames = W.shape
+    numComp, numFrames = H.shape
+
+    # initialize with zeros
+    lamb = np.zeros((numBins, numFrames))
+
+    # this is doing the math as described in [2], eq (4)
+    # the alternative conv2() method does not show speed advantages
+
+    for k in range(numTemplateFrames):
+        multResult = W[:, :, k] @ shift_operator(H, k)
+        lamb += multResult
+
+    lamb += EPS
+
+    return lamb
+
+
+def shift_operator(A: np.ndarray,
+                   shift_amount: int) -> np.ndarray:
+    """Shift operator as described in eq. (5) from [1]. It shifts the columns of a matrix to the left or the right and
+    fills undefined elements with zeros.
+
+    References
+    ----------
+    [1] Paris Smaragdis
+    "Non-negative Matrix Factor Deconvolution; Extraction of Multiple Sound Sources from Monophonic Inputs".
+    International Congress on Independent Component Analysis and Blind Signal Separation (ICA), 2004
+
+    Parameters
+    ----------
+    A: np.ndarray
+        Arbitrary matrix to undergo the shifting operation
+
+    shift_amount: int
+        Positive numbers shift to the right, negative numbers shift to the left, zero leaves the matrix unchanged
+
+    Returns
+    -------
+    shifted: np.ndarray
+        Result of this operation
+    """
+    # Get dimensions
+    num_rows, num_cols = A.shape
+
+    # Limit shift range
+    shift_amount = np.sign(shift_amount) * min(abs(shift_amount), num_cols)
+
+    # Apply circular shift along the column dimension
+    shifted = np.roll(A, shift_amount, axis=-1)
+
+    if shift_amount < 0:
+        shifted[:, num_cols + shift_amount: num_cols] = 0
+
+    elif shift_amount > 0:
+        shifted[:, 0: shift_amount] = 0
+
+    else:
+        pass
+
+    return shifted

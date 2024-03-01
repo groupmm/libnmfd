@@ -240,8 +240,8 @@ def inverse_stft(X: np.ndarray,
 
 
 def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
-                     delta_F,
-                     binsPerOctave: int = 36,
+                     delta_F: float,
+                     bins_per_octave: int = 36,
                      lower_freq: float = midi2freq(24),
                      log_comp: float = 1.0):
     """Given a magnitude spectrogram, this function maps it onto a compact representation with logarithmically spaced
@@ -252,9 +252,9 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
     A: np.ndarray or List of np.ndarray
         The real-valued magnitude spectrogram oriented as num_bins x num_frames, it can also be given as a list of
          multiple spectrograms
-    delta_F: np.ndarray
+    delta_F: float
         The spectral resolution of the spectrogram
-    binsPerOctave: np.ndarray
+    bins_per_octave: np.ndarray
         The spectral selectivity of the log-freq axis
     lower_freq: float
         The lower frequency border
@@ -279,6 +279,7 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
     # get number of components
     num_comp = len(A)
     log_freq_log_mag_A = list()
+    log_freq_axis = None
 
     for k in range(num_comp):
         # get component spectrogram
@@ -294,9 +295,9 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
         upper_freq = lin_freq_axis[-1]
 
         # set up logarithmic frequency axis
-        num_log_bins = np.ceil(binsPerOctave * np.log2(upper_freq / lower_freq))
+        num_log_bins = np.ceil(bins_per_octave * np.log2(upper_freq / lower_freq))
         log_freq_axis = np.arange(0, num_log_bins)
-        log_freq_axis = lower_freq * np.power(2.0, log_freq_axis / binsPerOctave)
+        log_freq_axis = lower_freq * np.power(2.0, log_freq_axis / bins_per_octave)
 
         # map to logarithmic axis by means of linear interpolation
         log_bin_axis = log_freq_axis / delta_F
