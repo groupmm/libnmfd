@@ -146,7 +146,6 @@ def nmf_conv(V:np.ndarray,
     return W, H, cnmfY, cost_func
 
 
-
 def nmfd(V: np.ndarray,
          num_comp: int = 3,
          num_iter: int = 30,
@@ -157,7 +156,7 @@ def nmfd(V: np.ndarray,
          func_postprocess=None,
          fix_W: bool = False,
          fix_H: bool = False,
-         num_bins: int = None, # TODO: Are there really needed?
+         num_bins: int = None, # TODO: Are these really needed?
          num_frames: int = None,
          **kwargs) -> Tuple[List[np.ndarray], np.ndarray, List[np.ndarray], np.ndarray, np.ndarray]:
     """Non-Negative Matrix Factor Deconvolution with Kullback-Leibler-Divergence and fixable components. The core
@@ -188,22 +187,21 @@ def nmfd(V: np.ndarray,
     init_H: np.ndarray
         An initial estimate for the gains (denoted as H^(0) in [2])
     fix_W: bool
-
+        TODO
     fix_H: bool
-
+        TODO
     func_preprocess: function
         Call for preprocessing
-
     func_postprocess: function
         Call for postprocessing
 
     Returns
     -------
-    W: List
+    W: List[np.ndarray]
         List with the learned templates
     H: np.ndarray
         Matrix with the learned activations
-    nmfd_V: list
+    nmfd_V: List[np.ndarray]
         List with approximated component spectrograms
     cost_func: np.ndarray
         The approximation quality per iteration
@@ -404,11 +402,11 @@ def init_templates(num_comp: int,
                    num_bins: int,
                    num_template_frames: int = 1,
                    strategy: str = 'random',
-                   pitches: Union[List[int], None] = None,
+                   pitches: List[int] = None,
                    pitch_tol_up: float = 0.75,
                    pitch_tol_down: float = 0.75,
                    num_harmonics: int = 25,
-                   delta_F: float = None) -> List:
+                   delta_F: float = None) -> List[np.ndarray]:
     """Implements different initialization strategies for NMF templates. The strategies 'random' and 'uniform' are
     self-explaining. The strategy 'pitched' uses comb-filter templates as described in [1]. The strategy 'drums' uses
      pre-extracted, averaged spectra of desired drum types [2].
@@ -446,16 +444,14 @@ def init_templates(num_comp: int,
 
     Returns
     -------
-    initW: np.ndarray
+    initW: List[np.ndarray]
         List with the desired templates
     """
-    # check parameters
     init_W = list()
 
     if strategy == 'random':
         # fix random seed
         np.random.seed(42)
-
         for k in range(num_comp):
             init_W.append(np.random.rand(num_bins, num_template_frames))
 
@@ -464,6 +460,8 @@ def init_templates(num_comp: int,
             init_W.append(np.ones((num_bins, num_template_frames)))
 
     elif strategy == 'pitched':
+        if pitches is None:
+            assert ValueError('pitches must be specified.')
         unique_pitches = np.unique(pitches)
 
         # needs to be overwritten
@@ -475,11 +473,11 @@ def init_templates(num_comp: int,
 
             # then insert non-zero entries in bands around hypothetic harmonics
             cur_pitch_freq_lower_hz = midi2freq(unique_pitches[k] - pitch_tol_down)
-            curPitchFreqUpper_Hz = midi2freq(unique_pitches[k] + pitch_tol_up)
+            cur_pitch_freq_upper_hz = midi2freq(unique_pitches[k] + pitch_tol_up)
 
             for g in range(num_harmonics):
                 curr_pitch_freq_lower_bins = (g + 1) * cur_pitch_freq_lower_hz / delta_F
-                curr_pitch_freq_upper_bins = (g + 1) * curPitchFreqUpper_Hz / delta_F
+                curr_pitch_freq_upper_bins = (g + 1) * cur_pitch_freq_upper_hz / delta_F
 
                 bin_range = np.arange(int(round(curr_pitch_freq_lower_bins)) - 1, int(round(curr_pitch_freq_upper_bins)))
                 bin_range = bin_range[0:num_bins]
@@ -528,7 +526,6 @@ def init_activations(num_comp: int,
     Score-Informed Audio Decomposition and Applications
     In Proceedings of the ACM International Conference on Multimedia (ACM-MM): 541–544, 2013.
 
-
     [2] Christian Dittmar and Meinard Müller
     Reverse Engineering the Amen Break — Score-Informed Separation and Restoration Applied to Drum Recordings
     IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531–1543, 2016.
@@ -571,6 +568,8 @@ def init_activations(num_comp: int,
         init_H = np.ones((num_comp, num_frames))
 
     elif strategy == 'pitched':
+        if pitches is None:
+            assert ValueError('pitches must be specified.')
         unique_pitches = np.unique(pitches)
 
         # overwrite
@@ -580,7 +579,6 @@ def init_activations(num_comp: int,
         init_H = EPS + np.zeros((num_comp, num_frames))
 
         for k in range(unique_pitches.size):
-
             # find corresponding note onsets and durations
             ind = np.nonzero(pitches == unique_pitches[k])[0]
 
