@@ -2,6 +2,7 @@ import numpy as np
 from tqdm import tnrange
 from typing import List, Tuple, Union
 
+from .utils import drum_specific_soft_constraints_nmf
 from libnmf.dsp.filters import nema
 from libnmf.utils import EPS, load_matlab_dict, midi2freq
 
@@ -156,7 +157,7 @@ def nmfd(V: np.ndarray,
          func_postprocess=None,
          fix_W: bool = False,
          fix_H: bool = False,
-         num_bins: int = None,
+         num_bins: int = None, # TODO: Are there really needed?
          num_frames: int = None,
          **kwargs) -> Tuple[List[np.ndarray], np.ndarray, List[np.ndarray], np.ndarray, np.ndarray]:
     """Non-Negative Matrix Factor Deconvolution with Kullback-Leibler-Divergence and fixable components. The core
@@ -202,7 +203,7 @@ def nmfd(V: np.ndarray,
         List with the learned templates
     H: np.ndarray
         Matrix with the learned activations
-    nmfd_V: List
+    nmfd_V: list
         List with approximated component spectrograms
     cost_func: np.ndarray
         The approximation quality per iteration
@@ -337,17 +338,17 @@ def conv_model(W: np.ndarray,
 
     """
     # the more explicit matrix multiplication will be used
-    numBins, numComp, numTemplateFrames = W.shape
-    numComp, numFrames = H.shape
+    num_bins, num_comp, num_template_frames = W.shape
+    num_comp, num_frames = H.shape
 
     # initialize with zeros
-    lamb = np.zeros((numBins, numFrames))
+    lamb = np.zeros((num_bins, num_frames))
 
     # this is doing the math as described in [1], eq (4)
     # the alternative conv2() method does not show speed advantages
-    for k in range(numTemplateFrames):
-        multResult = W[:, :, k] @ shift_operator(H, k)
-        lamb += multResult
+    for k in range(num_template_frames):
+        mult_result = W[:, :, k] @ shift_operator(H, k)
+        lamb += mult_result
 
     lamb += EPS
 
@@ -402,12 +403,12 @@ def shift_operator(A: np.ndarray,
 def init_templates(num_comp: int,
                    num_bins: int,
                    num_template_frames: int = 1,
+                   strategy: str = 'random',
                    pitches: Union[List[int], None] = None,
-                   strategy='random',
                    pitch_tol_up: float = 0.75,
                    pitch_tol_down: float = 0.75,
                    num_harmonics: int = 25,
-                   delta_F = None) -> List:
+                   delta_F: float = None) -> List:
     """Implements different initialization strategies for NMF templates. The strategies 'random' and 'uniform' are
     self-explaining. The strategy 'pitched' uses comb-filter templates as described in [1]. The strategy 'drums' uses
      pre-extracted, averaged spectra of desired drum types [2].
@@ -430,10 +431,10 @@ def init_templates(num_comp: int,
         Number of frequency bins
     num_template_frames: int
         Number of time frames for 2D-templates
-    pitches
-        Optional array of MIDI pitch values
     strategy: str
         String describing the initialization strategy
+    pitches: list
+        Optional list of MIDI pitch values
     pitch_tol_up: float
         TODO
     pitch_tol_down: float
@@ -510,11 +511,11 @@ def init_activations(num_comp: int,
                      num_frames: int,
                      strategy: str,
                      delta_T: float,
-                     pitches: Union[List[int], None],
-                     decay: Union[List[int], None],
-                     onsets: Union[List[int], None],
-                     durations: Union[List[int], None],
-                     drums: Union[List[int], None],
+                     pitches: List[int] = None,
+                     decay: Union[np.ndarray, float] = None,
+                     onsets: List[float] = None,
+                     durations: List[float] = None,
+                     drums: List[str] = None,
                      onset_offset_tol: float = 0.025):
     """Implements different initialization strategies for NMF activations. The strategies 'random' and 'uniform' are
     self-explaining. The strategy pitched' places gate-like activations at the frames, where certain notes are active
@@ -538,6 +539,8 @@ def init_activations(num_comp: int,
         Number of NMF components
     num_frames: int
         Number of time frames
+    strategy: str
+        String describing the initialization strategy
     delta_T: float
         The temporal resolution
     pitches: list or None
@@ -551,11 +554,8 @@ def init_activations(num_comp: int,
         Optional list of note durations (in seconds)
     drums: list
         Optional list of drum type indices
-        onsetOffsetTol    Optional parameter giving the onset / offset
-
-
-    strategy: str
-        String describing the intialization strategy
+    onset_offset_tol: float
+        Optional parameter giving the onset / offset
 
     Returns
     -------
@@ -571,18 +571,18 @@ def init_activations(num_comp: int,
         init_H = np.ones((num_comp, num_frames))
 
     elif strategy == 'pitched':
-        uniquePitches = np.unique(pitches)
+        unique_pitches = np.unique(pitches)
 
         # overwrite
-        num_comp = uniquePitches.size
+        num_comp = unique_pitches.size
 
         # initialize activations with very small values
         init_H = EPS + np.zeros((num_comp, num_frames))
 
-        for k in range(uniquePitches.size):
+        for k in range(unique_pitches.size):
 
             # find corresponding note onsets and durations
-            ind = np.nonzero(pitches == uniquePitches[k])[0]
+            ind = np.nonzero(pitches == unique_pitches[k])[0]
 
             # insert activations
             for g in range(len(ind)):
@@ -597,12 +597,12 @@ def init_activations(num_comp: int,
                 note_start_in_frames = int(round(note_start_in_seconds / delta_T))
                 note_ende_in_frames = int(round(note_end_in_seconds / delta_T))
 
-                frameRange = np.arange(note_start_in_frames, note_ende_in_frames + 1)
-                frameRange = frameRange[frameRange >= 0]
-                frameRange = frameRange[frameRange <= num_frames]
+                frame_range = np.arange(note_start_in_frames, note_ende_in_frames + 1)
+                frame_range = frame_range[frame_range >= 0]
+                frame_range = frame_range[frame_range <= num_frames]
 
                 # insert gate-like activation
-                init_H[k, frameRange-1] = 1
+                init_H[k, frame_range-1] = 1
 
     elif strategy == 'drums':
         unique_drums = np.unique(drums)
