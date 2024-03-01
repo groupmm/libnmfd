@@ -29,8 +29,9 @@ def nmf_diag(V: np.ndarray,
     "Algorithms for Non-negative Matrix Factorization"
 
     [2] Sebastian Ewert and Meinard Müller
-    "Using Score-Informed Constraints for NMF-based Source Separation"
-    IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP): 129–132, 2012.
+    Using score-informed constraints for NMF-based source separation
+    In Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP): 129–132,
+    2012.
 
     Parameters
     ----------

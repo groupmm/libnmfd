@@ -1,9 +1,9 @@
 import numpy as np
 from tqdm import tnrange
-from typing import List, Tuple
+from typing import List, Tuple, Union
 
-from .utils import drum_specific_soft_constraints_nmf, init_templates, init_activations
-from libnmf.utils import EPS
+from libnmf.dsp.filters import nema
+from libnmf.utils import EPS, load_matlab_dict, midi2freq
 
 
 def nmf_conv(V:np.ndarray,
@@ -25,13 +25,13 @@ def nmf_conv(V:np.ndarray,
     References
     ----------
     [1] Andrzej Cichocki, Rafal Zdunek, Anh Huy Phan, and Shun-ichi Amari
-    "Nonnegative Matrix and Tensor Factorizations: Applications to
-    Exploratory Multi-Way Data Analysis and Blind Source Separation"
+    Nonnegative Matrix and Tensor Factorizations: Applications to Exploratory Multi-Way Data Analysis and Blind Source
+    Separation
     John Wiley and Sons, 2009.
 
     [2] Christian Dittmar and Meinard Müller
-    "Reverse Engineering the Amen Break - Score-informed Separation and Restoration applied to Drum Recordings"
-    IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531-1543, 2016.
+    Reverse Engineering the Amen Break — Score-Informed Separation and Restoration Applied to Drum Recordings
+    IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531–1543, 2016.
 
     Parameters
     ----------
@@ -164,20 +164,18 @@ def nmfd(V: np.ndarray,
 
     References
     ----------
-    [1] Paris Smaragdis "Non-negative Matrix Factor Deconvolution;
-    Extraction of Multiple Sound Sources from Monophonic Inputs".
-    International Congress on Independent Component Analysis and Blind Signal
-    Separation (ICA), 2004
+    [1] Paris Smaragdis
+    Non-negative Matrix Factor Deconvolution; Extraction of Multiple Sound Sources from Monophonic Inputs".
+    International Congress on Independent Component Analysis and Blind Signal Separation (ICA), 2004
 
     [2] Christian Dittmar and Meinard Müller
-    "Reverse Engineering the Amen Break - Score-informed Separation and Restoration applied to Drum Recordings"
-    IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531-1543, 2016.
+    Reverse Engineering the Amen Break — Score-Informed Separation and Restoration Applied to Drum Recordings
+    IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531–1543, 2016.
 
     Parameters
     ----------
     V: np.ndarray
         Matrix that shall be decomposed (typically a magnitude spectrogram of dimension numBins x numFrames)
-
     num_comp: int
         Number of NMFD components (denoted as R in [2])
     num_iter: int
@@ -321,17 +319,16 @@ def conv_model(W: np.ndarray,
     References
     ----------
     [1] Christian Dittmar and Meinard Müller
-    "Reverse Engineering the Amen Break " Score-informed Separation and Restoration applied to Drum Recordings"
-    IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 15311543, 2016.
-
+    Reverse Engineering the Amen Break — Score-Informed Separation and Restoration Applied to Drum Recordings
+    IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531–1543, 2016.
 
     Parameters
     ----------
     W: np.ndarray
         Tensor holding the spectral templates which can be interpreted as a set of
-        spectrogram snippets with dimensions: numBins x numComp x numTemplateFrames
+        spectrogram snippets with dimensions: num_bins x num_comp x num_template_frames
     H: np.ndarray
-        Corresponding activations with dimensions: numComponents x numTargetFrames
+        Corresponding activations with dimensions: num_comp x num_target_frames
 
     Returns
     -------
@@ -346,9 +343,8 @@ def conv_model(W: np.ndarray,
     # initialize with zeros
     lamb = np.zeros((numBins, numFrames))
 
-    # this is doing the math as described in [2], eq (4)
+    # this is doing the math as described in [1], eq (4)
     # the alternative conv2() method does not show speed advantages
-
     for k in range(numTemplateFrames):
         multResult = W[:, :, k] @ shift_operator(H, k)
         lamb += multResult
@@ -401,3 +397,240 @@ def shift_operator(A: np.ndarray,
         pass
 
     return shifted
+
+
+def init_templates(num_comp: int,
+                   num_bins: int,
+                   num_template_frames: int = 1,
+                   pitches: Union[List[int], None] = None,
+                   strategy='random',
+                   pitch_tol_up: float = 0.75,
+                   pitch_tol_down: float = 0.75,
+                   num_harmonics: int = 25,
+                   delta_F = None) -> List:
+    """Implements different initialization strategies for NMF templates. The strategies 'random' and 'uniform' are
+    self-explaining. The strategy 'pitched' uses comb-filter templates as described in [1]. The strategy 'drums' uses
+     pre-extracted, averaged spectra of desired drum types [2].
+
+    References
+    ----------
+    [1] Jonathan Driedger, Harald Grohganz, Thomas Prätzlich, Sebastian Ewert, and Meinard Müller
+    Score-Informed Audio Decomposition and Applications
+    In Proceedings of the ACM International Conference on Multimedia (ACM-MM): 541–544, 2013.
+
+    [2] Christian Dittmar and Meinard Müller
+    Reverse Engineering the Amen Break — Score-Informed Separation and Restoration Applied to Drum Recordings
+    IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531–1543, 2016.
+
+    Parameters
+    ----------
+    num_comp: int
+        Number of NMF components
+    num_bins: int
+        Number of frequency bins
+    num_template_frames: int
+        Number of time frames for 2D-templates
+    pitches
+        Optional array of MIDI pitch values
+    strategy: str
+        String describing the initialization strategy
+    pitch_tol_up: float
+        TODO
+    pitch_tol_down: float
+        TODO
+    num_harmonics: int
+        Number of harmonics
+    delta_F: float
+        Spectral resolution
+
+    Returns
+    -------
+    initW: np.ndarray
+        List with the desired templates
+    """
+    # check parameters
+    init_W = list()
+
+    if strategy == 'random':
+        # fix random seed
+        np.random.seed(42)
+
+        for k in range(num_comp):
+            init_W.append(np.random.rand(num_bins, num_template_frames))
+
+    elif strategy == 'uniform':
+        for k in range(num_comp):
+            init_W.append(np.ones((num_bins, num_template_frames)))
+
+    elif strategy == 'pitched':
+        unique_pitches = np.unique(pitches)
+
+        # needs to be overwritten
+        num_comp = unique_pitches.size
+
+        for k in range(unique_pitches.size):
+            # initialize as zeros
+            init_W.append(EPS + np.zeros((num_bins, num_template_frames)))
+
+            # then insert non-zero entries in bands around hypothetic harmonics
+            cur_pitch_freq_lower_hz = midi2freq(unique_pitches[k] - pitch_tol_down)
+            curPitchFreqUpper_Hz = midi2freq(unique_pitches[k] + pitch_tol_up)
+
+            for g in range(num_harmonics):
+                curr_pitch_freq_lower_bins = (g + 1) * cur_pitch_freq_lower_hz / delta_F
+                curr_pitch_freq_upper_bins = (g + 1) * curPitchFreqUpper_Hz / delta_F
+
+                bin_range = np.arange(int(round(curr_pitch_freq_lower_bins)) - 1, int(round(curr_pitch_freq_upper_bins)))
+                bin_range = bin_range[0:num_bins]
+
+                # insert 1/f intensity
+                init_W[k][bin_range, :] = 1/(g+1)
+
+    elif strategy == 'drums':
+        dict_W = load_matlab_dict('../data/dictW.mat', 'dictW')
+
+        if num_bins == dict_W.shape[0]:
+            for k in range(dict_W.shape[1]):
+                init_W.append(dict_W[:, k].reshape(-1, 1) * np.linspace(1, 0.1, num_template_frames))
+
+        # needs to be overwritten
+        num_comp = len(init_W)
+
+    else:
+        raise ValueError('Invalid strategy.')
+
+    # do final normalization
+    for k in range(num_comp):
+        init_W[k] /= (EPS + init_W[k].sum())
+
+    return init_W
+
+
+def init_activations(num_comp: int,
+                     num_frames: int,
+                     strategy: str,
+                     delta_T: float,
+                     pitches: Union[List[int], None],
+                     decay: Union[List[int], None],
+                     onsets: Union[List[int], None],
+                     durations: Union[List[int], None],
+                     drums: Union[List[int], None],
+                     onset_offset_tol: float = 0.025):
+    """Implements different initialization strategies for NMF activations. The strategies 'random' and 'uniform' are
+    self-explaining. The strategy pitched' places gate-like activations at the frames, where certain notes are active
+    in the ground truth transcription [1]. The strategy drums' places decaying impulses at the frames where drum onsets
+    are given in the ground truth transcription [2].
+
+    References
+    ----------
+    [1] Jonathan Driedger, Harald Grohganz, Thomas Prätzlich, Sebastian Ewert, and Meinard Müller
+    Score-Informed Audio Decomposition and Applications
+    In Proceedings of the ACM International Conference on Multimedia (ACM-MM): 541–544, 2013.
+
+
+    [2] Christian Dittmar and Meinard Müller
+    Reverse Engineering the Amen Break — Score-Informed Separation and Restoration Applied to Drum Recordings
+    IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531–1543, 2016.
+
+    Parameters
+    ----------
+    num_comp: int
+        Number of NMF components
+    num_frames: int
+        Number of time frames
+    delta_T: float
+        The temporal resolution
+    pitches: list or None
+        Optional list of MIDI pitch values
+    decay: np.ndarray or float
+        The decay parameter in the range [0 ... 1], this can be given as a column-vector with individual decays per row
+        or as a scalar
+    onsets: list
+        Optional list of note onsets (in seconds)
+    durations: list
+        Optional list of note durations (in seconds)
+    drums: list
+        Optional list of drum type indices
+        onsetOffsetTol    Optional parameter giving the onset / offset
+
+
+    strategy: str
+        String describing the intialization strategy
+
+    Returns
+    -------
+    initH: array-like
+        Array with initial activation functions
+    """
+
+    if strategy == 'random':
+        np.random.seed(42)
+        init_H = np.random.rand(num_comp, num_frames)
+
+    elif strategy == 'uniform':
+        init_H = np.ones((num_comp, num_frames))
+
+    elif strategy == 'pitched':
+        uniquePitches = np.unique(pitches)
+
+        # overwrite
+        num_comp = uniquePitches.size
+
+        # initialize activations with very small values
+        init_H = EPS + np.zeros((num_comp, num_frames))
+
+        for k in range(uniquePitches.size):
+
+            # find corresponding note onsets and durations
+            ind = np.nonzero(pitches == uniquePitches[k])[0]
+
+            # insert activations
+            for g in range(len(ind)):
+                curr_ind = ind[g]
+
+                note_start_in_seconds = onsets[curr_ind]
+                note_end_in_seconds = note_start_in_seconds + durations[curr_ind]
+
+                note_start_in_seconds -= onset_offset_tol
+                note_end_in_seconds += onset_offset_tol
+
+                note_start_in_frames = int(round(note_start_in_seconds / delta_T))
+                note_ende_in_frames = int(round(note_end_in_seconds / delta_T))
+
+                frameRange = np.arange(note_start_in_frames, note_ende_in_frames + 1)
+                frameRange = frameRange[frameRange >= 0]
+                frameRange = frameRange[frameRange <= num_frames]
+
+                # insert gate-like activation
+                init_H[k, frameRange-1] = 1
+
+    elif strategy == 'drums':
+        unique_drums = np.unique(drums)
+
+        # overwrite
+        num_comp = unique_drums.size
+
+        # initialize activations with very small values
+        init_H = EPS + np.zeros((num_comp, num_frames))
+
+        # sanity check
+        if unique_drums.size == num_comp:
+
+            # insert impulses at onset positions
+            for k in range(len(unique_drums)):
+                curr_ons = np.nonzero(drums == unique_drums[k])[0]
+                curr_ons = onsets[curr_ons]
+                curr_ons = np.round(curr_ons/delta_T).astype(np.int)
+                curr_ons = curr_ons[curr_ons >= 0]
+                curr_ons = curr_ons[curr_ons <= num_frames]
+
+                init_H[unique_drums[k].astype(int)-1, curr_ons-1] = 1
+
+            # add exponential decay
+            init_H = nema(init_H, decay)
+
+    else:
+        raise ValueError('Invalid strategy.')
+
+    return init_H
+

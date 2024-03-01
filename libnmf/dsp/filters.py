@@ -1,5 +1,5 @@
 import numpy as np
-from typing import List, Tuple
+from typing import List, Tuple, Union
 
 from libnmf.utils import EPS
 
@@ -14,11 +14,13 @@ def alpha_wiener_filter(mixture_X: np.ndarray,
 
     References
     ----------
-    [1] Antoine Liutkus and Roland Badeau: Generalized Wiener filtering with
-    fractional power spectrograms, ICASPP 2015
+    [1] Antoine Liutkus and Roland Badeau:
+    Generalized Wiener filtering with fractional power spectrograms, ICASPP 2015
 
-    [2] Christian Dittmar et al.: An Experimental Approach to Generalized
-    Wiener Filtering in Music Source Separation, EUSIPCO 2016
+    [2] Christian Dittmar, Jonathan Driedger, Meinard Müller, and Jouni Paulus
+    An Experimental Approach to Generalized Wiener Filtering in Music Source Separation
+    In Proceedings of the European Signal Processing Conference (EUSIPCO): 1743–1747, 2016.
+
 
     Parameters
     ----------
@@ -68,7 +70,8 @@ def alpha_wiener_filter(mixture_X: np.ndarray,
     return source_X, softMasks
 
 
-def nema(A: np.ndarray, lamb: float = 0.9) -> np.ndarray:
+def nema(A: np.ndarray,
+         decay: Union[np.ndarray, float] = 0.9) -> np.ndarray:
     """This function takes a matrix of row-wise time series and applies a
     non-linear exponential moving average (NEMA) to each row. This filter
     introduces exponentially decaying slopes and is defined in eq. (3) from [2].
@@ -78,18 +81,16 @@ def nema(A: np.ndarray, lamb: float = 0.9) -> np.ndarray:
 
     References
     ----------
-    [1] Christian Dittmar, Patricio López-Serrano, Meinard Müller: "Unifying
-    Local and Global Methods for Harmonic-Percussive Source Separation"
-    In Proceedings of the IEEE International Conference on Acoustics,
-    Speech, and Signal Processing (ICASSP), 2018.
+    [1] Christian Dittmar, Patricio López-Serrano, and Meinard Müller
+    Unifying Local and Global Methods for Harmonic-Percussive Source Separation
+    In Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP), 2018.
 
     Parameters
     ----------
     A: np.ndarray
         The matrix with time series in its rows
-    lamb: array-like / float
-        The decay parameter in the range [0 ... 1], this can be
-        given as a column-vector with individual decays per row
+    decay: np.ndarray or float
+        The decay parameter in the range [0 ... 1], this can be given as a column-vector with individual decays per row
         or as a scalar
 
     Returns
@@ -98,14 +99,14 @@ def nema(A: np.ndarray, lamb: float = 0.9) -> np.ndarray:
         The result after application of the NEMA filter
     """
     # Prevent instable filter
-    lamb = max(0.0, min(0.9999999, lamb))
+    decay = max(0.0, min(0.9999999, decay))
 
     num_rows, num_cols = A.shape
     filtered = A.copy()
 
     for k in range(1, num_cols):
         store_row = filtered[:, k].copy()
-        filtered[:, k] = lamb * filtered[:, k-1] + filtered[:, k] * (1 - lamb)
+        filtered[:, k] = decay * filtered[:, k - 1] + filtered[:, k] * (1 - decay)
         filtered[:, k] = np.maximum(filtered[:, k], store_row)
 
     return filtered

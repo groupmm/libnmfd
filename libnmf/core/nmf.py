@@ -101,6 +101,7 @@ def nmf(V,
             norm_vec = W.sum(axis=0)
             W *= 1.0 / (EPS + norm_vec)
 
+    # TODO: Can't we just use a dot product here?
     nmf_V = list()
 
     # compute final output approximation
