@@ -137,7 +137,7 @@ def hpss_kam_fitzgerald(X: np.ndarray,
 
     # prepare data for the KAM iterations
     kam_X = list()
-    kern_ord = np.ceil(kern_dim / 2).astype(np.int)
+    kern_ord = np.ceil(kern_dim / 2).astype(np.int32)
 
     # construct median filter kernel
     kern = np.full((kern_dim, kern_dim), False, dtype=bool)

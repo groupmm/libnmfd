@@ -303,7 +303,7 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
         log_bin_axis = log_freq_axis / delta_F
 
         # compute linear interpolation for the logarithmic mapping
-        floor_bin_axis = np.floor(log_bin_axis).astype(np.int) - 1
+        floor_bin_axis = np.floor(log_bin_axis).astype(np.int32) - 1
         ceil_bin_axis = floor_bin_axis + 1
         fraction = log_bin_axis - floor_bin_axis - 1
 
