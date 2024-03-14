@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transforms (libnmf.dsp.transforms) &mdash; libnmf 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Utils (libnmf.utils)" href="../utils/index.html" />
+    <link rel="prev" title="Filters (libnmf.dsp.filters)" href="filters.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libnmf
+              <img src="../_static/libnmf_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core Features (libnmf.core)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">DSP Modules (libnmf.dsp)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="algorithms.html">Algorithms (libnmf.dsp.algorithms)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters.html">Filters (libnmf.dsp.filters)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Transforms (libnmf.dsp.transforms)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.dsp.transforms.forward_stft"><code class="docutils literal notranslate"><span class="pre">forward_stft()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.dsp.transforms.inverse_stft"><code class="docutils literal notranslate"><span class="pre">inverse_stft()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.dsp.transforms.log_freq_log_mag"><code class="docutils literal notranslate"><span class="pre">log_freq_log_mag()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utils (libnmf.utils)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../py-modindex.html">Module Index</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libnmf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">DSP Modules (libnmf.dsp)</a></li>
+      <li class="breadcrumb-item active">Transforms (libnmf.dsp.transforms)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/dsp/transforms.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-libnmf.dsp.transforms">
+<span id="transforms-libnmf-dsp-transforms"></span><h1>Transforms (libnmf.dsp.transforms)<a class="headerlink" href="#module-libnmf.dsp.transforms" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.dsp.transforms.forward_stft">
+<span class="sig-prename descclassname"><span class="pre">libnmf.dsp.transforms.</span></span><span class="sig-name descname"><span class="pre">forward_stft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hop_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">win</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reconst_mirror</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append_frames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/libnmf/dsp/transforms.html#forward_stft"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.dsp.transforms.forward_stft" title="Link to this definition"></a></dt>
+<dd><p>Given a time signal as input, this computes the spectrogram by means of the Short-time fourier transform</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – The time signal oriented as numSamples x 1</p></li>
+<li><p><strong>block_size</strong> (<em>int</em>) – The block size to use during analysis</p></li>
+<li><p><strong>hop_size</strong> (<em>int</em>) – The hop size to use during analysis</p></li>
+<li><p><strong>win</strong> (<em>np.ndarray</em>) – The analysis window</p></li>
+<li><p><strong>reconst_mirror</strong> (<em>bool</em>) – This switch decides whether to discard the mirror spectrum or not</p></li>
+<li><p><strong>append_frames</strong> (<em>bool</em>) – This switch decides if we use silence in the beginning and the end</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.ndarray</em>) – The complex valued spectrogram in num_bins x num_frames</p></li>
+<li><p><strong>A</strong> (<em>np.ndarray</em>) – The magnitude spectrogram</p></li>
+<li><p><strong>P</strong> (<em>np.ndarray</em>) – The phase spectrogram (wrapped in -pi … +pi)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.dsp.transforms.inverse_stft">
+<span class="sig-prename descclassname"><span class="pre">libnmf.dsp.transforms.</span></span><span class="sig-name descname"><span class="pre">inverse_stft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hop_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ana_win_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">syn_win_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reconst_mirror</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append_frames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analytic_sig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/libnmf/dsp/transforms.html#inverse_stft"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.dsp.transforms.inverse_stft" title="Link to this definition"></a></dt>
+<dd><p>Given a valid STFT spectrogram as input, this reconstructs the corresponding time-domain signal by  means of
+the frame-wise inverse FFT and overlap-add method described as LSEE-MSTFT in [1].</p>
+<p class="rubric">References</p>
+<p>[1] Daniel W. Griffin and Jae S. Lim
+“Signal estimation from modified short-time fourier transform”,
+IEEE Transactions on Acoustics, Speech and Signal Processing, vol. 32, no. 2, pp. 236-243, Apr 1984.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>np.ndarray</em>) – The complex-valued spectrogram matrix oriented with dimensions
+num_bins x num_frames</p></li>
+<li><p><strong>block_size</strong> (<em>int</em>) – The block size to use during synthesis</p></li>
+<li><p><strong>hop_size</strong> (<em>int</em>) – The hop size to use during synthesis</p></li>
+<li><p><strong>ana_win_func</strong> (<em>np.ndarray</em>) – The analysis window function</p></li>
+<li><p><strong>syn_win_func</strong> (<em>np.ndarray</em>) – The synthesis window function (per default set same as analysis window)</p></li>
+<li><p><strong>reconst_mirror</strong> (<em>bool</em>) – This switch decides whether the mirror spectrum should be reconstructed or not</p></li>
+<li><p><strong>append_frames</strong> (<em>bool</em>) – This switch decides whether to compensate for zero padding or not</p></li>
+<li><p><strong>analytic_sig</strong> (<em>bool</em>) – If this is set to True, we want the analytic signal</p></li>
+<li><p><strong>num_samp</strong> (<em>int</em>) – The original number of samples</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>y</strong> (<em>np.ndarray</em>) – The resynthesized signal</p></li>
+<li><p><strong>syn_win_func</strong> (<em>np.ndarray</em>) – The envelope used for normalization of the synthesis window</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.dsp.transforms.log_freq_log_mag">
+<span class="sig-prename descclassname"><span class="pre">libnmf.dsp.transforms.</span></span><span class="sig-name descname"><span class="pre">log_freq_log_mag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins_per_octave</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">36</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">32.70319566257483</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_comp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/libnmf/dsp/transforms.html#log_freq_log_mag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.dsp.transforms.log_freq_log_mag" title="Link to this definition"></a></dt>
+<dd><p>Given a magnitude spectrogram, this function maps it onto a compact representation with logarithmically spaced
+frequency axis and logarithmic magnitude compression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>np.ndarray or List of np.ndarray</em>) – The real-valued magnitude spectrogram oriented as num_bins x num_frames, it can also be given as a list of
+multiple spectrograms</p></li>
+<li><p><strong>freq_res</strong> (<em>float</em>) – The spectral resolution of the spectrogram</p></li>
+<li><p><strong>bins_per_octave</strong> (<em>np.ndarray</em>) – The spectral selectivity of the log-freq axis</p></li>
+<li><p><strong>lower_freq</strong> (<em>float</em>) – The lower frequency border</p></li>
+<li><p><strong>log_comp</strong> (<em>float</em>) – Factor to control the logarithmic magnitude compression</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>log_freq_log_mag_A</strong> (<em>np.ndarray</em>) – The log-magnitude spectrogram on logarithmically spaced frequency axis</p></li>
+<li><p><strong>log_freq_axis</strong> (<em>np.ndarray</em>) – An array giving the center frequencies of each bin along the logarithmically spaced frequency axis</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="filters.html" class="btn btn-neutral float-left" title="Filters (libnmf.dsp.filters)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../utils/index.html" class="btn btn-neutral float-right" title="Utils (libnmf.utils)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright (&#39;2024, Patricio López-Serrano, Christian Dittmar, Yigitcan Özer and Meinard Müller&#39;,).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convolutive NMF (libnmf.core.nmfconv) &mdash; libnmf 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Diagonal NMF (libnmf.core.nmfdiag)" href="nmfdiag.html" />
+    <link rel="prev" title="NMF (libnmf.core.nmf)" href="nmf.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libnmf
+              <img src="../_static/libnmf_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Core Features (libnmf.core)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nmf.html">NMF (libnmf.core.nmf)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Convolutive NMF (libnmf.core.nmfconv)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.core.nmfconv.conv_model"><code class="docutils literal notranslate"><span class="pre">conv_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.core.nmfconv.init_activations"><code class="docutils literal notranslate"><span class="pre">init_activations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.core.nmfconv.init_templates"><code class="docutils literal notranslate"><span class="pre">init_templates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.core.nmfconv.nmf_conv"><code class="docutils literal notranslate"><span class="pre">nmf_conv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.core.nmfconv.nmfd"><code class="docutils literal notranslate"><span class="pre">nmfd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.core.nmfconv.shift_operator"><code class="docutils literal notranslate"><span class="pre">shift_operator()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nmfdiag.html">Diagonal NMF (libnmf.core.nmfdiag)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dsp/index.html">DSP Modules (libnmf.dsp)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utils (libnmf.utils)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../py-modindex.html">Module Index</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libnmf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Core Features (libnmf.core)</a></li>
+      <li class="breadcrumb-item active">Convolutive NMF (libnmf.core.nmfconv)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/core/nmfconv.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-libnmf.core.nmfconv">
+<span id="convolutive-nmf-libnmf-core-nmfconv"></span><h1>Convolutive NMF (libnmf.core.nmfconv)<a class="headerlink" href="#module-libnmf.core.nmfconv" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.core.nmfconv.conv_model">
+<span class="sig-prename descclassname"><span class="pre">libnmf.core.nmfconv.</span></span><span class="sig-name descname"><span class="pre">conv_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">W</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/libnmf/core/nmfconv.html#conv_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.core.nmfconv.conv_model" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Convolutive NMF model implementing the eq. (4) from [1]. Note that it can also be used to compute the standard</dt><dd><p>NMF model in case the number of time frames of the templates equals one.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[1] Christian Dittmar and Meinard Müller
+Reverse Engineering the Amen Break — Score-Informed Separation and Restoration Applied to Drum Recordings
+IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531–1543, 2016.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>W</strong> (<em>np.ndarray</em>) – Tensor holding the spectral templates which can be interpreted as a set of
+spectrogram snippets with dimensions: num_bins x num_comp x num_template_frames</p></li>
+<li><p><strong>H</strong> (<em>np.ndarray</em>) – Corresponding activations with dimensions: num_comp x num_target_frames</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>lamb</strong> (<em>np.ndarray</em>) – Approximated spectrogram matrix</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.core.nmfconv.init_activations">
+<span class="sig-prename descclassname"><span class="pre">libnmf.core.nmfconv.</span></span><span class="sig-name descname"><span class="pre">init_activations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_comp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_frames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pitches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onsets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">durations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drums</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset_offset_tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.025</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libnmf/core/nmfconv.html#init_activations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.core.nmfconv.init_activations" title="Link to this definition"></a></dt>
+<dd><p>Implements different initialization strategies for NMF activations. The strategies ‘random’ and ‘uniform’ are
+self-explaining. The strategy pitched’ places gate-like activations at the frames, where certain notes are active
+in the ground truth transcription [1]. The strategy drums’ places decaying impulses at the frames where drum onsets
+are given in the ground truth transcription [2].</p>
+<p class="rubric">References</p>
+<p>[1] Jonathan Driedger, Harald Grohganz, Thomas Prätzlich, Sebastian Ewert, and Meinard Müller
+Score-Informed Audio Decomposition and Applications
+In Proceedings of the ACM International Conference on Multimedia (ACM-MM): 541–544, 2013.</p>
+<p>[2] Christian Dittmar and Meinard Müller
+Reverse Engineering the Amen Break — Score-Informed Separation and Restoration Applied to Drum Recordings
+IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531–1543, 2016.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_comp</strong> (<em>int</em>) – Number of NMF components</p></li>
+<li><p><strong>num_frames</strong> (<em>int</em>) – Number of time frames</p></li>
+<li><p><strong>strategy</strong> (<em>str</em>) – String describing the initialization strategy</p></li>
+<li><p><strong>time_res</strong> (<em>float</em>) – The temporal resolution</p></li>
+<li><p><strong>pitches</strong> (<em>list or None</em>) – Optional list of MIDI pitch values</p></li>
+<li><p><strong>decay</strong> (<em>np.ndarray or float</em>) – The decay parameter in the range [0 … 1], this can be given as a column-vector with individual decays per row
+or as a scalar</p></li>
+<li><p><strong>onsets</strong> (<em>list</em>) – Optional list of note onsets (in seconds)</p></li>
+<li><p><strong>durations</strong> (<em>list</em>) – Optional list of note durations (in seconds)</p></li>
+<li><p><strong>drums</strong> (<em>list</em>) – Optional list of drum type indices</p></li>
+<li><p><strong>onset_offset_tol</strong> (<em>float</em>) – Optional parameter giving the onset / offset</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>initH</strong> (<em>array-like</em>) – Array with initial activation functions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.core.nmfconv.init_templates">
+<span class="sig-prename descclassname"><span class="pre">libnmf.core.nmfconv.</span></span><span class="sig-name descname"><span class="pre">init_templates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_comp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_template_frames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'random'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pitches</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pitch_tol_up</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pitch_tol_down</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_harmonics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/libnmf/core/nmfconv.html#init_templates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.core.nmfconv.init_templates" title="Link to this definition"></a></dt>
+<dd><p>Implements different initialization strategies for NMF templates. The strategies ‘random’ and ‘uniform’ are
+self-explaining. The strategy ‘pitched’ uses comb-filter templates as described in [1]. The strategy ‘drums’ uses
+pre-extracted, averaged spectra of desired drum types [2].</p>
+<p class="rubric">References</p>
+<p>[1] Jonathan Driedger, Harald Grohganz, Thomas Prätzlich, Sebastian Ewert, and Meinard Müller
+Score-Informed Audio Decomposition and Applications
+In Proceedings of the ACM International Conference on Multimedia (ACM-MM): 541–544, 2013.</p>
+<p>[2] Christian Dittmar and Meinard Müller
+Reverse Engineering the Amen Break — Score-Informed Separation and Restoration Applied to Drum Recordings
+IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531–1543, 2016.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_comp</strong> (<em>int</em>) – Number of NMF components</p></li>
+<li><p><strong>num_bins</strong> (<em>int</em>) – Number of frequency bins</p></li>
+<li><p><strong>num_template_frames</strong> (<em>int</em>) – Number of time frames for 2D-templates</p></li>
+<li><p><strong>strategy</strong> (<em>str</em>) – String describing the initialization strategy</p></li>
+<li><p><strong>pitches</strong> (<em>list</em>) – Optional list of MIDI pitch values</p></li>
+<li><p><strong>pitch_tol_up</strong> (<em>float</em>) – TODO</p></li>
+<li><p><strong>pitch_tol_down</strong> (<em>float</em>) – TODO</p></li>
+<li><p><strong>num_harmonics</strong> (<em>int</em>) – Number of harmonics</p></li>
+<li><p><strong>freq_res</strong> (<em>float</em>) – Spectral resolution</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>initW</strong> (<em>List[np.ndarray]</em>) – List with the desired templates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.core.nmfconv.nmf_conv">
+<span class="sig-prename descclassname"><span class="pre">libnmf.core.nmfconv.</span></span><span class="sig-name descname"><span class="pre">nmf_conv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_comp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_template_frames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_W</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_H</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparsity_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncorr_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_frames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/libnmf/core/nmfconv.html#nmf_conv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.core.nmfconv.nmf_conv" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Convolutive Non-Negative Matrix Factorization with Beta-Divergence and optional regularization parameters as</dt><dd><p>described in chapter 3.7 of [1]. The averaged activation updates are computed via the compact algorithm given
+in paragraph 3.7.3. For the sake of consistency, we use the notation from [2] instead of the one from the book.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[1] Andrzej Cichocki, Rafal Zdunek, Anh Huy Phan, and Shun-ichi Amari
+Nonnegative Matrix and Tensor Factorizations: Applications to Exploratory Multi-Way Data Analysis and Blind Source
+Separation
+John Wiley and Sons, 2009.</p>
+<p>[2] Christian Dittmar and Meinard Müller
+Reverse Engineering the Amen Break — Score-Informed Separation and Restoration Applied to Drum Recordings
+IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531–1543, 2016.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul>
+<li><p><strong>V</strong> (<em>np.ndarray</em>) – Matrix that shall be decomposed (typically a magnitude spectrogram of dimension num_bins x num_frames)</p></li>
+<li><p><strong>num_comp</strong> (<em>int</em>) – Number of NMFD components (denoted as R in [2])</p></li>
+<li><p><strong>num_iter</strong> (<em>int</em>) – Number of NMFD iterations (denoted as L in [2])</p></li>
+<li><p><strong>num_template_frames</strong> (<em>int</em>) – Number of time frames for the 2D-template (denoted as T in [2])</p></li>
+<li><p><strong>init_W</strong> (<em>np.ndarray</em>) – An initial estimate for the templates (denoted as W^(0) in [2])</p></li>
+<li><p><strong>init_H</strong> (<em>np.ndarray</em>) – An initial estimate for the gains (denoted as H^(0) in [2])</p></li>
+<li><p><strong>beta</strong> (<em>float</em>) –</p>
+<dl class="simple">
+<dt>The beta parameter of the divergence:</dt><dd><dl class="simple">
+<dt>-1 -&gt; equals Itakura Saito divergence</dt><dd><p>0 -&gt; equals Kullback Leiber divergence
+1 -&gt; equals Euclidean distance</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><p><strong>sparsity_weight</strong> (<em>float</em>) – Strength of the activation sparsity</p></li>
+<li><p><strong>uncorr_weight</strong> (<em>float</em>) – Strength of the template uncorrelatedness</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>W</strong> (<em>np.ndarray</em>) – List with the learned templates</p></li>
+<li><p><strong>H</strong> (<em>np.ndarray</em>) – Matrix with the learned activations</p></li>
+<li><p><strong>cnmfY</strong> (<em>np.ndarray</em>) – List with approximated component spectrograms</p></li>
+<li><p><strong>cost_func</strong> (<em>np.ndarray</em>) – The approximation quality per iteration</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.core.nmfconv.nmfd">
+<span class="sig-prename descclassname"><span class="pre">libnmf.core.nmfconv.</span></span><span class="sig-name descname"><span class="pre">nmfd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V:</span> <span class="pre">~numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_comp:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iter:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_template_frames:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_W:</span> <span class="pre">~numpy.ndarray</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_H:</span> <span class="pre">~numpy.ndarray</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_preprocess=&lt;function</span> <span class="pre">drum_specific_soft_constraints_nmf&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_postprocess=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_W:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_H:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_bins:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_frames:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/libnmf/core/nmfconv.html#nmfd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.core.nmfconv.nmfd" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Non-Negative Matrix Factor Deconvolution with Kullback-Leibler-Divergence and fixable components. The core</dt><dd><p>algorithm was proposed in [1], the specific adaptions are used in [2].</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[1] Paris Smaragdis
+Non-negative Matrix Factor Deconvolution; Extraction of Multiple Sound Sources from Monophonic Inputs”.
+International Congress on Independent Component Analysis and Blind Signal Separation (ICA), 2004</p>
+<p>[2] Christian Dittmar and Meinard Müller
+Reverse Engineering the Amen Break — Score-Informed Separation and Restoration Applied to Drum Recordings
+IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531–1543, 2016.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>V</strong> (<em>np.ndarray</em>) – Matrix that shall be decomposed (typically a magnitude spectrogram of dimension numBins x numFrames)</p></li>
+<li><p><strong>num_comp</strong> (<em>int</em>) – Number of NMFD components (denoted as R in [2])</p></li>
+<li><p><strong>num_iter</strong> (<em>int</em>) – Number of NMFD iterations (denoted as L in [2])</p></li>
+<li><p><strong>num_template_frames</strong> (<em>int</em>) – Number of time frames for the 2D-template (denoted as T in [2])</p></li>
+<li><p><strong>init_W</strong> (<em>np.ndarray</em>) – An initial estimate for the templates (denoted as W^(0) in [2])</p></li>
+<li><p><strong>init_H</strong> (<em>np.ndarray</em>) – An initial estimate for the gains (denoted as H^(0) in [2])</p></li>
+<li><p><strong>fix_W</strong> (<em>bool</em>) – TODO</p></li>
+<li><p><strong>fix_H</strong> (<em>bool</em>) – TODO</p></li>
+<li><p><strong>func_preprocess</strong> (<em>function</em>) – Call for preprocessing</p></li>
+<li><p><strong>func_postprocess</strong> (<em>function</em>) – Call for postprocessing</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>W</strong> (<em>List[np.ndarray]</em>) – List with the learned templates</p></li>
+<li><p><strong>H</strong> (<em>np.ndarray</em>) – Matrix with the learned activations</p></li>
+<li><p><strong>nmfd_V</strong> (<em>List[np.ndarray]</em>) – List with approximated component spectrograms</p></li>
+<li><p><strong>cost_func</strong> (<em>np.ndarray</em>) – The approximation quality per iteration</p></li>
+<li><p><strong>tensor_W</strong> (<em>np.ndarray</em>) – If desired, we can also return the tensor</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.core.nmfconv.shift_operator">
+<span class="sig-prename descclassname"><span class="pre">libnmf.core.nmfconv.</span></span><span class="sig-name descname"><span class="pre">shift_operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/libnmf/core/nmfconv.html#shift_operator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.core.nmfconv.shift_operator" title="Link to this definition"></a></dt>
+<dd><p>Shift operator as described in eq. (5) from [1]. It shifts the columns of a matrix to the left or the right and
+fills undefined elements with zeros.</p>
+<p class="rubric">References</p>
+<p>[1] Paris Smaragdis
+“Non-negative Matrix Factor Deconvolution; Extraction of Multiple Sound Sources from Monophonic Inputs”.
+International Congress on Independent Component Analysis and Blind Signal Separation (ICA), 2004</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>np.ndarray</em>) – Arbitrary matrix to undergo the shifting operation</p></li>
+<li><p><strong>shift_amount</strong> (<em>int</em>) – Positive numbers shift to the right, negative numbers shift to the left, zero leaves the matrix unchanged</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>shifted</strong> (<em>np.ndarray</em>) – Result of this operation</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nmf.html" class="btn btn-neutral float-left" title="NMF (libnmf.core.nmf)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nmfdiag.html" class="btn btn-neutral float-right" title="Diagonal NMF (libnmf.core.nmfdiag)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright (&#39;2024, Patricio López-Serrano, Christian Dittmar, Yigitcan Özer and Meinard Müller&#39;,).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
