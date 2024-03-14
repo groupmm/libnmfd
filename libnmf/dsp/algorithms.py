@@ -40,6 +40,8 @@ def griffin_lim(X: np.ndarray,
         Window function
     append_frames: bool
         If this is enabled, safety spaces have to be removed after the iSTFT
+    analytic_sig: bool
+        If this is set to True, we want the analytic signal
 
     Returns
     -------
@@ -91,26 +93,24 @@ def hpss_kam_fitzgerald(X: np.ndarray,
                         num_iter: int = 1,
                         kern_dim: int = 17,
                         use_median: bool = False,
-                        alpha_param: float = 1.0) -> Tuple[List, np.ndarray, int]:
+                        alpha_param: float = 1.0) -> Tuple[List[np.ndarray], np.ndarray, int]:
     """This re-implements the KAM-based HPSS-algorithm described in [1]. This is
     a generalization of the median-filter based algorithm first presented in [2].
     Our own variant of this algorithm [3] is also supported.
 
     References
     ----------
-    [1] Derry FitzGerald, Antoine Liutkus, Zafar Rafii, Bryan Pardo,
-    and Laurent Daudet, "Harmonic/percussive separation
-    using Kernel Additive Modelling", in Irish Signals
-    and Systems Conference (IET), Limerick, Ireland, 2014, pp. 35�40.
+    [1] Derry FitzGerald, Antoine Liutkus, Zafar Rafii, Bryan Pardo, and Laurent Daudet
+    Harmonic/Percussive Separation using Kernel Additive Modelling
+    Irish Signals and Systems Conference (IET), Limerick, Ireland, 2014, pp. 35�40.
 
-    [2] Derry FitzGerald, "Harmonic/percussive separation using
-    median filtering," in Proceedings of the International
-    Conference on Digital Audio Effects (DAFx),
-    Graz, Austria, 2010, pp. 246-253.
+    [2] Derry FitzGerald
+    Harmonic/Percussive Separation using Median Filtering
+    In Proceedings of the International Conference on Digital Audio Effects (DAFx), Graz, Austria, 2010, pp. 246-253.
 
-    [3] Christian Dittmar, Jonathan Driedger, Meinard Müller,
-    and Jouni Paulus, "An experimental approach to generalized
-    wiener filtering in music source separation," EUSIPCO 2016.
+    [3] Christian Dittmar, Jonathan Driedger, Meinard Müller, and Jouni Paulus
+    An Experimental Approach to Generalized Wiener Filtering in Music Source Separation
+    In Proceedings of the European Signal Processing Conference (EUSIPCO): 1743–1747, 2016.
 
     Parameters
     ----------
@@ -131,7 +131,7 @@ def hpss_kam_fitzgerald(X: np.ndarray,
         List containing the percussive and harmonic estimate
     kern: np.ndarray
         The kernels used for enhancing percussive and harmonic part
-    KernOrd: int
+    kern_ord: int
         The order of the kernels
     """
 
