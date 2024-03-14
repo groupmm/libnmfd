@@ -15,7 +15,8 @@ sys.path.insert(0, LIBNMF_DIR)
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'libnmf'
-copyright = '2024, Patricio López-Serrano, Christian Dittmar, Yigitcan Özer and Meinard Müller',
+copyright = '2024, Patricio López-Serrano, Christian Dittmar, Yigitcan Özer and Meinard Müller'
+author = 'Patricio López-Serrano, Christian Dittmar, Yigitcan Özer and Meinard Müller'
 release = '1.0.0'
 
 # -- General configuration ---------------------------------------------------
