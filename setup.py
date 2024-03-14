@@ -7,9 +7,9 @@ with open('README.md', 'r') as fdesc:
 setup(
     name='libnmf',
     version='1.0.0',
-    description='libnmf: Music Processing Applications of Nonnegative Matrix Factorization ',
-    author='Yigitcan Özer, Christian Dittmar, Meinard Müller',
-    author_email='yigitcan.oezer@audiolabs-erlangen.de',
+    description='libnmf: Music Processing Applications of Nonnegative Matrix Factorization',
+    author='Patricio López-Serrano, Christian Dittmar, Yigitcan Özer and Meinard Müller',
+    author_email='christian.dittmar@iis.fraunhofer.de',
     url='https://github.com/groupmm/libnmf',
     download_url='https://github.com/groupmm/libnmf',
     packages=find_packages(),
@@ -31,7 +31,8 @@ setup(
                       'numpy >= 1.17.0, < 2.0.0',
                       'pandas >= 1.0.0, < 2.0.0',
                       'pysoundfile >= 0.9.0, < 1.0.0',
-                      'scipy >= 1.7.0, < 2.0.0',],
+                      'scipy >= 1.7.0, < 2.0.0',
+                      'tqdm >= 4.*.*'],
     python_requires='>=3.8, <4.0',
     extras_require={
         'tests': ['pytest == 6.2.*'],

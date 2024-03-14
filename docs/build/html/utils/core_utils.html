@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Core Utils (libnmf.utils.core_utils) &mdash; libnmf 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DSP Utils (libnmf.utils.dsp_utils)" href="dsp_utils.html" />
+    <link rel="prev" title="Utils (libnmf.utils)" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            libnmf
+              <img src="../_static/libnmf_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core Features (libnmf.core)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dsp/index.html">DSP Modules (libnmf.dsp)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Utils (libnmf.utils)</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Core Utils (libnmf.utils.core_utils)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.utils.core_utils.colored_components"><code class="docutils literal notranslate"><span class="pre">colored_components()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.utils.core_utils.diagonality_soft_constraints_nmf"><code class="docutils literal notranslate"><span class="pre">diagonality_soft_constraints_nmf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.utils.core_utils.drum_specific_soft_constraints_nmf"><code class="docutils literal notranslate"><span class="pre">drum_specific_soft_constraints_nmf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.utils.core_utils.percussiveness_estimation"><code class="docutils literal notranslate"><span class="pre">percussiveness_estimation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.utils.core_utils.visualize_components_kam"><code class="docutils literal notranslate"><span class="pre">visualize_components_kam()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmf.utils.core_utils.visualize_components_nmf"><code class="docutils literal notranslate"><span class="pre">visualize_components_nmf()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dsp_utils.html">DSP Utils (libnmf.utils.dsp_utils)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../py-modindex.html">Module Index</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libnmf</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Utils (libnmf.utils)</a></li>
+      <li class="breadcrumb-item active">Core Utils (libnmf.utils.core_utils)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/utils/core_utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-libnmf.utils.core_utils">
+<span id="core-utils-libnmf-utils-core-utils"></span><h1>Core Utils (libnmf.utils.core_utils)<a class="headerlink" href="#module-libnmf.utils.core_utils" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.utils.core_utils.colored_components">
+<span class="sig-prename descclassname"><span class="pre">libnmf.utils.core_utils.</span></span><span class="sig-name descname"><span class="pre">colored_components</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comp_A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_vec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libnmf/utils/core_utils.html#colored_components"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.utils.core_utils.colored_components" title="Link to this definition"></a></dt>
+<dd><p>Maps a list containing parallel component spectrograms into a color-coded spectrogram image, similar to Fig. 10
+in [1]. Works best for three components corresponding to RGB.</p>
+<p class="rubric">References</p>
+<p>[1] Christian Dittmar and Meinard Müller
+“Reverse Engineering the Amen Break - Score-informed Separation and Restoration applied to Drum Recordings”
+IEEE/ACM Transactions on Audio, Speech, and Language Processing, 24(9): 1531-1543, 2016.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>comp_A</strong> (<em>list</em>) – List with the component spectrograms, all should have the same dimensions</p></li>
+<li><p><strong>col_vec</strong> (<em>TODO</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>rgbA</strong> (<em>np.ndarray</em>) – Color-coded spectrogram</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.utils.core_utils.diagonality_soft_constraints_nmf">
+<span class="sig-prename descclassname"><span class="pre">libnmf.utils.core_utils.</span></span><span class="sig-name descname"><span class="pre">diagonality_soft_constraints_nmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kern_ord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/libnmf/utils/core_utils.html#diagonality_soft_constraints_nmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.utils.core_utils.diagonality_soft_constraints_nmf" title="Link to this definition"></a></dt>
+<dd><p>Implements a simplified version of the soft constraints in [1]</p>
+<p class="rubric">References</p>
+<p>[1] Jonathan Driedger, Thomas Prätzlich, and Meinard Müller
+Let It Bee – Towards NMF-Inspired Audio Mosaicing
+In Proceedings of the International Conference on Music Information Retrieval (ISMIR): 350-356, 2015.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>H</strong> (<em>np.ndarray</em>) – NMF activations given as matrix</p></li>
+<li><p><strong>kern_ord</strong> (<em>int</em>) – Order of smoothing operation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>H</strong> (<em>np.ndarray</em>) – Processed NMF activations</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.utils.core_utils.drum_specific_soft_constraints_nmf">
+<span class="sig-prename descclassname"><span class="pre">libnmf.utils.core_utils.</span></span><span class="sig-name descname"><span class="pre">drum_specific_soft_constraints_nmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">W</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/libnmf/utils/core_utils.html#drum_specific_soft_constraints_nmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.utils.core_utils.drum_specific_soft_constraints_nmf" title="Link to this definition"></a></dt>
+<dd><p>Implements the drum specific soft constraints that can be applied during
+NMF or NMFD iterations. These constraints affect the activation vectors only and
+are described in sec.23 of [1].</p>
+<p>TODO</p>
+<p class="rubric">References</p>
+<p>[1] Christian Dittmar, Patricio López-Serrano, and Meinard Müller
+Unifying Local and Global Methods for Harmonic-Percussive Source Separation
+In Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP), 2018.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>W</strong> (<em>np.ndarray</em>) – NMF templates given in matrix/tensor form</p></li>
+<li><p><strong>H</strong> (<em>np.ndarray</em>) – NMF activations given as matrix</p></li>
+<li><p><strong>decay</strong> (<em>list of np.ndarray</em>) – Optional list of decay values per component.</p></li>
+<li><p><strong>kern</strong> (<em>int TODO?</em>) – Concrete smoothing kernel</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>W</strong> (<em>np.ndarray</em>) – Processed NMF templates</p></li>
+<li><p><strong>H_out</strong> (<em>np.ndarray</em>) – Processed NMF activations</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.utils.core_utils.percussiveness_estimation">
+<span class="sig-prename descclassname"><span class="pre">libnmf.utils.core_utils.</span></span><span class="sig-name descname"><span class="pre">percussiveness_estimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">W</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/libnmf/utils/core_utils.html#percussiveness_estimation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.utils.core_utils.percussiveness_estimation" title="Link to this definition"></a></dt>
+<dd><p>This function takes a matrix or tensor of NMF templates and estimates the percussiveness by assuming that the
+lower part explains percussive and the upper part explains harmonic components. This is explained in sec. 2.4,
+especially eq. (4) in [1].</p>
+<p class="rubric">References</p>
+<p>[1] Christian Dittmar, Patricio López-Serrano, and Meinard Müller
+Unifying Local and Global Methods for Harmonic-Percussive Source Separation
+In Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP), 2018.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>W</strong> (<em>np.ndarray</em>) – K x R matrix (or K x R x T tensor) of NMF (NMFD) templates</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>perc_weight</strong> (<em>np.ndarray</em>) – The resulting percussiveness estimate per component</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.utils.core_utils.visualize_components_kam">
+<span class="sig-prename descclassname"><span class="pre">libnmf.utils.core_utils.</span></span><span class="sig-name descname"><span class="pre">visualize_components_kam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comp_A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_sec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_sec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Figure</span></span></span><a class="reference internal" href="../_modules/libnmf/utils/core_utils.html#visualize_components_kam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.utils.core_utils.visualize_components_kam" title="Link to this definition"></a></dt>
+<dd><p>Given a non-negative matrix V, and its non non-negative NMF or NMFD components, this function provides a
+visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>comp_A</strong> (<em>list</em>) – List with R individual component magnitude spectrograms.</p></li>
+<li><p><strong>time_res</strong> (<em>float</em>) – Temporal resolution</p></li>
+<li><p><strong>freq_res</strong> (<em>float</em>) – Spectral resolution</p></li>
+<li><p><strong>start_sec</strong> (<em>float</em>) – Where to zoom in on the time axis</p></li>
+<li><p><strong>end_sec</strong> (<em>float</em>) – Where to zoom in on the time axis</p></li>
+<li><p><strong>font_size</strong> (<em>float</em>) – Font size of the figure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fh</strong> (<em>matplotlib.figure.Figure</em>) – The figure handle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libnmf.utils.core_utils.visualize_components_nmf">
+<span class="sig-prename descclassname"><span class="pre">libnmf.utils.core_utils.</span></span><span class="sig-name descname"><span class="pre">visualize_components_nmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">W</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">H</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp_V</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_comp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_sec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_sec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Figure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/libnmf/utils/core_utils.html#visualize_components_nmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.utils.core_utils.visualize_components_nmf" title="Link to this definition"></a></dt>
+<dd><p>Given a non-negative matrix V, and its non non-negative NMF or NMFD components, this function provides a
+visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>V</strong> (<em>np.ndarray</em>) – K x M non-negative target matrix, in our case, this is usually sa magnitude spectrogram</p></li>
+<li><p><strong>W</strong> (<em>np.ndarray</em>) – K X R matrix of learned template matrices</p></li>
+<li><p><strong>H</strong> (<em>np.ndarray</em>) – R X M matrix of learned activations</p></li>
+<li><p><strong>comp_V</strong> (<em>np.ndarray</em>) – Matrix with R individual component magnitude spectrograms</p></li>
+<li><p><strong>log_comp</strong> (<em>float</em>) – Factor to control the logarithmic magnitude compression</p></li>
+<li><p><strong>time_res</strong> (<em>float</em>) – Temporal resolution</p></li>
+<li><p><strong>freq_res</strong> (<em>float</em>) – Spectral resolution</p></li>
+<li><p><strong>start_sec</strong> (<em>float</em>) – Where to zoom in on the time axis</p></li>
+<li><p><strong>end_sec</strong> (<em>float</em>) – Where to zoom in on the time axis</p></li>
+<li><p><strong>font_size</strong> (<em>float</em>) – Font size of the figure</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>fh</strong> (<em>matplotlib.figure.Figure</em>) – The figure handle</p></li>
+<li><p><strong>log_freq_axis</strong> (<em>np.ndarray</em>) – Log frequency axis</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Utils (libnmf.utils)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dsp_utils.html" class="btn btn-neutral float-right" title="DSP Utils (libnmf.utils.dsp_utils)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright (&#39;2024, Patricio López-Serrano, Christian Dittmar, Yigitcan Özer and Meinard Müller&#39;,).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
