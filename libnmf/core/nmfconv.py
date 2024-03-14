@@ -38,23 +38,31 @@ def nmf_conv(V:np.ndarray,
     ----------
     V: np.ndarray
         Matrix that shall be decomposed (typically a magnitude spectrogram of dimension num_bins x num_frames)
+
     num_comp: int
         Number of NMFD components (denoted as R in [2])
+
     num_iter: int
         Number of NMFD iterations (denoted as L in [2])
+
     num_template_frames: int
         Number of time frames for the 2D-template (denoted as T in [2])
+
     init_W: np.ndarray
         An initial estimate for the templates (denoted as W^(0) in [2])
+
     init_H: np.ndarray
         An initial estimate for the gains (denoted as H^(0) in [2])
+
     beta: float
         The beta parameter of the divergence:
             -1 -> equals Itakura Saito divergence
              0 -> equals Kullback Leiber divergence
              1 -> equals Euclidean distance
+
     sparsity_weight: float
         Strength of the activation sparsity
+
     uncorr_weight: float
         Strength of the template uncorrelatedness
 
@@ -62,10 +70,13 @@ def nmf_conv(V:np.ndarray,
     -------
     W: np.ndarray
         List with the learned templates
+
     H: np.ndarray
         Matrix with the learned activations
+
     cnmfY: np.ndarray
         List with approximated component spectrograms
+
     cost_func: np.ndarray
         The approximation quality per iteration
     """
@@ -176,22 +187,31 @@ def nmfd(V: np.ndarray,
     ----------
     V: np.ndarray
         Matrix that shall be decomposed (typically a magnitude spectrogram of dimension numBins x numFrames)
+
     num_comp: int
         Number of NMFD components (denoted as R in [2])
+
     num_iter: int
         Number of NMFD iterations (denoted as L in [2])
+
     num_template_frames: int
         Number of time frames for the 2D-template (denoted as T in [2])
+
     init_W: np.ndarray
         An initial estimate for the templates (denoted as W^(0) in [2])
+
     init_H: np.ndarray
         An initial estimate for the gains (denoted as H^(0) in [2])
+
     fix_W: bool
         TODO
+
     fix_H: bool
         TODO
+
     func_preprocess: function
         Call for preprocessing
+
     func_postprocess: function
         Call for postprocessing
 
@@ -199,12 +219,16 @@ def nmfd(V: np.ndarray,
     -------
     W: List[np.ndarray]
         List with the learned templates
+
     H: np.ndarray
         Matrix with the learned activations
+
     nmfd_V: List[np.ndarray]
         List with approximated component spectrograms
+
     cost_func: np.ndarray
         The approximation quality per iteration
+
     tensor_W: np.ndarray
         If desired, we can also return the tensor
     """
@@ -326,6 +350,7 @@ def conv_model(W: np.ndarray,
     W: np.ndarray
         Tensor holding the spectral templates which can be interpreted as a set of
         spectrogram snippets with dimensions: num_bins x num_comp x num_template_frames
+
     H: np.ndarray
         Corresponding activations with dimensions: num_comp x num_target_frames
 
@@ -406,10 +431,10 @@ def init_templates(num_comp: int,
                    pitch_tol_up: float = 0.75,
                    pitch_tol_down: float = 0.75,
                    num_harmonics: int = 25,
-                   delta_F: float = None) -> List[np.ndarray]:
+                   freq_res: float = None) -> List[np.ndarray]:
     """Implements different initialization strategies for NMF templates. The strategies 'random' and 'uniform' are
     self-explaining. The strategy 'pitched' uses comb-filter templates as described in [1]. The strategy 'drums' uses
-     pre-extracted, averaged spectra of desired drum types [2].
+    pre-extracted, averaged spectra of desired drum types [2].
 
     References
     ----------
@@ -425,21 +450,29 @@ def init_templates(num_comp: int,
     ----------
     num_comp: int
         Number of NMF components
+
     num_bins: int
         Number of frequency bins
+
     num_template_frames: int
         Number of time frames for 2D-templates
+
     strategy: str
         String describing the initialization strategy
+
     pitches: list
         Optional list of MIDI pitch values
+
     pitch_tol_up: float
         TODO
+
     pitch_tol_down: float
         TODO
+
     num_harmonics: int
         Number of harmonics
-    delta_F: float
+
+    freq_res: float
         Spectral resolution
 
     Returns
@@ -476,8 +509,8 @@ def init_templates(num_comp: int,
             cur_pitch_freq_upper_hz = midi2freq(unique_pitches[k] + pitch_tol_up)
 
             for g in range(num_harmonics):
-                curr_pitch_freq_lower_bins = (g + 1) * cur_pitch_freq_lower_hz / delta_F
-                curr_pitch_freq_upper_bins = (g + 1) * cur_pitch_freq_upper_hz / delta_F
+                curr_pitch_freq_lower_bins = (g + 1) * cur_pitch_freq_lower_hz / freq_res
+                curr_pitch_freq_upper_bins = (g + 1) * cur_pitch_freq_upper_hz / freq_res
 
                 bin_range = np.arange(int(round(curr_pitch_freq_lower_bins)) - 1, int(round(curr_pitch_freq_upper_bins)))
                 bin_range = bin_range[0:num_bins]
@@ -508,7 +541,7 @@ def init_templates(num_comp: int,
 def init_activations(num_comp: int,
                      num_frames: int,
                      strategy: str,
-                     delta_T: float,
+                     time_res: float,
                      pitches: List[int] = None,
                      decay: Union[np.ndarray, float] = None,
                      onsets: List[float] = None,
@@ -534,23 +567,32 @@ def init_activations(num_comp: int,
     ----------
     num_comp: int
         Number of NMF components
+
     num_frames: int
         Number of time frames
+
     strategy: str
         String describing the initialization strategy
-    delta_T: float
+
+    time_res: float
         The temporal resolution
+
     pitches: list or None
         Optional list of MIDI pitch values
+
     decay: np.ndarray or float
         The decay parameter in the range [0 ... 1], this can be given as a column-vector with individual decays per row
         or as a scalar
+
     onsets: list
         Optional list of note onsets (in seconds)
+
     durations: list
         Optional list of note durations (in seconds)
+
     drums: list
         Optional list of drum type indices
+
     onset_offset_tol: float
         Optional parameter giving the onset / offset
 
@@ -592,8 +634,8 @@ def init_activations(num_comp: int,
                 note_start_in_seconds -= onset_offset_tol
                 note_end_in_seconds += onset_offset_tol
 
-                note_start_in_frames = int(round(note_start_in_seconds / delta_T))
-                note_ende_in_frames = int(round(note_end_in_seconds / delta_T))
+                note_start_in_frames = int(round(note_start_in_seconds / time_res))
+                note_ende_in_frames = int(round(note_end_in_seconds / time_res))
 
                 frame_range = np.arange(note_start_in_frames, note_ende_in_frames + 1)
                 frame_range = frame_range[frame_range >= 0]
@@ -618,7 +660,7 @@ def init_activations(num_comp: int,
             for k in range(len(unique_drums)):
                 curr_ons = np.nonzero(drums == unique_drums[k])[0]
                 curr_ons = onsets[curr_ons]
-                curr_ons = np.round(curr_ons/delta_T).astype(np.int)
+                curr_ons = np.round(curr_ons/time_res).astype(np.int)
                 curr_ons = curr_ons[curr_ons >= 0]
                 curr_ons = curr_ons[curr_ons <= num_frames]
 

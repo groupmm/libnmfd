@@ -17,14 +17,19 @@ def forward_stft(x: np.ndarray,
     ----------
     x: np.ndarray
         The time signal oriented as numSamples x 1
+
     block_size: int
         The block size to use during analysis
+
     hop_size: int
         The hop size to use during analysis
+
     win: np.ndarray
         The analysis window
+
     reconst_mirror: bool
        This switch decides whether to discard the mirror spectrum or not
+
     append_frames: bool
         This switch decides if we use silence in the beginning and the end
 
@@ -32,8 +37,10 @@ def forward_stft(x: np.ndarray,
     -------
     X: np.ndarray
         The complex valued spectrogram in num_bins x num_frames
+
     A: np.ndarray
         The magnitude spectrogram
+
     P: np.ndarray
         The phase spectrogram (wrapped in -pi ... +pi)
     """
@@ -118,20 +125,28 @@ def inverse_stft(X: np.ndarray,
     X: np.ndarray
         The complex-valued spectrogram matrix oriented with dimensions
         num_bins x num_frames
+
     block_size: int
         The block size to use during synthesis
+
     hop_size: int
         The hop size to use during synthesis
+
     ana_win_func: np.ndarray
         The analysis window function
+
     syn_win_func: np.ndarray
         The synthesis window function (per default set same as analysis window)
+
     reconst_mirror: bool
         This switch decides whether the mirror spectrum should be reconstructed or not
+
     append_frames: bool
         This switch decides whether to compensate for zero padding or not
+
     analytic_sig: bool
         If this is set to True, we want the analytic signal
+
     num_samp:int
          The original number of samples
 
@@ -139,6 +154,7 @@ def inverse_stft(X: np.ndarray,
     -------
     y: np.ndarray
         The resynthesized signal
+        
     syn_win_func: np.ndarray
         The envelope used for normalization of the synthesis window
     """
@@ -240,10 +256,10 @@ def inverse_stft(X: np.ndarray,
 
 
 def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
-                     delta_F: float,
+                     freq_res: float,
                      bins_per_octave: int = 36,
                      lower_freq: float = midi2freq(24),
-                     log_comp: float = 1.0):
+                     log_comp: float = 1.0) -> Tuple[np.ndarray, np.ndarray]:
     """Given a magnitude spectrogram, this function maps it onto a compact representation with logarithmically spaced
     frequency axis and logarithmic magnitude compression.
 
@@ -251,13 +267,17 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
     ----------
     A: np.ndarray or List of np.ndarray
         The real-valued magnitude spectrogram oriented as num_bins x num_frames, it can also be given as a list of
-         multiple spectrograms
-    delta_F: float
+        multiple spectrograms
+        
+    freq_res: float
         The spectral resolution of the spectrogram
+        
     bins_per_octave: np.ndarray
         The spectral selectivity of the log-freq axis
+        
     lower_freq: float
         The lower frequency border
+        
     log_comp: float
         Factor to control the logarithmic magnitude compression
 
@@ -265,6 +285,7 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
     -------
     log_freq_log_mag_A: np.ndarray
         The log-magnitude spectrogram on logarithmically spaced frequency axis
+
     log_freq_axis: np.ndarray
         An array giving the center frequencies of each bin along the logarithmically spaced frequency axis
     """
@@ -289,7 +310,7 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
         num_lin_bins, num_frames = comp_A.shape
 
         # set up linear frequency axis
-        lin_freq_axis = np.arange(0, num_lin_bins) * delta_F
+        lin_freq_axis = np.arange(0, num_lin_bins) * freq_res
 
         # get upper limit
         upper_freq = lin_freq_axis[-1]
@@ -300,7 +321,7 @@ def log_freq_log_mag(A: Union[np.ndarray, List[np.ndarray]],
         log_freq_axis = lower_freq * np.power(2.0, log_freq_axis / bins_per_octave)
 
         # map to logarithmic axis by means of linear interpolation
-        log_bin_axis = log_freq_axis / delta_F
+        log_bin_axis = log_freq_axis / freq_res
 
         # compute linear interpolation for the logarithmic mapping
         floor_bin_axis = np.floor(log_bin_axis).astype(np.int32) - 1

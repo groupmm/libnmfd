@@ -26,10 +26,13 @@ def alpha_wiener_filter(mixture_X: np.ndarray,
     ----------
     mixture_X: array_like
         The mixture spectrogram (numBins x numFrames) (may be real-or complex-valued)
+
     source_A: list
         A list holding the equally sized spectrogram estimates of single sound sources (aka components)
+
     alpha: float
         The fractional power in rand [0 ... 2]
+
     binarize: bool
         If this is set to True, we binarize the masks
 
@@ -37,6 +40,7 @@ def alpha_wiener_filter(mixture_X: np.ndarray,
     -------
     source_X: list
         A list of extracted source spectrograms
+
     softMasks: list
         A list with the extracted masks
     """
@@ -89,6 +93,7 @@ def nema(A: np.ndarray,
     ----------
     A: np.ndarray
         The matrix with time series in its rows
+
     decay: np.ndarray or float
         The decay parameter in the range [0 ... 1], this can be given as a column-vector with individual decays per row
         or as a scalar

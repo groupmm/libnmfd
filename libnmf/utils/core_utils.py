@@ -4,7 +4,7 @@ from matplotlib.colors import rgb_to_hsv, hsv_to_rgb, to_rgb
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.ndimage import median_filter
-from typing import List, Union
+from typing import List, Tuple, Union
 
 from libnmf.dsp.filters import nema
 from libnmf.utils.dsp_utils import conv2
@@ -15,7 +15,7 @@ from . import EPS
 def drum_specific_soft_constraints_nmf(W: np.ndarray,
                                        H: np.ndarray,
                                        decay: Union[np.ndarray, float],
-                                       kern):
+                                       kern: int) -> Tuple[np.ndarray, np.ndarray]:
     """Implements the drum specific soft constraints that can be applied during
     NMF or NMFD iterations. These constraints affect the activation vectors only and
     are described in sec.23 of [1].
@@ -33,17 +33,21 @@ def drum_specific_soft_constraints_nmf(W: np.ndarray,
     ----------
     W: np.ndarray
         NMF templates given in matrix/tensor form
+
     H: np.ndarray
         NMF activations given as matrix
+
     decay: list of np.ndarray
         Optional list of decay values per component.
-    kern: int
+
+    kern: int TODO?
         Concrete smoothing kernel
 
     Returns
     -------
     W: np.ndarray
         Processed NMF templates
+
     H_out: np.ndarray
         Processed NMF activations
     """
@@ -145,7 +149,7 @@ def colored_components(comp_A,
     comp_A: list
         List with the component spectrograms, all should have the same dimensions
 
-    col_vec:
+    col_vec: TODO
 
     Returns
     -------
@@ -202,11 +206,11 @@ def colored_components(comp_A,
 
 
 def visualize_components_kam(comp_A: List,
-                             delta_T: float,
-                             delta_F: float,
+                             time_res: float,
+                             freq_res: float,
                              start_sec: float = None,
                              end_sec: float = None,
-                             font_size: float = 11):
+                             font_size: float = 11) -> matplotlib.figure.Figure:
     """Given a non-negative matrix V, and its non non-negative NMF or NMFD components, this function provides a
     visualization.
 
@@ -214,35 +218,41 @@ def visualize_components_kam(comp_A: List,
     ----------
     comp_A: list
         List with R individual component magnitude spectrograms.
-    delta_T: float
+
+    time_res: float
         Temporal resolution
-    delta_F: float
+
+    freq_res: float
         Spectral resolution
+
     start_sec: float
         Where to zoom in on the time axis
+
     end_sec: float
         Where to zoom in on the time axis
+
     font_size: float
         Font size of the figure.
 
     Returns
     -------
-    fh: The figure handle
+    fh: matplotlib.figure.Figure
+        The figure handle
     """
     # get spectrogram dimensions
     num_lin_bins, num_frames = comp_A[0].shape
 
-    start_sec = delta_T if start_sec is None else start_sec
-    end_sec = num_frames * delta_T if end_sec is None else end_sec
+    start_sec = time_res if start_sec is None else start_sec
+    end_sec = num_frames * time_res if end_sec is None else end_sec
 
     # plot MMF / NMFD components
     # map template spectrograms to a logarithmically - spaced frequency
     # and logarithmic magnitude compression
 
-    log_freq_log_mag_comp_A, log_freq_axis = log_freq_log_mag(A=comp_A, delta_F=delta_F)
+    log_freq_log_mag_comp_A, log_freq_axis = log_freq_log_mag(A=comp_A, freq_res=freq_res)
     num_log_bins = len(log_freq_axis)
 
-    time_axis = np.arange(num_frames) * delta_T
+    time_axis = np.arange(num_frames) * time_res
     freq_axis = np.arange(num_log_bins)
 
     font = {'family': 'sans-serif',
@@ -271,11 +281,11 @@ def visualize_components_nmf(V: np.ndarray,
                              H: np.ndarray,
                              comp_V: np.ndarray,
                              log_comp: float = 1.0,
-                             delta_T: float = None,
-                             delta_F: np.ndarray = None,
+                             time_res: float = None,
+                             freq_res: np.ndarray = None,
                              start_sec: float = None,
                              end_sec: float = None,
-                             font_size: float = 11):
+                             font_size: float = 11) -> Tuple[matplotlib.figure.Figure, np.ndarray]:
     """Given a non-negative matrix V, and its non non-negative NMF or NMFD components, this function provides a
     visualization.
 
@@ -283,28 +293,41 @@ def visualize_components_nmf(V: np.ndarray,
     ----------
     V: np.ndarray
         K x M non-negative target matrix, in our case, this is usually sa magnitude spectrogram
+
     W: np.ndarray
         K X R matrix of learned template matrices
+
     H: np.ndarray
         R X M matrix of learned activations
+
     comp_V: np.ndarray
         Matrix with R individual component magnitude spectrograms
+
     log_comp: float
         Factor to control the logarithmic magnitude compression
-    delta_T: float
+
+    time_res: float
         Temporal resolution
-    delta_F: float
+
+    freq_res: float
         Spectral resolution
+
     start_sec: float
         Where to zoom in on the time axis
+
     end_sec: float
         Where to zoom in on the time axis
+
     font_size: float
         Font size of the figure
 
     Returns
     -------
-    fh: The figure handle
+    fh: matplotlib.figure.Figure
+        The figure handle
+
+    log_freq_axis: np.ndarray
+        Log frequency axis
     """
     R = H.shape[0]
     num_lin_bins, num_frames = V.shape
@@ -313,17 +336,17 @@ def visualize_components_nmf(V: np.ndarray,
     # plot MMF / NMFD components
     # map the target and the templates to a logarithmically-spaced frequency
     # and logarithmic magnitude compression
-    log_freq_log_magV, log_freq_axis = log_freq_log_mag(V, delta_F=delta_F, log_comp=log_comp)
+    log_freq_log_magV, log_freq_axis = log_freq_log_mag(V, freq_res=freq_res, log_comp=log_comp)
     num_log_bins = len(log_freq_axis)
 
-    log_freq_log_mag_W, log_freq_axis = log_freq_log_mag(W, delta_F=delta_F, log_comp=log_comp)
+    log_freq_log_mag_W, log_freq_axis = log_freq_log_mag(W, freq_res=freq_res, log_comp=log_comp)
 
     if comp_V is not None:
-        log_freq_log_mag_comp_V, log_freq_axis = log_freq_log_mag(A=comp_V, delta_F=delta_F, log_comp=log_comp)
+        log_freq_log_mag_comp_V, log_freq_axis = log_freq_log_mag(A=comp_V, freq_res=freq_res, log_comp=log_comp)
     else:
         log_freq_log_mag_comp_V = [np.array(log_freq_log_magV)]  # simulate one component
 
-    time_axis = np.arange(num_frames) * delta_T
+    time_axis = np.arange(num_frames) * time_res
     freq_axis = np.arange(num_log_bins)
 
     # subsample freq axis
@@ -369,7 +392,7 @@ def visualize_components_nmf(V: np.ndarray,
 
         for r in range(R):
             curr_activation = 0.95 * H[r, :]  # put some  headroom
-            xcoord = 0.5 / delta_F + np.concatenate([time_axis.reshape(1, -1), np.fliplr(time_axis.reshape(1, -1))], axis=1)
+            xcoord = 0.5 / freq_res + np.concatenate([time_axis.reshape(1, -1), np.fliplr(time_axis.reshape(1, -1))], axis=1)
             ycoord = r + np.concatenate([np.zeros((1, num_frames)), np.fliplr(curr_activation.reshape(1, -1))], axis=1)
             ax2.fill(xcoord.squeeze(), ycoord.squeeze(), color=comp_col_vec[r, :])
             ax2.set_ylim(0, R)

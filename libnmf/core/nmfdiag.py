@@ -37,25 +37,35 @@ def nmf_diag(V: np.ndarray,
     ----------
     V: np.ndarray
         NxM matrix to be factorized
+
     cost_func: str
         Distance measure which is used for the optimization. Values are 'EucDist' for Euclidean, or 'KLDiv' for
         KL-divergence.
+
     num_iter: int
        Number of iterations the algorithm will run.
+
     init_W: np.ndarray
         Initialized W matrix
+
     init_H: np.ndarray
         Initialized H matrix
+
     fix_W: bool
         Set True if Templates W should be fixed during the update process.
+
     cont_polyphony: int
         TODO: ?
+
     cont_length: int
         Number of templates which should be activated successively for enforced continuity constraints.
+
     cont_grid: int
         Indicates in which iterations of the NMF update procedure the continuity constraints should be enforced.
+
     cont_sparsen: Tuple
         TODO: ?
+
     vis: bool
         Set True for visualization.
 

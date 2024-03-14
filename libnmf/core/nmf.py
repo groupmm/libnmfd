@@ -27,29 +27,39 @@ def nmf(V,
     ----------
     V: np.ndarray
         K x M non-negative matrix to be factorized
+
     num_comp: int
         The rank of the approximation
+
     cost_func: str
         Cost function used for the optimization, currently supported are:
             'EucDist' for Euclidean Distance
             'KLDiv' for Kullback Leibler Divergence
             'ISDiv' for Itakura Saito Divergence
+
     num_iter: int
         Number of iterations the algorithm will run.
+
     init_W: np.ndarray
+        TODO
 
     init_H: np.ndarray
+        TODO
 
     fix_W: bool
+        TODO
 
     fix_H: bool
+        TODO
 
     Returns
     -------
     W: np.ndarray
         K x R non-negative templates
+
     H: np.ndarray
         R x M non-negative activations
+
     nmf_V: list
         Approximated component matrices
     """

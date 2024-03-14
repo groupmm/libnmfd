@@ -30,16 +30,22 @@ def griffin_lim(X: np.ndarray,
     ----------
     X: np.ndarray
         The STFT spectrogram to iterate upon
+
     num_iter: int
         Number of iterations
+
     block_size: int
         The block size to use during analysis
+
     hop_size: int
         The used hop size (denoted as S in [1])
+
     win: np.ndarray
         Window function
+
     append_frames: bool
         If this is enabled, safety spaces have to be removed after the iSTFT
+
     analytic_sig: bool
         If this is set to True, we want the analytic signal
 
@@ -116,12 +122,16 @@ def hpss_kam_fitzgerald(X: np.ndarray,
     ----------
     X: np.ndarray
         Input mixture magnitude spectrogram
+
     num_iter: int
         The number of iterations
+
     kern_dim: int
         The kernel dimensions
+
     use_median: bool
         If True, reverts to FitzGerald's old method
+
     alpha_param: float
         The alpha-Wiener filter exponent
 
@@ -129,8 +139,10 @@ def hpss_kam_fitzgerald(X: np.ndarray,
     -------
     kam_X: list
         List containing the percussive and harmonic estimate
+
     kern: np.ndarray
         The kernels used for enhancing percussive and harmonic part
+
     kern_ord: int
         The order of the kernels
     """
