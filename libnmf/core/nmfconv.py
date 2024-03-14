@@ -2,9 +2,9 @@ import numpy as np
 from tqdm import tnrange
 from typing import List, Tuple, Union
 
-from .utils import drum_specific_soft_constraints_nmf
 from libnmf.dsp.filters import nema
 from libnmf.utils import EPS, load_matlab_dict, midi2freq
+from libnmf.utils.core_utils import drum_specific_soft_constraints_nmf
 
 
 def nmf_conv(V:np.ndarray,

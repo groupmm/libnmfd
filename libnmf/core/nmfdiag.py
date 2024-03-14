@@ -3,9 +3,9 @@ from scipy.signal import convolve2d
 from scipy.ndimage import maximum_filter
 import matplotlib.pyplot as plt
 from tqdm import tnrange
-from typing import List, Tuple
+from typing import Tuple
 
-from libnmf.utils import EPS
+from libnmf.utils.__init__ import EPS
 
 
 def nmf_diag(V: np.ndarray,

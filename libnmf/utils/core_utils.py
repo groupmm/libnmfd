@@ -7,9 +7,9 @@ from scipy.ndimage import median_filter
 from typing import List, Union
 
 from libnmf.dsp.filters import nema
-from libnmf.dsp.utils import conv2
+from libnmf.utils.dsp_utils import conv2
 from libnmf.dsp.transforms import log_freq_log_mag
-from libnmf.utils import EPS
+from . import EPS
 
 
 def drum_specific_soft_constraints_nmf(W: np.ndarray,
