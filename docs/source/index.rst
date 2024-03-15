@@ -15,7 +15,7 @@ the repository includes an overview for two algorithms. The first variant, calle
 deconvolution (NMFD), extends the original NMF algorithm to the convolutive case, enforcing the temporal order of
 spectral templates. The second variant, called diagonal NMF, supports the development of sparse diagonal structures in
 the activation matrix. Our toolbox contains several demo applications and code examples to illustrate its potential and
-functionality. See also the [AudioLabs webpage](https://www.audiolabs-erlangen.de/resources/MIR/NMFtoolbox).
+functionality. See also https://www.audiolabs-erlangen.de/resources/MIR/NMFtoolbox.
 
 
 .. toctree::
