@@ -6,9 +6,9 @@ import numpy as np
 from scipy.ndimage import median_filter
 from typing import List, Tuple, Union
 
-from libnmf.dsp.filters import nema
-from libnmf.utils.dsp_utils import conv2
-from libnmf.dsp.transforms import log_freq_log_mag
+from libnmfd.dsp.filters import nema
+from libnmfd.utils.dsp_utils import conv2
+from libnmfd.dsp.transforms import log_freq_log_mag
 from . import EPS
 
 

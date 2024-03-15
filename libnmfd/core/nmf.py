@@ -2,7 +2,7 @@ import numpy as np
 from tqdm import tnrange
 from typing import List, Tuple
 
-from libnmf.utils import EPS
+from libnmfd.utils import EPS
 
 
 def nmf(V,

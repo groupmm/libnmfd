@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from tqdm import tnrange
 from typing import Tuple
 
-from libnmf.utils.__init__ import EPS
+from libnmfd.utils import EPS
 
 
 def nmf_diag(V: np.ndarray,

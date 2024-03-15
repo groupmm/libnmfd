@@ -1,7 +1,7 @@
 import numpy as np
 from typing import List, Tuple, Union
 
-from libnmf.utils import EPS
+from libnmfd.utils import EPS
 
 
 def alpha_wiener_filter(mixture_X: np.ndarray,

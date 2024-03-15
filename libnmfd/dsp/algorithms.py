@@ -3,8 +3,8 @@ from scipy.ndimage import median_filter
 from scipy.signal import convolve2d
 from typing import Tuple, List
 
-from libnmf.dsp.filters import alpha_wiener_filter
-from libnmf.dsp.transforms import forward_stft, inverse_stft
+from libnmfd.dsp.filters import alpha_wiener_filter
+from libnmfd.dsp.transforms import forward_stft, inverse_stft
 
 
 def griffin_lim(X: np.ndarray,

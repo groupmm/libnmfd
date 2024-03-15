@@ -2,7 +2,7 @@ import numpy as np
 from scipy.fftpack import fft, ifft
 from typing import List, Tuple, Union
 
-from libnmf.utils import midi2freq
+from libnmfd.utils import midi2freq
 
 
 def forward_stft(x: np.ndarray,
