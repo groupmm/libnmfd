@@ -5,13 +5,13 @@ with open('README.md', 'r') as fdesc:
     long_description = fdesc.read()
 
 setup(
-    name='libnmf',
+    name='libnmfd',
     version='1.0.0',
-    description='libnmf: Music Processing Applications of Nonnegative Matrix Factorization',
+    description='libnmfd: Music Processing Applications of Nonnegative Matrix Factorization',
     author='Patricio López-Serrano, Christian Dittmar, Yigitcan Özer and Meinard Müller',
     author_email='christian.dittmar@iis.fraunhofer.de',
-    url='https://github.com/groupmm/libnmf',
-    download_url='https://github.com/groupmm/libnmf',
+    url='https://github.com/groupmm/libnmfd',
+    download_url='https://github.com/groupmm/libnmfd',
     packages=find_packages(),
     long_description=long_description,
     long_description_content_type='text/markdown',

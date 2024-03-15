@@ -1,5 +1,5 @@
-DSP Modules (libnmf.dsp)
-========================
+DSP Modules (libnmfd.dsp)
+=========================
 
 .. toctree::
 	:caption: DSP

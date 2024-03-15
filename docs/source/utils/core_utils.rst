@@ -1,6 +1,6 @@
-Core Utils (libnmf.utils.core_utils)
-====================================
+Core Utils (libnmfd.utils.core_utils)
+=====================================
 
-.. automodule:: libnmf.utils.core_utils
+.. automodule:: libnmfd.utils.core_utils
     :members:
     :undoc-members:

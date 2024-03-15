@@ -1,6 +1,6 @@
-NMF (libnmf.core.nmf)
-=====================
+NMF (libnmfd.core.nmf)
+======================
 
-.. automodule:: libnmf.core.nmf
+.. automodule:: libnmfd.core.nmf
     :members:
     :undoc-members:

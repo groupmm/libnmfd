@@ -1,6 +1,6 @@
-Diagonal NMF (libnmf.core.nmfdiag)
-==================================
+Diagonal NMF (libnmfd.core.nmfdiag)
+===================================
 
-.. automodule:: libnmf.core.nmfdiag
+.. automodule:: libnmfd.core.nmfdiag
     :members:
     :undoc-members:
