@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Filters (libnmf.dsp.filters) &mdash; libnmf 1.0.0 documentation</title>
+  <title>Filters (libnmfd.dsp.filters) &mdash; libnmfd 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Transforms (libnmf.dsp.transforms)" href="transforms.html" />
-    <link rel="prev" title="Algorithms (libnmf.dsp.algorithms)" href="algorithms.html" /> 
+    <link rel="next" title="Transforms (libnmfd.dsp.transforms)" href="transforms.html" />
+    <link rel="prev" title="Algorithms (libnmfd.dsp.algorithms)" href="algorithms.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -34,8 +34,8 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            libnmf
-              <img src="../_static/libnmf_logo.png" class="logo" alt="Logo"/>
+            libnmfd
+              <img src="../_static/libnmfd_logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -47,18 +47,18 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core Features (libnmf.core)</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">DSP Modules (libnmf.dsp)</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="algorithms.html">Algorithms (libnmf.dsp.algorithms)</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Filters (libnmf.dsp.filters)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#libnmf.dsp.filters.alpha_wiener_filter"><code class="docutils literal notranslate"><span class="pre">alpha_wiener_filter()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#libnmf.dsp.filters.nema"><code class="docutils literal notranslate"><span class="pre">nema()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core Features (libnmfd.core)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">DSP Modules (libnmfd.dsp)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="algorithms.html">Algorithms (libnmfd.dsp.algorithms)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Filters (libnmfd.dsp.filters)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#libnmfd.dsp.filters.alpha_wiener_filter"><code class="docutils literal notranslate"><span class="pre">alpha_wiener_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libnmfd.dsp.filters.nema"><code class="docutils literal notranslate"><span class="pre">nema()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="transforms.html">Transforms (libnmf.dsp.transforms)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transforms.html">Transforms (libnmfd.dsp.transforms)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utils (libnmf.utils)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utils (libnmfd.utils)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -72,7 +72,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">libnmf</a>
+          <a href="../index.html">libnmfd</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -80,8 +80,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">DSP Modules (libnmf.dsp)</a></li>
-      <li class="breadcrumb-item active">Filters (libnmf.dsp.filters)</li>
+          <li class="breadcrumb-item"><a href="index.html">DSP Modules (libnmfd.dsp)</a></li>
+      <li class="breadcrumb-item active">Filters (libnmfd.dsp.filters)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/dsp/filters.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -91,11 +91,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-libnmf.dsp.filters">
-<span id="filters-libnmf-dsp-filters"></span><h1>Filters (libnmf.dsp.filters)<a class="headerlink" href="#module-libnmf.dsp.filters" title="Permalink to this heading"></a></h1>
+  <section id="module-libnmfd.dsp.filters">
+<span id="filters-libnmfd-dsp-filters"></span><h1>Filters (libnmfd.dsp.filters)<a class="headerlink" href="#module-libnmfd.dsp.filters" title="Permalink to this heading"></a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="libnmf.dsp.filters.alpha_wiener_filter">
-<span class="sig-prename descclassname"><span class="pre">libnmf.dsp.filters.</span></span><span class="sig-name descname"><span class="pre">alpha_wiener_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mixture_X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binarize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/libnmf/dsp/filters.html#alpha_wiener_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.dsp.filters.alpha_wiener_filter" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="libnmfd.dsp.filters.alpha_wiener_filter">
+<span class="sig-prename descclassname"><span class="pre">libnmfd.dsp.filters.</span></span><span class="sig-name descname"><span class="pre">alpha_wiener_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mixture_X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binarize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/libnmfd/dsp/filters.html#alpha_wiener_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmfd.dsp.filters.alpha_wiener_filter" title="Permalink to this definition"></a></dt>
 <dd><p>Given a cell-array of spectrogram estimates as input, this function
 computes the alpha-related soft masks for extracting the sources. Details
 about this procedure are given in [1], further experimental studies in [2].</p>
@@ -124,8 +124,8 @@ In Proceedings of the European Signal Processing Conference (EUSIPCO): 1743–17
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="libnmf.dsp.filters.nema">
-<span class="sig-prename descclassname"><span class="pre">libnmf.dsp.filters.</span></span><span class="sig-name descname"><span class="pre">nema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/libnmf/dsp/filters.html#nema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmf.dsp.filters.nema" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="libnmfd.dsp.filters.nema">
+<span class="sig-prename descclassname"><span class="pre">libnmfd.dsp.filters.</span></span><span class="sig-name descname"><span class="pre">nema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/libnmfd/dsp/filters.html#nema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libnmfd.dsp.filters.nema" title="Permalink to this definition"></a></dt>
 <dd><p>This function takes a matrix of row-wise time series and applies a
 non-linear exponential moving average (NEMA) to each row. This filter
 introduces exponentially decaying slopes and is defined in eq. (3) from [2].</p>
@@ -155,8 +155,8 @@ or as a scalar</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="algorithms.html" class="btn btn-neutral float-left" title="Algorithms (libnmf.dsp.algorithms)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="transforms.html" class="btn btn-neutral float-right" title="Transforms (libnmf.dsp.transforms)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="algorithms.html" class="btn btn-neutral float-left" title="Algorithms (libnmfd.dsp.algorithms)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="transforms.html" class="btn btn-neutral float-right" title="Transforms (libnmfd.dsp.transforms)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

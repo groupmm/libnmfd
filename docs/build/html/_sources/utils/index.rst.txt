@@ -1,5 +1,5 @@
-Utils (libnmf.utils)
-====================
+Utils (libnmfd.utils)
+=====================
 
 .. toctree::
     :caption: Utils

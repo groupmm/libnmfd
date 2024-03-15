@@ -1,4 +1,4 @@
-Core Features (libnmf.core)
+Core Features (libnmfd.core)
 ============================
 
 .. toctree::

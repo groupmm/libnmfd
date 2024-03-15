@@ -1,6 +1,6 @@
-Transforms (libnmf.dsp.transforms)
-==================================
+Transforms (libnmfd.dsp.transforms)
+===================================
 
-.. automodule:: libnmf.dsp.transforms
+.. automodule:: libnmfd.dsp.transforms
     :members:
     :undoc-members:

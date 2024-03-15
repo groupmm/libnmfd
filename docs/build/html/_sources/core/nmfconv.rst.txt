@@ -1,6 +1,6 @@
-Convolutive NMF (libnmf.core.nmfconv)
-=====================================
+Convolutive NMF (libnmfd.core.nmfconv)
+======================================
 
-.. automodule:: libnmf.core.nmfconv
+.. automodule:: libnmfd.core.nmfconv
     :members:
     :undoc-members:

@@ -1,6 +1,6 @@
-Algorithms (libnmf.dsp.algorithms)
-==================================
+Algorithms (libnmfd.dsp.algorithms)
+===================================
 
-.. automodule:: libnmf.dsp.algorithms
+.. automodule:: libnmfd.dsp.algorithms
     :members:
     :undoc-members:
