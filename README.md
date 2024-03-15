@@ -1,9 +1,9 @@
-## libnmf
+## libnmfd
 Nonnegative matrix factorization (NMF) is a family of methods widely used for information retrieval across domains
 including text, images, and audio. Within music processing, NMF has been used for tasks such as transcription,
 source separation, and structure analysis. Prior work has shown that initialization and constrained update rules can 
 drastically improve the chances of NMF converging to a musically meaningful solution. Along these lines we present the 
-libnmf (NMF toolbox), which contains Python implementations of conceptually distinct NMF variants---in particular,
+libnmfd (NMF toolbox), which contains Python implementations of conceptually distinct NMF variants---in particular,
 the repository includes an overview for two algorithms. The first variant, called nonnegative matrix factor
 deconvolution (NMFD), extends the original NMF algorithm to the convolutive case, enforcing the temporal order of 
 spectral templates. The second variant, called diagonal NMF, supports the development of sparse diagonal structures in 
@@ -11,36 +11,36 @@ the activation matrix. Our toolbox contains several demo applications and code e
 functionality. See also the [AudioLabs webpage](https://www.audiolabs-erlangen.de/resources/MIR/NMFtoolbox).
 
 ## Installation Guide
-We outline two primary methods for setting up ``libnmf`` using pip and setting up a dedicated environment.
+We outline two primary methods for setting up ``libnmfd`` using pip and setting up a dedicated environment.
 
 ### Method I: Installing with pip
-Utilize Python's package manager, pip, for a straightforward installation of ``libnmf``:
+Utilize Python's package manager, pip, for a straightforward installation of ``libnmfd``:
 
 ```
-pip install libnmf
+pip install libnmfd
 ```
 Note: We advise performing this installation within a Python environment (such as conda or a virtual environment) 
 to prevent any conflicts with other packages. Ensure your environment runs Python 3.7 or higher.
 
 ### Method II: Setting Up a Conda Environment
-Alternatively, you can establish a conda environment specifically for ``libnmf`` by employing the 
-``environment_libnmf.yml`` file. This approach not only installs ``libnmf`` but also includes necessary packages like
-libnmf and jupyter to facilitate running demo files. Run the following command:
+Alternatively, you can establish a conda environment specifically for ``libnmfd`` by employing the 
+``environment_libnmfd.yml`` file. This approach not only installs ``libnmfd`` but also includes necessary packages like
+libnmfd and jupyter to facilitate running demo files. Run the following command:
 
 
 ```
-conda env create -f environment_libnmf.yml
+conda env create -f environment_libnmfd.yml
 ```
 
 
 ## Running Example Notebooks
-To explore ``libnmf`` through example notebooks:
+To explore ``libnmfd`` through example notebooks:
 
-1. **Install ``libnmf``:** Prior to cloning the repository and running the notebooks, ensure libnmf and its dependencies are installed (as described above).
-2. **Clone the repository:** Download the ``libnmf`` repository to your local machine using the following git command:
+1. **Install ``libnmfd``:** Prior to cloning the repository and running the notebooks, ensure libnmfd and its dependencies are installed (as described above).
+2. **Clone the repository:** Download the ``libnmfd`` repository to your local machine using the following git command:
    
 ```
-git clone https://github.com/groupmm/libnmf.git
+git clone https://github.com/groupmm/libnmfd.git
 ```
 
 3. **Install Jupyter:** If not already installed via the conda environment setup, install Jupyter to run the notebooks:
