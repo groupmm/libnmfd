@@ -15,7 +15,7 @@ def nmf_diag(V: np.ndarray,
              init_H: np.ndarray = None,
              fix_W: bool = False,
              cont_polyphony: int = 5,
-             cont_length: int  = 10,
+             cont_length: int = 10,
              cont_grid: int = 5,
              cont_sparsen: Tuple = (1, 1),
              vis: bool = False)-> Tuple[np.ndarray, np.ndarray]:
@@ -36,37 +36,37 @@ def nmf_diag(V: np.ndarray,
     Parameters
     ----------
     V: np.ndarray
-        NxM matrix to be factorized
+        N x M matrix to be factorized
 
-    cost_func: str
+    cost_func: str, default=KLDiv
         Distance measure which is used for the optimization. Values are 'EucDist' for Euclidean, or 'KLDiv' for
         KL-divergence.
 
-    num_iter: int
+    num_iter: int, default=30
        Number of iterations the algorithm will run.
 
-    init_W: np.ndarray
+    init_W: np.ndarray, default=None
         Initialized W matrix
 
-    init_H: np.ndarray
+    init_H: np.ndarray, default=None
         Initialized H matrix
 
-    fix_W: bool
-        Set True if Templates W should be fixed during the update process.
+    fix_W: bool, default=False
+        Set True if templates W should be constant during the update process.
 
-    cont_polyphony: int
+    cont_polyphony: int, default=5
         TODO: ?
 
-    cont_length: int
+    cont_length: int, default=10
         Number of templates which should be activated successively for enforced continuity constraints.
 
-    cont_grid: int
+    cont_grid: int, default=5
         Indicates in which iterations of the NMF update procedure the continuity constraints should be enforced.
 
-    cont_sparsen: Tuple
+    cont_sparsen: Tuple, default=(1, 1)
         TODO: ?
 
-    vis: bool
+    vis: bool, default=False
         Set True for visualization.
 
     Returns

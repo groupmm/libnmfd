@@ -31,7 +31,7 @@ def nmf(V,
     num_comp: int
         The rank of the approximation
 
-    cost_func: str
+    cost_func: str, default=KLDiv
         Cost function used for the optimization, currently supported are:
             'EucDist' for Euclidean Distance
             'KLDiv' for Kullback Leibler Divergence
@@ -40,17 +40,14 @@ def nmf(V,
     num_iter: int
         Number of iterations the algorithm will run.
 
-    init_W: np.ndarray
-        TODO
+    init_W: np.ndarray, default=None
+        An initial estimate for the templates
 
-    init_H: np.ndarray
-        TODO
+    init_H: np.ndarray, default=None
+        An initial estimate for the activations
 
-    fix_W: bool
-        TODO
-
-    fix_H: bool
-        TODO
+    fix_W: bool, default=False
+        Set True if templates W should be constant during the update process.
 
     Returns
     -------
