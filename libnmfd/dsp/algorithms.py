@@ -66,7 +66,7 @@ def griffin_lim(X: np.ndarray,
     reconst_mirror = False if num_bins == block_size else True
 
     Xout = X.copy()
-    A = Xout.abs()
+    A = np.abs(Xout)
 
     res = None
     Pout = None
