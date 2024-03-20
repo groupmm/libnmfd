@@ -159,6 +159,7 @@ def nmf_conv(V:np.ndarray,
 
 def nmfd(V: np.ndarray,
          num_comp: int = 3,
+         num_frames: int = None,
          num_iter: int = 30,
          num_template_frames: int = 8,
          init_W: np.ndarray = None,
