@@ -577,10 +577,10 @@ def init_activations(num_comp: int,
     strategy: str
         String describing the initialization strategy
 
-    time_res: float
+    time_res: float, default=None
         The temporal resolution
 
-    pitches: list or None
+    pitches: list or None, default=None
         Optional list of MIDI pitch values
 
     decay: np.ndarray or float
