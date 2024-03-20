@@ -274,7 +274,7 @@ def nmfd(V: np.ndarray,
     for iter in tnrange(L, desc='Processing'):
         # if given from the outside, apply soft constraints
         if func_preprocess is not None:
-            tensor_W, H = func_preprocess(tensor_W, H, iter, L, **kwargs)
+            tensor_W, H = func_preprocess(W=tensor_W, H=H,  **kwargs)
 
         # compute first approximation
         Lambda = conv_model(tensor_W, H)
