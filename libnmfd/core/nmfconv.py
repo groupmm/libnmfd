@@ -164,7 +164,7 @@ def nmfd(V: np.ndarray,
          num_template_frames: int = 8,
          init_W: np.ndarray = None,
          init_H: np.ndarray = None,
-         func_preprocess=drum_specific_soft_constraints_nmf,
+         func_preprocess=None,
          func_postprocess=None,
          fix_W: bool = False,
          fix_H: bool = False,
@@ -212,7 +212,7 @@ def nmfd(V: np.ndarray,
     fix_H: bool
         TODO
 
-    func_preprocess: function
+    func_preprocess: function, default=None
         Call for preprocessing
 
     func_postprocess: function
