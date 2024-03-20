@@ -522,7 +522,7 @@ def init_templates(num_comp: int = None,
                 init_W[k][bin_range, :] = 1/(g+1)
 
     elif strategy == 'drums':
-        dict_W = load_matlab_dict('../data/dictW.mat', 'dictW')
+        dict_W = load_matlab_dict('data/dictW.mat', 'dictW')
 
         if num_bins == dict_W.shape[0]:
             for k in range(dict_W.shape[1]):
