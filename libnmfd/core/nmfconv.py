@@ -426,8 +426,8 @@ def shift_operator(A: np.ndarray,
     return shifted
 
 
-def init_templates(num_comp: int,
-                   num_bins: int,
+def init_templates(num_comp: int = None,
+                   num_bins: int = None,
                    num_template_frames: int = 1,
                    strategy: str = 'random',
                    pitches: List[int] = None,
@@ -451,10 +451,10 @@ def init_templates(num_comp: int,
 
     Parameters
     ----------
-    num_comp: int
+    num_comp: int, default = None
         Number of NMF components
 
-    num_bins: int
+    num_bins: int, default = None
         Number of frequency bins
 
     num_template_frames: int
@@ -541,9 +541,9 @@ def init_templates(num_comp: int,
     return init_W
 
 
-def init_activations(num_comp: int,
-                     num_frames: int,
-                     strategy: str,
+def init_activations(num_comp: int = None,
+                     num_frames: int = None,
+                     strategy: str = 'random',
                      time_res: float = None,
                      pitches: List[int] = None,
                      decay: Union[np.ndarray, float] = None,
@@ -568,13 +568,13 @@ def init_activations(num_comp: int,
 
     Parameters
     ----------
-    num_comp: int
+    num_comp: int, default = None
         Number of NMF components
 
-    num_frames: int
+    num_frames: int, default = None
         Number of time frames
 
-    strategy: str
+    strategy: str, default = 'random'
         String describing the initialization strategy
 
     time_res: float, default=None
