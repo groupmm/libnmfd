@@ -169,7 +169,6 @@ def nmfd(V: np.ndarray,
          fix_W: bool = False,
          fix_H: bool = False,
          num_bins: int = None, # TODO: Are these really needed?
-         num_frames: int = None,
          **kwargs) -> Tuple[List[np.ndarray], np.ndarray, List[np.ndarray], np.ndarray, np.ndarray]:
     """Non-Negative Matrix Factor Deconvolution with Kullback-Leibler-Divergence and fixable components. The core
      algorithm was proposed in [1], the specific adaptions are used in [2].
