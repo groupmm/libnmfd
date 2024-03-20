@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.ndimage import median_filter
 from scipy.signal import convolve2d
+from tqdm import tnrange
 from typing import Tuple, List
 
 from libnmfd.dsp.filters import alpha_wiener_filter
@@ -163,7 +164,7 @@ def hpss_kam_fitzgerald(X: np.ndarray,
     kam_X.append(X.copy())
     kam_X.append(X.copy())
 
-    for iter in range(num_iter):
+    for _ in tnrange(num_iter, desc='Processing'):
         if use_median:
             # update estimates via method from [1]
             kam_X[0] = median_filter(kam_X[0], footprint=kern.T, mode='constant')
