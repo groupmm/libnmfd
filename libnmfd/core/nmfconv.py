@@ -192,6 +192,9 @@ def nmfd(V: np.ndarray,
     num_comp: int
         Number of NMFD components (denoted as R in [2])
 
+    num_frames: int
+        TODO: Number of frames
+
     num_iter: int
         Number of NMFD iterations (denoted as L in [2])
 
