@@ -1,4 +1,12 @@
-## libnmfd: Music Processing Applications of Nonnegative Matrix Factorization 
+<table border="0">
+  <tr>
+    <td><img src=docs/build/html/_static/libnmfd_logo.png alt="libsoni logo" width="1000"></td>
+    <td><h2>libnmfd: Music Processing Applications of Nonnegative Matrix Factorization</h2>
+<br> <br>
+</td>
+  </tr>
+</table>
+
 Nonnegative matrix factorization (NMF) is a family of methods widely used for information retrieval across domains
 including text, images, and audio. Within music processing, NMF has been used for tasks such as transcription,
 source separation, and structure analysis. Prior work has shown that initialization and constrained update rules can 
