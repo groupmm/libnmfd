@@ -107,18 +107,18 @@ In Proceedings of the IEEE International Conference on Acoustics, Speech, and Si
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>V</strong> (<em>np.ndarray</em>) – NxM matrix to be factorized</p></li>
-<li><p><strong>cost_func</strong> (<em>str</em>) – Distance measure which is used for the optimization. Values are ‘EucDist’ for Euclidean, or ‘KLDiv’ for
+<li><p><strong>V</strong> (<em>np.ndarray</em>) – N x M matrix to be factorized</p></li>
+<li><p><strong>cost_func</strong> (<em>str, default=KLDiv</em>) – Distance measure which is used for the optimization. Values are ‘EucDist’ for Euclidean, or ‘KLDiv’ for
 KL-divergence.</p></li>
-<li><p><strong>num_iter</strong> (<em>int</em>) – Number of iterations the algorithm will run.</p></li>
-<li><p><strong>init_W</strong> (<em>np.ndarray</em>) – Initialized W matrix</p></li>
-<li><p><strong>init_H</strong> (<em>np.ndarray</em>) – Initialized H matrix</p></li>
-<li><p><strong>fix_W</strong> (<em>bool</em>) – Set True if Templates W should be fixed during the update process.</p></li>
-<li><p><strong>cont_polyphony</strong> (<em>int</em>) – TODO: ?</p></li>
-<li><p><strong>cont_length</strong> (<em>int</em>) – Number of templates which should be activated successively for enforced continuity constraints.</p></li>
-<li><p><strong>cont_grid</strong> (<em>int</em>) – Indicates in which iterations of the NMF update procedure the continuity constraints should be enforced.</p></li>
-<li><p><strong>cont_sparsen</strong> (<em>Tuple</em>) – TODO: ?</p></li>
-<li><p><strong>vis</strong> (<em>bool</em>) – Set True for visualization.</p></li>
+<li><p><strong>num_iter</strong> (<em>int, default=30</em>) – Number of iterations the algorithm will run.</p></li>
+<li><p><strong>init_W</strong> (<em>np.ndarray, default=None</em>) – Initialized W matrix</p></li>
+<li><p><strong>init_H</strong> (<em>np.ndarray, default=None</em>) – Initialized H matrix</p></li>
+<li><p><strong>fix_W</strong> (<em>bool, default=False</em>) – Set True if templates W should be constant during the update process.</p></li>
+<li><p><strong>cont_polyphony</strong> (<em>int, default=5</em>) – TODO: ?</p></li>
+<li><p><strong>cont_length</strong> (<em>int, default=10</em>) – Number of templates which should be activated successively for enforced continuity constraints.</p></li>
+<li><p><strong>cont_grid</strong> (<em>int, default=5</em>) – Indicates in which iterations of the NMF update procedure the continuity constraints should be enforced.</p></li>
+<li><p><strong>cont_sparsen</strong> (<em>Tuple, default=(1, 1)</em>) – TODO: ?</p></li>
+<li><p><strong>vis</strong> (<em>bool, default=False</em>) – Set True for visualization.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

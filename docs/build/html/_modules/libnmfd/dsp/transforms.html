@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libnmfd.dsp.transforms &mdash; libnmfd 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=af2ce170"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            libnmfd
+              <img src="../../../_static/libnmfd_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/index.html">Core Features (libnmfd.core)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dsp/index.html">DSP Modules (libnmfd.dsp)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../utils/index.html">Utils (libnmfd.utils)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../py-modindex.html">Module Index</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">libnmfd</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">libnmfd.dsp.transforms</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for libnmfd.dsp.transforms</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.fftpack</span> <span class="kn">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">ifft</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">libnmfd.utils</span> <span class="kn">import</span> <span class="n">midi2freq</span>
+
+
+<div class="viewcode-block" id="forward_stft"><a class="viewcode-back" href="../../../dsp/transforms.html#libnmfd.dsp.transforms.forward_stft">[docs]</a><span class="k">def</span> <span class="nf">forward_stft</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                 <span class="n">block_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2048</span><span class="p">,</span>
+                 <span class="n">hop_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">512</span><span class="p">,</span>
+                 <span class="n">win</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">reconst_mirror</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                 <span class="n">append_frames</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a time signal as input, this computes the spectrogram by means of the Short-time fourier transform</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x: np.ndarray</span>
+<span class="sd">        The time signal oriented as numSamples x 1</span>
+
+<span class="sd">    block_size: int</span>
+<span class="sd">        The block size to use during analysis</span>
+
+<span class="sd">    hop_size: int</span>
+<span class="sd">        The hop size to use during analysis</span>
+
+<span class="sd">    win: np.ndarray</span>
+<span class="sd">        The analysis window</span>
+
+<span class="sd">    reconst_mirror: bool</span>
+<span class="sd">       This switch decides whether to discard the mirror spectrum or not</span>
+
+<span class="sd">    append_frames: bool</span>
+<span class="sd">        This switch decides if we use silence in the beginning and the end</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    X: np.ndarray</span>
+<span class="sd">        The complex valued spectrogram in num_bins x num_frames</span>
+
+<span class="sd">    A: np.ndarray</span>
+<span class="sd">        The magnitude spectrogram</span>
+
+<span class="sd">    P: np.ndarray</span>
+<span class="sd">        The phase spectrogram (wrapped in -pi ... +pi)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">win</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">win</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="n">block_size</span><span class="p">)</span>
+
+    <span class="n">half_block_size</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">block_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># the number of bins needs to be corrected</span>
+    <span class="c1"># if we want to discard the mirror spectrum</span>
+    <span class="n">num_bins</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">block_size</span><span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">reconst_mirror</span> <span class="k">else</span> <span class="n">block_size</span>
+
+    <span class="c1"># append safety space in the beginning and end</span>
+    <span class="k">if</span> <span class="n">append_frames</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">half_block_size</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">half_block_size</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">num_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="c1"># pre-compute the number of frames</span>
+    <span class="n">num_frames</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">num_samples</span> <span class="o">/</span> <span class="n">hop_size</span><span class="p">)</span>
+
+    <span class="c1"># initialize with correct size</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">num_bins</span><span class="p">),</span> <span class="n">num_frames</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">)</span>
+
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">block_size</span><span class="p">,</span> <span class="n">hop_size</span><span class="p">):</span>
+        <span class="c1"># where to pick</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="n">block_size</span><span class="p">)</span>
+
+        <span class="c1"># pick signal frame</span>
+        <span class="n">snip</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+
+        <span class="c1"># apply windowing</span>
+        <span class="n">snip</span> <span class="o">*=</span> <span class="n">win</span>
+
+        <span class="c1"># do FFT</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">snip</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># if required, remove the upper half of spectrum</span>
+        <span class="k">if</span> <span class="n">reconst_mirror</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_bins</span><span class="p">,</span> <span class="n">block_size</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># store into STFT matrix</span>
+        <span class="n">X</span><span class="p">[:,</span> <span class="n">counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># after constructing the STFT array, remove excessive frames</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">num_frames</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># compute derived matrices</span>
+    <span class="c1"># get magnitude</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="c1"># get phase</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="c1"># return complex-valued STFT, magnitude STFT, and phase STFT</span>
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">P</span></div>
+
+
+<div class="viewcode-block" id="inverse_stft"><a class="viewcode-back" href="../../../dsp/transforms.html#libnmfd.dsp.transforms.inverse_stft">[docs]</a><span class="k">def</span> <span class="nf">inverse_stft</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                 <span class="n">block_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2048</span><span class="p">,</span>
+                 <span class="n">hop_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">512</span><span class="p">,</span>
+                 <span class="n">ana_win_func</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">syn_win_func</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">reconst_mirror</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                 <span class="n">append_frames</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                 <span class="n">analytic_sig</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="n">num_samp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a valid STFT spectrogram as input, this reconstructs the corresponding time-domain signal by  means of</span>
+<span class="sd">    the frame-wise inverse FFT and overlap-add method described as LSEE-MSTFT in [1].</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [1] Daniel W. Griffin and Jae S. Lim</span>
+<span class="sd">    &quot;Signal estimation from modified short-time fourier transform&quot;,</span>
+<span class="sd">    IEEE Transactions on Acoustics, Speech and Signal Processing, vol. 32, no. 2, pp. 236-243, Apr 1984.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X: np.ndarray</span>
+<span class="sd">        The complex-valued spectrogram matrix oriented with dimensions</span>
+<span class="sd">        num_bins x num_frames</span>
+
+<span class="sd">    block_size: int</span>
+<span class="sd">        The block size to use during synthesis</span>
+
+<span class="sd">    hop_size: int</span>
+<span class="sd">        The hop size to use during synthesis</span>
+
+<span class="sd">    ana_win_func: np.ndarray</span>
+<span class="sd">        The analysis window function</span>
+
+<span class="sd">    syn_win_func: np.ndarray</span>
+<span class="sd">        The synthesis window function (per default set same as analysis window)</span>
+
+<span class="sd">    reconst_mirror: bool</span>
+<span class="sd">        This switch decides whether the mirror spectrum should be reconstructed or not</span>
+
+<span class="sd">    append_frames: bool</span>
+<span class="sd">        This switch decides whether to compensate for zero padding or not</span>
+
+<span class="sd">    analytic_sig: bool</span>
+<span class="sd">        If this is set to True, we want the analytic signal</span>
+
+<span class="sd">    num_samp:int</span>
+<span class="sd">         The original number of samples</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    y: np.ndarray</span>
+<span class="sd">        The resynthesized signal</span>
+<span class="sd">        </span>
+<span class="sd">    syn_win_func: np.ndarray</span>
+<span class="sd">        The envelope used for normalization of the synthesis window</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># get dimensions of STFT array and prepare corresponding output</span>
+    <span class="n">num_bins</span><span class="p">,</span> <span class="n">num_frames</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">num_pad_bins</span> <span class="o">=</span> <span class="n">block_size</span> <span class="o">-</span> <span class="n">num_bins</span>
+    <span class="n">num_samples</span> <span class="o">=</span> <span class="n">num_frames</span> <span class="o">*</span> <span class="n">hop_size</span> <span class="o">+</span> <span class="n">block_size</span>
+
+    <span class="c1"># for simplicity, we assume the analysis and synthesis windows to be equal</span>
+    <span class="k">if</span> <span class="n">ana_win_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ana_win_func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="n">block_size</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">syn_win_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">syn_win_func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="n">block_size</span><span class="p">)</span>
+
+    <span class="c1"># prepare helper variables</span>
+    <span class="n">half_block_size</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">block_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># we need to change the signal scaling in case of the analytic signal</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="k">if</span> <span class="n">analytic_sig</span> <span class="k">else</span> <span class="mf">1.0</span>
+
+    <span class="c1"># decide between analytic and real output</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">)</span> <span class="k">if</span> <span class="n">analytic_sig</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># construct normalization function for the synthesis window</span>
+    <span class="c1"># that equals the denominator in eq. (6) in [1]</span>
+    <span class="n">win_prod</span> <span class="o">=</span> <span class="n">ana_win_func</span> <span class="o">*</span> <span class="n">syn_win_func</span>
+    <span class="n">redundancy</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">block_size</span> <span class="o">/</span> <span class="n">hop_size</span><span class="p">)</span>
+
+    <span class="c1"># construct hop_size-periodic normalization function that will be</span>
+    <span class="c1"># applied to the synthesis window</span>
+    <span class="n">nrm_func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">block_size</span><span class="p">)</span>
+
+    <span class="c1"># begin with construction outside the support of the window</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">redundancy</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">redundancy</span><span class="p">):</span>
+        <span class="n">nrm_func_ind</span> <span class="o">=</span> <span class="n">hop_size</span> <span class="o">*</span> <span class="n">k</span>
+        <span class="n">win_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">block_size</span><span class="p">)</span>
+        <span class="n">nrm_func_ind</span> <span class="o">+=</span> <span class="n">win_ind</span>
+
+        <span class="c1"># check which indices are inside the defined support of the window</span>
+        <span class="n">valid_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">nrm_func_ind</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">nrm_func_ind</span> <span class="o">&lt;</span> <span class="n">block_size</span><span class="p">))</span>
+        <span class="n">nrm_func_ind</span> <span class="o">=</span> <span class="n">nrm_func_ind</span><span class="p">[</span><span class="n">valid_index</span><span class="p">]</span>
+        <span class="n">win_ind</span> <span class="o">=</span> <span class="n">win_ind</span><span class="p">[</span><span class="n">valid_index</span><span class="p">]</span>
+
+        <span class="c1"># accumulate product of analysis and synthesis window</span>
+        <span class="n">nrm_func</span><span class="p">[</span><span class="n">nrm_func_ind</span><span class="p">]</span> <span class="o">+=</span> <span class="n">win_prod</span><span class="p">[</span><span class="n">win_ind</span><span class="p">]</span>
+
+    <span class="c1"># apply normalization function</span>
+    <span class="n">syn_win_func</span> <span class="o">/=</span> <span class="n">nrm_func</span>
+
+    <span class="c1"># prepare index for output signal construction</span>
+    <span class="n">frame_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">block_size</span><span class="p">)</span>
+
+    <span class="c1"># then begin frame-wise reconstruction</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_frames</span><span class="p">):</span>
+
+        <span class="c1"># pick spectral frame</span>
+        <span class="n">curr_spec</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># if desired, construct artificial mirror spectrum</span>
+        <span class="k">if</span> <span class="n">reconst_mirror</span><span class="p">:</span>
+            <span class="c1"># if the analytic signal is wanted, put zeros instead</span>
+            <span class="n">pad_mirror_spec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_pad_bins</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">analytic_sig</span><span class="p">:</span>
+                <span class="n">pad_mirror_spec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">curr_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+            <span class="c1"># concatenate mirror spectrum to base spectrum</span>
+            <span class="n">curr_spec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">curr_spec</span><span class="p">,</span> <span class="n">pad_mirror_spec</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># transform to time-domain</span>
+        <span class="n">snip</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">curr_spec</span><span class="p">)</span>
+
+        <span class="c1"># treat differently if analytic signal is desired</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">analytic_sig</span><span class="p">:</span>
+            <span class="n">snip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">snip</span><span class="p">)</span>
+
+        <span class="c1"># apply scaling and synthesis window</span>
+        <span class="n">snip</span> <span class="o">*=</span> <span class="n">syn_win_func</span> <span class="o">*</span> <span class="n">scale</span>
+
+        <span class="c1"># determine overlap-add position</span>
+        <span class="n">overlap_add_ind</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">hop_size</span> <span class="o">+</span> <span class="n">frame_ind</span>
+
+        <span class="c1"># and do the overlap add, with synthesis window and scaling factor included</span>
+        <span class="n">y</span><span class="p">[</span><span class="n">overlap_add_ind</span><span class="p">]</span> <span class="o">+=</span> <span class="n">snip</span>
+
+    <span class="c1"># check if borders need to be removed</span>
+    <span class="k">if</span> <span class="n">append_frames</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">half_block_size</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="n">half_block_size</span><span class="p">]</span>
+
+    <span class="c1"># check if number of samples was defined from outside</span>
+    <span class="k">if</span> <span class="n">num_samp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">num_samp</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">syn_win_func</span></div>
+
+
+
+
+<div class="viewcode-block" id="log_freq_log_mag"><a class="viewcode-back" href="../../../dsp/transforms.html#libnmfd.dsp.transforms.log_freq_log_mag">[docs]</a><span class="k">def</span> <span class="nf">log_freq_log_mag</span><span class="p">(</span><span class="n">A</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]],</span>
+                     <span class="n">freq_res</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                     <span class="n">bins_per_octave</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">36</span><span class="p">,</span>
+                     <span class="n">lower_freq</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">midi2freq</span><span class="p">(</span><span class="mi">24</span><span class="p">),</span>
+                     <span class="n">log_comp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a magnitude spectrogram, this function maps it onto a compact representation with logarithmically spaced</span>
+<span class="sd">    frequency axis and logarithmic magnitude compression.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    A: np.ndarray or List of np.ndarray</span>
+<span class="sd">        The real-valued magnitude spectrogram oriented as num_bins x num_frames, it can also be given as a list of</span>
+<span class="sd">        multiple spectrograms</span>
+<span class="sd">        </span>
+<span class="sd">    freq_res: float</span>
+<span class="sd">        The spectral resolution of the spectrogram</span>
+<span class="sd">        </span>
+<span class="sd">    bins_per_octave: np.ndarray</span>
+<span class="sd">        The spectral selectivity of the log-freq axis</span>
+<span class="sd">        </span>
+<span class="sd">    lower_freq: float</span>
+<span class="sd">        The lower frequency border</span>
+<span class="sd">        </span>
+<span class="sd">    log_comp: float</span>
+<span class="sd">        Factor to control the logarithmic magnitude compression</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    log_freq_log_mag_A: np.ndarray</span>
+<span class="sd">        The log-magnitude spectrogram on logarithmically spaced frequency axis</span>
+
+<span class="sd">    log_freq_axis: np.ndarray</span>
+<span class="sd">        An array giving the center frequencies of each bin along the logarithmically spaced frequency axis</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># convert to list if necessary</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">was_arr_input</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">was_arr_input</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># get number of components</span>
+    <span class="n">num_comp</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">log_freq_log_mag_A</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">log_freq_axis</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_comp</span><span class="p">):</span>
+        <span class="c1"># get component spectrogram</span>
+        <span class="n">comp_A</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="c1"># get dimensions</span>
+        <span class="n">num_lin_bins</span><span class="p">,</span> <span class="n">num_frames</span> <span class="o">=</span> <span class="n">comp_A</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="c1"># set up linear frequency axis</span>
+        <span class="n">lin_freq_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_lin_bins</span><span class="p">)</span> <span class="o">*</span> <span class="n">freq_res</span>
+
+        <span class="c1"># get upper limit</span>
+        <span class="n">upper_freq</span> <span class="o">=</span> <span class="n">lin_freq_axis</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># set up logarithmic frequency axis</span>
+        <span class="n">num_log_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">bins_per_octave</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">upper_freq</span> <span class="o">/</span> <span class="n">lower_freq</span><span class="p">))</span>
+        <span class="n">log_freq_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_log_bins</span><span class="p">)</span>
+        <span class="n">log_freq_axis</span> <span class="o">=</span> <span class="n">lower_freq</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">log_freq_axis</span> <span class="o">/</span> <span class="n">bins_per_octave</span><span class="p">)</span>
+
+        <span class="c1"># map to logarithmic axis by means of linear interpolation</span>
+        <span class="n">log_bin_axis</span> <span class="o">=</span> <span class="n">log_freq_axis</span> <span class="o">/</span> <span class="n">freq_res</span>
+
+        <span class="c1"># compute linear interpolation for the logarithmic mapping</span>
+        <span class="n">floor_bin_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">log_bin_axis</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">ceil_bin_axis</span> <span class="o">=</span> <span class="n">floor_bin_axis</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">fraction</span> <span class="o">=</span> <span class="n">log_bin_axis</span> <span class="o">-</span> <span class="n">floor_bin_axis</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="c1"># get magnitude values</span>
+        <span class="n">floor_mag</span> <span class="o">=</span> <span class="n">comp_A</span><span class="p">[</span><span class="n">floor_bin_axis</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">ceil_mag</span> <span class="o">=</span> <span class="n">comp_A</span><span class="p">[</span><span class="n">ceil_bin_axis</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># compute weighted sum</span>
+        <span class="n">log_freq_A</span> <span class="o">=</span> <span class="n">floor_mag</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">fraction</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">ceil_mag</span> <span class="o">*</span> <span class="n">fraction</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># apply magnitude compression</span>
+        <span class="n">log_freq_log_mag_A</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">log_comp</span> <span class="o">*</span> <span class="n">log_freq_A</span><span class="p">)))</span>
+
+    <span class="c1"># revert back to matrix if necessary</span>
+    <span class="k">if</span> <span class="n">was_arr_input</span><span class="p">:</span>
+        <span class="n">log_freq_log_mag_A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">log_freq_log_mag_A</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">log_freq_log_mag_A</span><span class="p">,</span> <span class="n">log_freq_axis</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Patricio López-Serrano, Christian Dittmar, Yigitcan Özer and Meinard Müller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
