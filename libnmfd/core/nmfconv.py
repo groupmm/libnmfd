@@ -159,16 +159,16 @@ def nmf_conv(V:np.ndarray,
 
 def nmfd(V: np.ndarray,
          num_comp: int = 3,
+         num_frames: int = None,
          num_iter: int = 30,
          num_template_frames: int = 8,
          init_W: np.ndarray = None,
          init_H: np.ndarray = None,
-         func_preprocess=drum_specific_soft_constraints_nmf,
+         func_preprocess=None,
          func_postprocess=None,
          fix_W: bool = False,
          fix_H: bool = False,
          num_bins: int = None, # TODO: Are these really needed?
-         num_frames: int = None,
          **kwargs) -> Tuple[List[np.ndarray], np.ndarray, List[np.ndarray], np.ndarray, np.ndarray]:
     """Non-Negative Matrix Factor Deconvolution with Kullback-Leibler-Divergence and fixable components. The core
      algorithm was proposed in [1], the specific adaptions are used in [2].
@@ -191,6 +191,9 @@ def nmfd(V: np.ndarray,
     num_comp: int
         Number of NMFD components (denoted as R in [2])
 
+    num_frames: int
+        TODO: Number of frames
+
     num_iter: int
         Number of NMFD iterations (denoted as L in [2])
 
@@ -209,7 +212,7 @@ def nmfd(V: np.ndarray,
     fix_H: bool
         TODO
 
-    func_preprocess: function
+    func_preprocess: function, default=None
         Call for preprocessing
 
     func_postprocess: function
@@ -270,7 +273,7 @@ def nmfd(V: np.ndarray,
     for iter in tnrange(L, desc='Processing'):
         # if given from the outside, apply soft constraints
         if func_preprocess is not None:
-            tensor_W, H = func_preprocess(tensor_W, H, iter, L, **kwargs)
+            tensor_W, H = func_preprocess(W=tensor_W, H=H,  **kwargs)
 
         # compute first approximation
         Lambda = conv_model(tensor_W, H)
@@ -423,8 +426,8 @@ def shift_operator(A: np.ndarray,
     return shifted
 
 
-def init_templates(num_comp: int,
-                   num_bins: int,
+def init_templates(num_comp: int = None,
+                   num_bins: int = None,
                    num_template_frames: int = 1,
                    strategy: str = 'random',
                    pitches: List[int] = None,
@@ -448,10 +451,10 @@ def init_templates(num_comp: int,
 
     Parameters
     ----------
-    num_comp: int
+    num_comp: int, default = None
         Number of NMF components
 
-    num_bins: int
+    num_bins: int, default = None
         Number of frequency bins
 
     num_template_frames: int
@@ -519,7 +522,7 @@ def init_templates(num_comp: int,
                 init_W[k][bin_range, :] = 1/(g+1)
 
     elif strategy == 'drums':
-        dict_W = load_matlab_dict('../data/dictW.mat', 'dictW')
+        dict_W = load_matlab_dict('data/dictW.mat', 'dictW')
 
         if num_bins == dict_W.shape[0]:
             for k in range(dict_W.shape[1]):
@@ -538,10 +541,10 @@ def init_templates(num_comp: int,
     return init_W
 
 
-def init_activations(num_comp: int,
-                     num_frames: int,
-                     strategy: str,
-                     time_res: float,
+def init_activations(num_comp: int = None,
+                     num_frames: int = None,
+                     strategy: str = 'random',
+                     time_res: float = None,
                      pitches: List[int] = None,
                      decay: Union[np.ndarray, float] = None,
                      onsets: List[float] = None,
@@ -565,19 +568,19 @@ def init_activations(num_comp: int,
 
     Parameters
     ----------
-    num_comp: int
+    num_comp: int, default = None
         Number of NMF components
 
-    num_frames: int
+    num_frames: int, default = None
         Number of time frames
 
-    strategy: str
+    strategy: str, default = 'random'
         String describing the initialization strategy
 
-    time_res: float
+    time_res: float, default=None
         The temporal resolution
 
-    pitches: list or None
+    pitches: list or None, default=None
         Optional list of MIDI pitch values
 
     decay: np.ndarray or float

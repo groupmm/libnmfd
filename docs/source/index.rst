@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 libnmfd: Music Processing Applications of Nonnegative Matrix Factorization
-=========================================================================
+==========================================================================
 
 Nonnegative matrix factorization (NMF) is a family of methods widely used for information retrieval across domains
 including text, images, and audio. Within music processing, NMF has been used for tasks such as transcription,

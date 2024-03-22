@@ -107,7 +107,7 @@ Blind Source Separation” John Wiley and Sons, 2009.</p>
 <dd class="field-odd"><ul>
 <li><p><strong>V</strong> (<em>np.ndarray</em>) – K x M non-negative matrix to be factorized</p></li>
 <li><p><strong>num_comp</strong> (<em>int</em>) – The rank of the approximation</p></li>
-<li><p><strong>cost_func</strong> (<em>str</em>) –</p>
+<li><p><strong>cost_func</strong> (<em>str, default=KLDiv</em>) –</p>
 <dl class="simple">
 <dt>Cost function used for the optimization, currently supported are:</dt><dd><p>‘EucDist’ for Euclidean Distance
 ‘KLDiv’ for Kullback Leibler Divergence
@@ -116,10 +116,9 @@ Blind Source Separation” John Wiley and Sons, 2009.</p>
 </dl>
 </li>
 <li><p><strong>num_iter</strong> (<em>int</em>) – Number of iterations the algorithm will run.</p></li>
-<li><p><strong>init_W</strong> (<em>np.ndarray</em>) – TODO</p></li>
-<li><p><strong>init_H</strong> (<em>np.ndarray</em>) – TODO</p></li>
-<li><p><strong>fix_W</strong> (<em>bool</em>) – TODO</p></li>
-<li><p><strong>fix_H</strong> (<em>bool</em>) – TODO</p></li>
+<li><p><strong>init_W</strong> (<em>np.ndarray, default=None</em>) – An initial estimate for the templates</p></li>
+<li><p><strong>init_H</strong> (<em>np.ndarray, default=None</em>) – An initial estimate for the activations</p></li>
+<li><p><strong>fix_W</strong> (<em>bool, default=False</em>) – Set True if templates W should be constant during the update process.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
