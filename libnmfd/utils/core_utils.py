@@ -350,8 +350,8 @@ def visualize_components_nmf(V: np.ndarray,
     freq_axis = np.arange(num_log_bins)
 
     # subsample freq axis
-    sub_samp = np.where(np.mod(log_freq_axis.astype(np.float32), 55) < 0.001)[0]
-    sub_samp_freq_axis = log_freq_axis[np.mod(log_freq_axis.astype(np.float32), 55) < 0.001]
+    sub_samp = np.where(np.mod(log_freq_axis.astype(float), 55.0) < 0.001)[0]
+    sub_samp_freq_axis = log_freq_axis[np.mod(log_freq_axis.astype(float), 55.0) < 0.001]
 
     font = {'family': 'sans-serif',
             'weight': 'normal',
@@ -413,6 +413,8 @@ def visualize_components_nmf(V: np.ndarray,
 
         norm_W *= 1 / (EPS + norm_W.max(axis=0))
 
+        print(sub_samp_freq_axis.shape)
+
         ax3.imshow(norm_W, aspect='auto', cmap='gray_r', origin='lower',
                    extent=[0, (R*num_template_frames)-1, sub_samp_freq_axis[0], sub_samp_freq_axis[-1]])
         ax3.set_xticks([0, R*num_template_frames])
@@ -460,10 +462,10 @@ def visualize_components_nmf(V: np.ndarray,
 
 def __set_comp_vol_vec(R):
     if R == 2:
-        return np.array([[1, 0, 0], [0, 0.5, 0.5]], dtype=np.float)
+        return np.array([[1, 0, 0], [0, 0.5, 0.5]], dtype=float)
     elif R == 3:
-        return np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]], dtype=np.float)
+        return np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]], dtype=float)
     elif R == 4:
-        return np.array([[1, 0, 1], [1, 0.5, 0], [0, 1, 0], [0, 0.5, 1]], dtype=np.float)
+        return np.array([[1, 0, 1], [1, 0.5, 0], [0, 1, 0], [0, 0.5, 1]], dtype=float)
     else:
-        return np.tile(np.array([0.5, 0.5, 0.5]), (R, 1)).astype(np.float)
+        return np.tile(np.array([0.5, 0.5, 0.5]), (R, 1)).astype(float)
