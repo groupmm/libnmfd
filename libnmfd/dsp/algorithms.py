@@ -54,10 +54,12 @@ def griffin_lim(X: np.ndarray,
     -------
     Xout: np.ndarray
         The spectrogram after iSTFT->STFT processing
+
     Pout: np.ndarray
         The phase spectrogram after iSTFT->STFT processing
+
     res: np.ndarray
-        Reconstructed time-domain signal obtained via iSTFT
+        Reconstructed time-domain signal obtained via iSTFT        
     """
     num_bins, _ = X.shape
     win = np.hanning(block_size) if win is None else win

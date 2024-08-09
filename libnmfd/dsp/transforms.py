@@ -31,7 +31,7 @@ def forward_stft(x: np.ndarray,
        This switch decides whether to discard the mirror spectrum or not
 
     append_frames: bool
-        This switch decides if we use silence in the beginning and the end
+        This switch decides if we prepend/append silence in the beginning and the end
 
     Returns
     -------

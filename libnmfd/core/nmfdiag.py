@@ -55,7 +55,7 @@ def nmf_diag(V: np.ndarray,
         Set True if templates W should be constant during the update process.
 
     cont_polyphony: int, default=5
-        TODO: ?
+        Parameter to control continuity in terms of polyphony.
 
     cont_length: int, default=10
         Number of templates which should be activated successively for enforced continuity constraints.
@@ -64,7 +64,7 @@ def nmf_diag(V: np.ndarray,
         Indicates in which iterations of the NMF update procedure the continuity constraints should be enforced.
 
     cont_sparsen: Tuple, default=(1, 1)
-        TODO: ?
+        Parameter to control sparsity in terms of polyphony.
 
     vis: bool, default=False
         Set True for visualization.

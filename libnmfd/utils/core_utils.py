@@ -20,14 +20,11 @@ def drum_specific_soft_constraints_nmf(W: np.ndarray,
     NMF or NMFD iterations. These constraints affect the activation vectors only and
     are described in sec.23 of [1].
 
-    TODO
-
     References
     ----------
     [1] Christian Dittmar, Patricio López-Serrano, and Meinard Müller
     Unifying Local and Global Methods for Harmonic-Percussive Source Separation
     In Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP), 2018.
-
 
     Parameters
     ----------
@@ -40,8 +37,8 @@ def drum_specific_soft_constraints_nmf(W: np.ndarray,
     decay: list of np.ndarray
         Optional list of decay values per component.
 
-    kern: int TODO?
-        Concrete smoothing kernel
+    kern: int
+        Width of the smoothing kernel
 
     Returns
     -------
@@ -80,6 +77,7 @@ def diagonality_soft_constraints_nmf(H: np.ndarray,
     ----------
     H: np.ndarray
         NMF activations given as matrix
+
     kern_ord: int
         Order of smoothing operation
 
@@ -104,7 +102,6 @@ def percussiveness_estimation(W: np.ndarray) -> np.ndarray:
     [1] Christian Dittmar, Patricio López-Serrano, and Meinard Müller
     Unifying Local and Global Methods for Harmonic-Percussive Source Separation
     In Proceedings of the IEEE International Conference on Acoustics, Speech, and Signal Processing (ICASSP), 2018.
-
 
     Parameters
     ----------
@@ -149,7 +146,8 @@ def colored_components(comp_A,
     comp_A: list
         List with the component spectrograms, all should have the same dimensions
 
-    col_vec: TODO
+    col_vec: list
+        List with color codes given externally, if not provided some defaults will be used
 
     Returns
     -------
@@ -292,7 +290,7 @@ def visualize_components_nmf(V: np.ndarray,
     Parameters
     ----------
     V: np.ndarray
-        K x M non-negative target matrix, in our case, this is usually sa magnitude spectrogram
+        K x M non-negative target matrix, in our case, this is usually a magnitude spectrogram
 
     W: np.ndarray
         K X R matrix of learned template matrices
@@ -349,9 +347,10 @@ def visualize_components_nmf(V: np.ndarray,
     time_axis = np.arange(num_frames) * time_res
     freq_axis = np.arange(num_log_bins)
 
-    # subsample freq axis
-    sub_samp = np.where(np.mod(log_freq_axis.astype(float), 55.0) < 0.001)[0]
-    sub_samp_freq_axis = log_freq_axis[np.mod(log_freq_axis.astype(float), 55.0) < 0.001]
+    # subsample freq axis, this is mainly for visualization purposes to have
+    # ticks only at the positions of multiples / divisors of 440.0 Hz
+    sub_samp = np.where(np.mod(log_freq_axis.astype(np.float32), 55.0) < 0.001)[0]
+    sub_samp_freq_axis = log_freq_axis[np.mod(log_freq_axis.astype(np.float32), 55.0) < 0.001]
 
     font = {'family': 'sans-serif',
             'weight': 'normal',
@@ -412,8 +411,6 @@ def visualize_components_nmf(V: np.ndarray,
             norm_W = log_freq_log_mag_W.copy()
 
         norm_W *= 1 / (EPS + norm_W.max(axis=0))
-
-        print(sub_samp_freq_axis.shape)
 
         ax3.imshow(norm_W, aspect='auto', cmap='gray_r', origin='lower',
                    extent=[0, (R*num_template_frames)-1, sub_samp_freq_axis[0], sub_samp_freq_axis[-1]])

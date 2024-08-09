@@ -7,7 +7,6 @@ from typing import List, Tuple, Union
 from libnmfd.dsp.filters import nema
 from libnmfd.dsp.transforms import forward_stft
 from libnmfd.utils import EPS, midi2freq, make_monaural
-#from libnmfd.utils.core_utils import drum_specific_soft_constraints_nmf
 
 def nmf_conv(V:np.ndarray,
              num_comp: int = 3,
@@ -170,7 +169,7 @@ def nmfd(V: np.ndarray,
          func_postprocess=None,
          fix_W: bool = False,
          fix_H: bool = False,
-         num_bins: int = None, # TODO: Are these really needed?
+         num_bins: int = None, 
          **kwargs) -> Tuple[List[np.ndarray], np.ndarray, List[np.ndarray], np.ndarray, np.ndarray]:
     """Non-Negative Matrix Factor Deconvolution with Kullback-Leibler-Divergence and fixable components. The core
      algorithm was proposed in [1], the specific adaptions are used in [2].
@@ -194,7 +193,7 @@ def nmfd(V: np.ndarray,
         Number of NMFD components (denoted as R in [2])
 
     num_frames: int
-        TODO: Number of frames
+        Number of frames of the target matrix (denoted as M in [2])
 
     num_iter: int
         Number of NMFD iterations (denoted as L in [2])
@@ -209,10 +208,10 @@ def nmfd(V: np.ndarray,
         An initial estimate for the gains (denoted as H^(0) in [2])
 
     fix_W: bool
-        TODO
+        If set to true, the template matrix is not updated
 
     fix_H: bool
-        TODO
+        If set to true, the activation matrix is not updated
 
     func_preprocess: function, default=None
         Call for preprocessing
@@ -456,7 +455,7 @@ def initialize_drum_specific_nmfd_templates(desired_drum_classes: List[str] = No
         STFT hop size
 
     fs: int
-        Sample rate
+        Sampling rate
 
     input_dir: str
         Input data directory including folders with the same name as the desired drums sounds
@@ -464,7 +463,7 @@ def initialize_drum_specific_nmfd_templates(desired_drum_classes: List[str] = No
     Returns
     -------
     init_W_drums: List[np.ndarray]
-
+        List of spectral NMFD templates corresponding to the desired drum classes
     """
     # set some default classes in case of empty user input
     if desired_drum_classes == None:
@@ -577,16 +576,16 @@ def init_templates(num_comp: int = None,
         Optional list of MIDI pitch values
 
     pitch_tol_up: float
-        TODO
+        Defines how much the partials should be extended upwards
 
     pitch_tol_down: float
-        TODO
+        Defines how much the partials should be extended downwards
 
     num_harmonics: int
         Number of harmonics
 
     desired_drum_classes: List[str]
-        List of desired drum classes
+        List of desired drum classes, only relevant in case of strategy='drums'
 
     num_iter: int
         Number of NMFD iterations
@@ -609,7 +608,7 @@ def init_templates(num_comp: int = None,
     Returns
     -------
     init_W: List[np.ndarray]
-        List with the desired templates
+        List with the desired NMFD templates
     """
     init_W = list()
 
@@ -686,8 +685,8 @@ def init_activations(num_comp: int = None,
                      drums: List[str] = None,
                      onset_offset_tol: float = 0.025):
     """Implements different initialization strategies for NMF activations. The strategies 'random' and 'uniform' are
-    self-explaining. The strategy pitched' places gate-like activations at the frames, where certain notes are active
-    in the ground truth transcription [1]. The strategy drums' places decaying impulses at the frames where drum onsets
+    self-explaining. The strategy 'pitched' places gate-like activations at the frames, where certain notes are active
+    in the ground truth transcription [1]. The strategy 'drums' places decaying impulses at the frames where drum onsets
     are given in the ground truth transcription [2].
 
     References
