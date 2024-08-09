@@ -434,9 +434,37 @@ def initialize_drum_specific_nmfd_templates(desired_drum_classes: List[str] = No
                                             hop_size: int = 512,
                                             fs: int = 44100,
                                             input_dir: str = 'data/') -> List[np.ndarray]:
-    """Implements the extraction of drum specific spectrogram templates. The method assumes, that 
-    folders with the same name as the desired drums sounds are present inside the data directory. 
-    These should contain single samples of the target drum sounds. Per default, we use pre-defined kick, snare and hihat samples.
+    """Implements the extraction of drum specific spectrogram templates. The method assumes, that folders with the
+    same name as the desired drums sounds are present inside the data directory.  These should contain single samples
+    of the target drum sounds. Per default, we use pre-defined kick, snare and hi-hat samples.
+
+    Parameters
+    ----------
+    desired_drum_classes: List[str]
+        List of desired drum classes
+
+    num_iter: int
+        Number of NMFD iterations
+
+    num_template_frames: int
+        Number of time frames for 2D-templates
+
+    block_size: int
+        STFT block (window) size
+
+    hop_size: int
+        STFT hop size
+
+    fs: int
+        Sample rate
+
+    input_dir: str
+        Input data directory including folders with the same name as the desired drums sounds
+
+    Returns
+    -------
+    init_W_drums: List[np.ndarray]
+
     """
     # set some default classes in case of empty user input
     if desired_drum_classes == None:
@@ -453,8 +481,6 @@ def initialize_drum_specific_nmfd_templates(desired_drum_classes: List[str] = No
 
         # parse all audio files
         drum_audio_files = os.listdir(os.path.join(input_dir, drum_class))
-        print(drum_audio_files)
-
         drum_class_audios = None
         
         for drum_audio_file in drum_audio_files:
@@ -513,7 +539,12 @@ def init_templates(num_comp: int = None,
                    pitch_tol_up: float = 0.75,
                    pitch_tol_down: float = 0.75,
                    num_harmonics: int = 25,
-                   freq_res: float = None) -> List[np.ndarray]:
+                   desired_drum_classes: List[str] = None,
+                   num_iter: int = 30,
+                   block_size: int = 2048,
+                   hop_size: int = 512,
+                   fs: int = 44100,
+                   input_dir: str = 'data/') -> List[np.ndarray]:
     """Implements different initialization strategies for NMF templates. The strategies 'random' and 'uniform' are
     self-explaining. The strategy 'pitched' uses comb-filter templates as described in [1]. The strategy 'drums' uses
     pre-extracted, averaged spectra of desired drum types [2].
@@ -554,15 +585,36 @@ def init_templates(num_comp: int = None,
     num_harmonics: int
         Number of harmonics
 
-    freq_res: float
-        Spectral resolution
+    desired_drum_classes: List[str]
+        List of desired drum classes
+
+    num_iter: int
+        Number of NMFD iterations
+
+    num_template_frames: int
+        Number of time frames for 2D-templates
+
+    block_size: int
+        STFT block (window) size
+
+    hop_size: int
+        STFT hop size
+
+    fs: int
+        Sample rate
+
+    input_dir: str
+        Input data directory including folders with the same name as the desired drums sounds
 
     Returns
     -------
-    initW: List[np.ndarray]
+    init_W: List[np.ndarray]
         List with the desired templates
     """
     init_W = list()
+
+    # Spectral resolution
+    freq_res = fs / block_size
 
     if strategy == 'random':
         # fix random seed
@@ -601,10 +653,15 @@ def init_templates(num_comp: int = None,
                 init_W[k][bin_range, :] = 1/(g+1)
 
     elif strategy == 'drums':
-
         # call sub-routine that extracts the NMFD templates for drums
-        init_W = initialize_drum_specific_nmfd_templates(num_template_frames=num_template_frames)
-        
+        init_W = initialize_drum_specific_nmfd_templates(desired_drum_classes=desired_drum_classes,
+                                                         num_iter=num_iter,
+                                                         num_template_frames=num_template_frames,
+                                                         block_size=block_size,
+                                                         hop_size=hop_size,
+                                                         fs=fs,
+                                                         input_dir=input_dir)
+
         # needs to be overwritten
         num_comp = len(init_W)
 
