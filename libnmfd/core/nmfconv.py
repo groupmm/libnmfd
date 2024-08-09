@@ -1,11 +1,12 @@
+import os
 import numpy as np
+import soundfile as sf
 from tqdm import tnrange
 from typing import List, Tuple, Union
 
 from libnmfd.dsp.filters import nema
-from libnmfd.utils import EPS, load_matlab_dict, midi2freq
-from libnmfd.utils.core_utils import drum_specific_soft_constraints_nmf
-
+from libnmfd.dsp.transforms import forward_stft
+from libnmfd.utils import EPS, midi2freq, make_monaural
 
 def nmf_conv(V:np.ndarray,
              num_comp: int = 3,
@@ -168,7 +169,7 @@ def nmfd(V: np.ndarray,
          func_postprocess=None,
          fix_W: bool = False,
          fix_H: bool = False,
-         num_bins: int = None, # TODO: Are these really needed?
+         num_bins: int = None, 
          **kwargs) -> Tuple[List[np.ndarray], np.ndarray, List[np.ndarray], np.ndarray, np.ndarray]:
     """Non-Negative Matrix Factor Deconvolution with Kullback-Leibler-Divergence and fixable components. The core
      algorithm was proposed in [1], the specific adaptions are used in [2].
@@ -192,7 +193,7 @@ def nmfd(V: np.ndarray,
         Number of NMFD components (denoted as R in [2])
 
     num_frames: int
-        TODO: Number of frames
+        Number of frames of the target matrix (denoted as M in [2])
 
     num_iter: int
         Number of NMFD iterations (denoted as L in [2])
@@ -207,10 +208,10 @@ def nmfd(V: np.ndarray,
         An initial estimate for the gains (denoted as H^(0) in [2])
 
     fix_W: bool
-        TODO
+        If set to true, the template matrix is not updated
 
     fix_H: bool
-        TODO
+        If set to true, the activation matrix is not updated
 
     func_preprocess: function, default=None
         Call for preprocessing
@@ -425,6 +426,109 @@ def shift_operator(A: np.ndarray,
 
     return shifted
 
+def initialize_drum_specific_nmfd_templates(desired_drum_classes: List[str] = None,
+                                            num_iter: int = 30,
+                                            num_template_frames: int = 8,
+                                            block_size: int = 2048,
+                                            hop_size: int = 512,
+                                            fs: int = 44100,
+                                            input_dir: str = 'data/') -> List[np.ndarray]:
+    """Implements the extraction of drum specific spectrogram templates. The method assumes, that folders with the
+    same name as the desired drums sounds are present inside the data directory.  These should contain single samples
+    of the target drum sounds. Per default, we use pre-defined kick, snare and hi-hat samples.
+
+    Parameters
+    ----------
+    desired_drum_classes: List[str]
+        List of desired drum classes
+
+    num_iter: int
+        Number of NMFD iterations
+
+    num_template_frames: int
+        Number of time frames for 2D-templates
+
+    block_size: int
+        STFT block (window) size
+
+    hop_size: int
+        STFT hop size
+
+    fs: int
+        Sampling rate
+
+    input_dir: str
+        Input data directory including folders with the same name as the desired drums sounds
+
+    Returns
+    -------
+    init_W_drums: List[np.ndarray]
+        List of spectral NMFD templates corresponding to the desired drum classes
+    """
+    # set some default classes in case of empty user input
+    if desired_drum_classes == None:
+        desired_drum_classes = ['kick', 'snare', 'hihat']
+
+    # initialize empty list
+    init_W_drums = list()
+
+    for drum_class in desired_drum_classes:
+        
+        # check if folder exists
+        if not os.path.isdir(os.path.join(input_dir, drum_class)):
+            raise NotADirectoryError(f"The specified folder {os.path.join(input_dir, drum_class)} does not exist.")
+
+        # parse all audio files
+        drum_audio_files = os.listdir(os.path.join(input_dir, drum_class))
+        drum_class_audios = None
+        
+        for drum_audio_file in drum_audio_files:
+            dx, orig_fs = sf.read(file=os.path.join(input_dir, drum_class, drum_audio_file),dtype=np.float32)
+
+            # make monaural if necessary
+            dx = make_monaural(dx)
+
+            # resample if necessary
+            if orig_fs != fs:
+                dx = resample(dx, len(dx)*orig_fs/fs)
+
+            # normalize amplitude
+            dx = 0.99 * dx / np.max(np.abs(dx))
+
+            # concatenate all audios for one drum class
+            if drum_class_audios is None:
+                drum_class_audios = dx.copy()
+            else:
+                drum_class_audios = np.hstack([drum_class_audios, dx])
+        
+        # STFT computation
+        _, A, _ = forward_stft(drum_class_audios, block_size=block_size, hop_size=hop_size, reconst_mirror=True, append_frames=True)
+
+        # get dimensions and time and freq resolutions
+        num_bins, num_frames = A.shape
+
+        # generate initial guess for templates
+        init_W = init_templates(num_comp=1,
+                                num_bins=num_bins,
+                                strategy='random')
+        
+        # generate initial activations
+        init_H = init_activations(num_comp=1,
+                                  num_frames=num_frames,
+                                  strategy='uniform')    
+
+        # NMFD core method
+        nmfd_W, _, _, _, _ = nmfd(V=A,
+                                  num_comp=1,
+                                  num_frames=num_frames,
+                                  num_iter=num_iter,
+                                  num_template_frames=num_template_frames,
+                                  init_W=init_W,init_H=init_H)
+        
+        # adjust the dimensions
+        init_W_drums.append(np.array(nmfd_W).squeeze(0).copy())
+
+    return init_W_drums
 
 def init_templates(num_comp: int = None,
                    num_bins: int = None,
@@ -434,7 +538,12 @@ def init_templates(num_comp: int = None,
                    pitch_tol_up: float = 0.75,
                    pitch_tol_down: float = 0.75,
                    num_harmonics: int = 25,
-                   freq_res: float = None) -> List[np.ndarray]:
+                   desired_drum_classes: List[str] = None,
+                   num_iter: int = 30,
+                   block_size: int = 2048,
+                   hop_size: int = 512,
+                   fs: int = 44100,
+                   input_dir: str = 'data/') -> List[np.ndarray]:
     """Implements different initialization strategies for NMF templates. The strategies 'random' and 'uniform' are
     self-explaining. The strategy 'pitched' uses comb-filter templates as described in [1]. The strategy 'drums' uses
     pre-extracted, averaged spectra of desired drum types [2].
@@ -467,23 +576,44 @@ def init_templates(num_comp: int = None,
         Optional list of MIDI pitch values
 
     pitch_tol_up: float
-        TODO
+        Defines how much the partials should be extended upwards
 
     pitch_tol_down: float
-        TODO
+        Defines how much the partials should be extended downwards
 
     num_harmonics: int
         Number of harmonics
 
-    freq_res: float
-        Spectral resolution
+    desired_drum_classes: List[str]
+        List of desired drum classes, only relevant in case of strategy='drums'
+
+    num_iter: int
+        Number of NMFD iterations
+
+    num_template_frames: int
+        Number of time frames for 2D-templates
+
+    block_size: int
+        STFT block (window) size
+
+    hop_size: int
+        STFT hop size
+
+    fs: int
+        Sample rate
+
+    input_dir: str
+        Input data directory including folders with the same name as the desired drums sounds
 
     Returns
     -------
-    initW: List[np.ndarray]
-        List with the desired templates
+    init_W: List[np.ndarray]
+        List with the desired NMFD templates
     """
     init_W = list()
+
+    # Spectral resolution
+    freq_res = fs / block_size
 
     if strategy == 'random':
         # fix random seed
@@ -522,11 +652,14 @@ def init_templates(num_comp: int = None,
                 init_W[k][bin_range, :] = 1/(g+1)
 
     elif strategy == 'drums':
-        dict_W = load_matlab_dict('data/dictW.mat', 'dictW')
-
-        if num_bins == dict_W.shape[0]:
-            for k in range(dict_W.shape[1]):
-                init_W.append(dict_W[:, k].reshape(-1, 1) * np.linspace(1, 0.1, num_template_frames))
+        # call sub-routine that extracts the NMFD templates for drums
+        init_W = initialize_drum_specific_nmfd_templates(desired_drum_classes=desired_drum_classes,
+                                                         num_iter=num_iter,
+                                                         num_template_frames=num_template_frames,
+                                                         block_size=block_size,
+                                                         hop_size=hop_size,
+                                                         fs=fs,
+                                                         input_dir=input_dir)
 
         # needs to be overwritten
         num_comp = len(init_W)
@@ -552,8 +685,8 @@ def init_activations(num_comp: int = None,
                      drums: List[str] = None,
                      onset_offset_tol: float = 0.025):
     """Implements different initialization strategies for NMF activations. The strategies 'random' and 'uniform' are
-    self-explaining. The strategy pitched' places gate-like activations at the frames, where certain notes are active
-    in the ground truth transcription [1]. The strategy drums' places decaying impulses at the frames where drum onsets
+    self-explaining. The strategy 'pitched' places gate-like activations at the frames, where certain notes are active
+    in the ground truth transcription [1]. The strategy 'drums' places decaying impulses at the frames where drum onsets
     are given in the ground truth transcription [2].
 
     References

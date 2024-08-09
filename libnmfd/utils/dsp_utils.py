@@ -7,6 +7,22 @@ def conv2(x: np.ndarray, y:np.ndarray, mode:str = 'same') -> np.ndarray:
     Usage:
     z = conv2(x,y,mode='same')
 
+    Parameters
+    ----------
+    x: np.ndarray
+        The sequence / matrix to be convolved with the kernel y
+
+    y: np.ndarray
+        The convolution kernel
+
+    mode: str
+        The mode of convolution, only 'same' is supported
+
+    Returns
+    -------
+    z: np.ndarray
+        The result of the conv2 operation
+
     """
     # We must provide an offset for each non-singleton dimension to reproduce the results of Matlab's conv2.
     # A simple implementation supporting the 'same' option, only, could be made like below
